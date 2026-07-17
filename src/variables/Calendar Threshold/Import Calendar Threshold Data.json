@@ -1,0 +1,65 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import Calendar Threshold Data",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "cc96b7b3-2809-468a-bec2-204219a26a3d",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "93b10112-a304-4da7-ae85-07ddbbdf6f3e"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "b4e27068-0164-4451-9d66-a7a095c49202"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "2b0cb374-8bf3-4733-8b0b-7a2c08f41314"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "464b0472-0daa-4113-b21f-4c3f8809b99c"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'CalendarThreshold_Employees.xlsx'",
+                "description": null,
+                "id": "93b10112-a304-4da7-ae85-07ddbbdf6f3e",
+                "masked": "false",
+                "name": "file_CalendarTEmployee"
+            },
+            {
+                "defaultValue": "'CalendarThreshold_Local Contracs.xlsx'",
+                "description": null,
+                "id": "b4e27068-0164-4451-9d66-a7a095c49202",
+                "masked": "false",
+                "name": "file_CalendarTLocalContract"
+            },
+            {
+                "defaultValue": "'CalendarThreshold_Assignments .xlsx'",
+                "description": null,
+                "id": "2b0cb374-8bf3-4733-8b0b-7a2c08f41314",
+                "masked": "false",
+                "name": "file_CalendarTAssignment"
+            },
+            {
+                "defaultValue": "'CalendarThreshold_Calendar Data.xlsx'",
+                "description": null,
+                "id": "464b0472-0daa-4113-b21f-4c3f8809b99c",
+                "masked": "false",
+                "name": "file_CalendarTCalendarData"
+            }
+        ]
+    }
+}

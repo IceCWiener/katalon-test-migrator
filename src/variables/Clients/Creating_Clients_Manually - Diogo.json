@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Creating_Clients_Manually - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "7461a25c-2b14-46b7-92e1-bb7a4df2bf71",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "4daaca80-20b1-40d9-ac2e-d9e15efae2f4"
+        },
+        "variable": {
+            "defaultValue": "'deloitteLogo.png'",
+            "description": null,
+            "id": "4daaca80-20b1-40d9-ac2e-d9e15efae2f4",
+            "masked": "false",
+            "name": "clientLogo"
+        }
+    }
+}

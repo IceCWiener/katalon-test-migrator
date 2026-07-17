@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing PI",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "be4d846c-cc22-4ac9-a488-2a637db4e9cb",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "c83ece5c-457f-4b38-84dd-c0666c2dae4e"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "faac5199-60e2-4127-afdf-576a007ac65f"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "e28f9178-b83a-4fb0-9927-98cf52c924c5"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "c83ece5c-457f-4b38-84dd-c0666c2dae4e",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Compensation After Payroll_Demo.xlsx'",
+                "description": null,
+                "id": "faac5199-60e2-4127-afdf-576a007ac65f",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'PI'",
+                "description": null,
+                "id": "e28f9178-b83a-4fb0-9927-98cf52c924c5",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

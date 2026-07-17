@@ -1,0 +1,5 @@
+{
+    "exclude": [
+        "src/utils/copy_files"
+    ]
+}

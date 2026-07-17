@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Import assignment import file to update allowed fields: Assignment end date, home tax scenario, partner assignment, unlimited tax payer, hr id, host payroll id",
+        "name": "Import_UpdateAssignments - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "292aac52-682f-418d-aa29-57c86c09ae6c",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "728fde09-e16e-427f-bf30-6b40d3159a37"
+        },
+        "variable": {
+            "defaultValue": "'Updating Assignments_revised.xlsx'",
+            "description": null,
+            "id": "728fde09-e16e-427f-bf30-6b40d3159a37",
+            "masked": "false",
+            "name": "file_assignments_updating"
+        }
+    }
+}

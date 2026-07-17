@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing Demographics Report - TST",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "ffc02606-9bbe-48fc-860d-a43af93e3e04",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "75b1abbc-0a79-4205-a64a-1503276c5edc"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "bc6f645b-a2b3-4075-8ccd-76ced78afe7c"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "df3e94a1-8d7c-4b7d-8c9d-af30d9645610"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "75b1abbc-0a79-4205-a64a-1503276c5edc",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "bc6f645b-a2b3-4075-8ccd-76ced78afe7c",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'GlobalCompensationReport'",
+                "description": null,
+                "id": "df3e94a1-8d7c-4b7d-8c9d-af30d9645610",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

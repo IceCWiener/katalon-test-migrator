@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Correct_Login - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "60feb53d-6795-420a-b7c1-9cd29d400a68",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "371f581f-dd79-4dd1-9992-72b5d9e41583"
+        },
+        "variable": {
+            "defaultValue": "true",
+            "description": null,
+            "id": "371f581f-dd79-4dd1-9992-72b5d9e41583",
+            "masked": "false",
+            "name": "maxWin"
+        }
+    }
+}

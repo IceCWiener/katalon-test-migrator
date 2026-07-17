@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Generate payroll instruction for Jan 2019",
+        "name": "Generate PI Jan 2019 Company 1 Corporate -TST",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "05b4e85c-8b3a-4032-b5c1-c3503c7bd38e",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "32b99b04-365d-4a26-b8f9-11ac7e4e0edd"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "716400b3-0508-4989-a5ca-0e8a68f5935b"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "ce4a0d5e-7b70-4870-ae14-b43a2427a987"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "32b99b04-365d-4a26-b8f9-11ac7e4e0edd",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "716400b3-0508-4989-a5ca-0e8a68f5935b",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'PI'",
+                "description": null,
+                "id": "ce4a0d5e-7b70-4870-ae14-b43a2427a987",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

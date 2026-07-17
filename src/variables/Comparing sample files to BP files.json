@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Export import types sample templates and compare to best practice files",
+        "name": "Comparing sample files to BP files",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "4a640e45-a2c0-4e2c-a1dc-6b58d542fc40",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "0c4c890d-4f10-44d0-b921-029ea1b1b0e3"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "adf30136-fcd4-416a-980b-e92ba494844d"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "06a3a109-4394-4882-8aa0-4d94407f54cc"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "0c4c890d-4f10-44d0-b921-029ea1b1b0e3",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "adf30136-fcd4-416a-980b-e92ba494844d",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'PI'",
+                "description": null,
+                "id": "06a3a109-4394-4882-8aa0-4d94407f54cc",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

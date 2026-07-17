@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Negative] Edit local contract with overlapping dates of another local contract same employee. Edit local contract dates lower assignment, higher than assignment. Verify error message",
+        "name": "UpdatingLocalContractsFields-Angelica - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "ae760054-72e8-4544-8c27-771a6ca9d130",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "adf6b1cb-39d7-4d52-a52a-8936ea03b612"
+        },
+        "variable": {
+            "defaultValue": "'Updating Local Contracts_Revised.xlsx'",
+            "description": null,
+            "id": "adf6b1cb-39d7-4d52-a52a-8936ea03b612",
+            "masked": "false",
+            "name": "file_LocalContract_update"
+        }
+    }
+}

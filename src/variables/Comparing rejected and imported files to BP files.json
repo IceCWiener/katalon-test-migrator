@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing rejected and imported files to BP files",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "ae436aa4-39b4-4ba8-9f3a-7100140ae1b0",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "ef6ab9d7-981e-4216-a7f3-9d96d22f5257"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "6047592a-f2d5-4fa6-b903-07b9f229e93a"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "dcf9aa13-5d71-4f7b-837f-9ccf9e23d84f"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "ef6ab9d7-981e-4216-a7f3-9d96d22f5257",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "6047592a-f2d5-4fa6-b903-07b9f229e93a",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'PI'",
+                "description": null,
+                "id": "dcf9aa13-5d71-4f7b-837f-9ccf9e23d84f",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

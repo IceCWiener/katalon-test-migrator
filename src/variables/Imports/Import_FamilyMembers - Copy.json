@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_FamilyMembers - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "869de24a-6fc2-44bf-ac2e-02b36ff5d843",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "5598fcd5-3111-4bda-a930-060355e2de3d"
+        },
+        "variable": {
+            "defaultValue": "'Importing Family Members.xlsx'",
+            "description": null,
+            "id": "5598fcd5-3111-4bda-a930-060355e2de3d",
+            "masked": "false",
+            "name": "file_FamilyMembers"
+        }
+    }
+}

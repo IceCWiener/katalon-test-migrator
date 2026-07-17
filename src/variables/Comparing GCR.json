@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing GCR",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "4beb6052-8c8b-40ad-8940-5338cb67aece",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "d62176d6-890f-49dd-8a7d-d831cda4016e"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "219aad8b-07fc-4c25-bb9f-41b9f5c7c6e4"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "8285e02e-2491-4003-9078-86a21d97e462"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "d62176d6-890f-49dd-8a7d-d831cda4016e",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "219aad8b-07fc-4c25-bb9f-41b9f5c7c6e4",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'GlobalCompensationReport'",
+                "description": null,
+                "id": "8285e02e-2491-4003-9078-86a21d97e462",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

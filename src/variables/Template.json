@@ -1,0 +1,39 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Template",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "662a19f1-09ff-4c3b-b726-76a48e7f32d4",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "aa1046fb-92a5-4422-adfa-0763344e3370"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "4b78809e-3516-401f-9ef7-29e098828196"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignments Template.xlsx'",
+                "description": null,
+                "id": "aa1046fb-92a5-4422-adfa-0763344e3370",
+                "masked": "false",
+                "name": "file_assignmentsTemplate"
+            },
+            {
+                "defaultValue": "'Compensation After Payroll Template.xlsx'",
+                "description": null,
+                "id": "4b78809e-3516-401f-9ef7-29e098828196",
+                "masked": "false",
+                "name": "file_compensationAfterPayrollTemplate"
+            }
+        ]
+    }
+}

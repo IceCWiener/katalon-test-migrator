@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_Employees - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "10c5cf65-6878-47eb-82dc-c5daa08d8ff5",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "9af6978f-8704-4e76-9158-170ba987ed08"
+        },
+        "variable": {
+            "defaultValue": "'Portugal Employees.xlsx'",
+            "description": null,
+            "id": "9af6978f-8704-4e76-9158-170ba987ed08",
+            "masked": "false",
+            "name": "file_employee"
+        }
+    }
+}

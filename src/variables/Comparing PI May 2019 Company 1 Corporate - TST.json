@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Different CPT mapped to the same DPT\nDPT Home working allowance CPT home working allowance3: Home NonTaxable Monthly 250  Host Non Taxable Monthly 250",
+        "name": "Comparing PI May 2019 Company 1 Corporate - TST",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "d3e8a065-78aa-4951-823f-4cfe3e11758e",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "00fae2c4-8caa-405b-a600-99d06af6b01d"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "002624b7-256f-4b25-bcae-47d572a256fc"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "3961f175-7ee8-43bf-bf69-60d229892355"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "00fae2c4-8caa-405b-a600-99d06af6b01d",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "002624b7-256f-4b25-bcae-47d572a256fc",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'PI'",
+                "description": null,
+                "id": "3961f175-7ee8-43bf-bf69-60d229892355",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

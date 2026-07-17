@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Home Taxable prorata based on workdays in home countries.\nHome Taxable prorata based on workdays in home countries and/or third countries.\nClient exception for Christmas Bonus",
+        "name": "Comparing PI Jan 2019 Company 1 Corporate - TST",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "b3ed5be1-ae09-4506-925d-9e137c4164c8",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "c02006ee-e8b3-47db-8ce5-b6c24603ce27"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "b981d764-9dff-4669-befc-08b14ff003ed"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "178ad272-0aca-45de-9150-b876237382ab"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "c02006ee-e8b3-47db-8ce5-b6c24603ce27",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "b981d764-9dff-4669-befc-08b14ff003ed",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'PI'",
+                "description": null,
+                "id": "178ad272-0aca-45de-9150-b876237382ab",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

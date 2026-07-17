@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "SearchAndPager_Companies - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "0ce33989-898f-4a76-a67f-df69d053f2d6",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "9110aef9-3916-4c88-a5a7-d9c155654377"
+        },
+        "variable": {
+            "defaultValue": "'C:\\\\\\\\Users\\\\\\\\diogovhenriques\\\\\\\\Documents\\\\\\\\GCM\\\\\\\\Master Client\\\\\\\\Companies Search and Pager.xlsx'",
+            "description": null,
+            "id": "9110aef9-3916-4c88-a5a7-d9c155654377",
+            "masked": "false",
+            "name": "file_companiesSearchAndPager"
+        }
+    }
+}

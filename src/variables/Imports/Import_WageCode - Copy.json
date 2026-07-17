@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_WageCode - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "36dc7a4d-4bb0-4e57-94a7-fee7d029c9e8",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "4c5fc743-994a-4a32-85fa-9c9011a0d626"
+        },
+        "variable": {
+            "defaultValue": "'Importing Company Wage Codes_Revised.xlsx'",
+            "description": null,
+            "id": "4c5fc743-994a-4a32-85fa-9c9011a0d626",
+            "masked": "false",
+            "name": "file_WageCode"
+        }
+    }
+}

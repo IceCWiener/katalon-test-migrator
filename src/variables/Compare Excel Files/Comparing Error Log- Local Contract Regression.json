@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing Error Log- Local Contract Regression",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "699dffdf-ce09-48b8-8657-5ce368678c6c",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "5bf7a62f-bfdc-4da8-89cf-3d41aef8f9e8"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "c0e58bc3-3e0c-4cc4-a3f0-ad162316ca95"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "7fbcf3a5-2e61-4b6c-9864-ee41a5fbeba6"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "5bf7a62f-bfdc-4da8-89cf-3d41aef8f9e8",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Compensation After Payroll_Demo.xlsx'",
+                "description": null,
+                "id": "c0e58bc3-3e0c-4cc4-a3f0-ad162316ca95",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'GlobalCompensationReport'",
+                "description": null,
+                "id": "7fbcf3a5-2e61-4b6c-9864-ee41a5fbeba6",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

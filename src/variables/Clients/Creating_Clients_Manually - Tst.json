@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Creating_Clients_Manually - Tst",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "e0b8506c-17a6-4bb9-8d34-a3c23f5b6c5a",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "80cb4adc-f0c4-4c67-8061-e62c015099b3"
+        },
+        "variable": {
+            "defaultValue": "'deloitteLogo.png'",
+            "description": null,
+            "id": "80cb4adc-f0c4-4c67-8061-e62c015099b3",
+            "masked": "false",
+            "name": "clientLogo"
+        }
+    }
+}

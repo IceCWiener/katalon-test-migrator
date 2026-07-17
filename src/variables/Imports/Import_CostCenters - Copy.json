@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_CostCenters - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "5fd8f689-6044-4e55-99c1-0bd6f8d9d8a3",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "7dce6165-0194-4b3f-b8da-47dfa78baa83"
+        },
+        "variable": {
+            "defaultValue": "'Importing Company Cost Center_Revised2.xlsx'",
+            "description": null,
+            "id": "7dce6165-0194-4b3f-b8da-47dfa78baa83",
+            "masked": "false",
+            "name": "file_costCenters"
+        }
+    }
+}

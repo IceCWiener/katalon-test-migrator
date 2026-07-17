@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_Employees - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "7e400652-25b3-49db-a8ee-0ae6cae5a618",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "c00a53b6-f65f-49e7-bbef-7575822039ca"
+        },
+        "variable": {
+            "defaultValue": "'Importing Employee_Revised2.xlsx'",
+            "description": null,
+            "id": "c00a53b6-f65f-49e7-bbef-7575822039ca",
+            "masked": "false",
+            "name": "file_employee"
+        }
+    }
+}

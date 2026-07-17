@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_ClientPaymentType - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "5c69742f-12a6-4ba0-aa7e-a6c23deb6690",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "88cc59a5-f72e-44c7-80c2-7a1a1916a0cc"
+        },
+        "variable": {
+            "defaultValue": "'Portugal Client Payment Type.xlsx'",
+            "description": null,
+            "id": "88cc59a5-f72e-44c7-80c2-7a1a1916a0cc",
+            "masked": "false",
+            "name": "file_cpt"
+        }
+    }
+}

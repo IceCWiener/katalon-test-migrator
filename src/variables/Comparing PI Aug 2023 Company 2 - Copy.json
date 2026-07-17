@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing PI Aug 2023 Company 2 - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "27efe00f-4799-4e4c-a418-87a48d8b129e",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "260e077d-e0f3-40e0-a941-c39160efd8da"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "941e7595-ffea-4283-bc42-e67455e1fe20"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "fcdbf241-43f9-4ec7-849a-1e2c8f6e7fcb"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "260e077d-e0f3-40e0-a941-c39160efd8da",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "941e7595-ffea-4283-bc42-e67455e1fe20",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'PI'",
+                "description": null,
+                "id": "fcdbf241-43f9-4ec7-849a-1e2c8f6e7fcb",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

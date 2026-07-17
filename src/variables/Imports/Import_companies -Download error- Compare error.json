@@ -1,0 +1,39 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_companies -Download error- Compare error",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "bb1a6d3a-7c5b-4a33-a382-2211afb0f264",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "bc8eb9b5-1e11-4cde-820b-bcf378d5a6cc"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "e7714335-d997-4350-82dd-69bf42df2d4d"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Importing Company _Revised2.xlsx'",
+                "description": null,
+                "id": "bc8eb9b5-1e11-4cde-820b-bcf378d5a6cc",
+                "masked": "false",
+                "name": "file_Companies"
+            },
+            {
+                "defaultValue": "'Importing Company _Revised2.xlsx_ErrorLog.xlsx'",
+                "description": null,
+                "id": "e7714335-d997-4350-82dd-69bf42df2d4d",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

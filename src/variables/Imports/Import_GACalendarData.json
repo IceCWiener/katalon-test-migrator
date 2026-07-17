@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive]  Import GA calendar data using workday value from configurations menu",
+        "name": "Import_GACalendarData",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "69658460-d8b3-41e7-9a5d-4099697cbd60",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "8d2ab606-faca-4c10-93bf-9d1f3b93b254"
+        },
+        "variable": {
+            "defaultValue": "'Import GA Calendar.csv'",
+            "description": null,
+            "id": "8d2ab606-faca-4c10-93bf-9d1f3b93b254",
+            "masked": "false",
+            "name": "file_GACalendarData"
+        }
+    }
+}

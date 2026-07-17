@@ -1,0 +1,39 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Import local contract import file to update allowed fields: Company, country, state, city, tax scenario, without termination date=no",
+        "name": "Import_UpdateLocalContracts - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "3501a715-44a3-42b4-a742-e80802dd43e6",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "744f4c99-7cfe-4509-a60f-962a5d32ec42"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "15069b76-6518-4f2e-8468-ce2cf226cf39"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Updating Local Contracts_Revised.xlsx'",
+                "description": null,
+                "id": "744f4c99-7cfe-4509-a60f-962a5d32ec42",
+                "masked": "false",
+                "name": "file_localcontract_updating"
+            },
+            {
+                "defaultValue": "'Updating Local Contracts_Revised.xlsx_ErrorLog.xlsx'",
+                "description": null,
+                "id": "15069b76-6518-4f2e-8468-ce2cf226cf39",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

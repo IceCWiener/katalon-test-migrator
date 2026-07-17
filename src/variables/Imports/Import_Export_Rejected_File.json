@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_Export_Rejected_File",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "b93cee94-e35b-42cd-85e0-e9121f0f272e",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "602d0eeb-b41d-4152-9589-172ce91ca2ba"
+        },
+        "variable": {
+            "defaultValue": "'.xlsx'",
+            "description": null,
+            "id": "602d0eeb-b41d-4152-9589-172ce91ca2ba",
+            "masked": "false",
+            "name": "filename"
+        }
+    }
+}

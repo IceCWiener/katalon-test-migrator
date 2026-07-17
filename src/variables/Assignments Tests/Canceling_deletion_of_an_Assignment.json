@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "1. Go to Management - Assignments menu\n2. Click on \"...\" on Assignment\n3. Click on delete option\n4. Pop up appears\n5. On the pop up, click \"cancel\" button\n6. Assignment is not deleted from screen",
+        "name": "Canceling_deletion_of_an_Assignment",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "2332967f-a305-48dc-b5a5-8febe3165539",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "2bbbbca6-7425-4b82-a652-5cf511ede10e"
+        },
+        "variable": {
+            "defaultValue": "'INT_72A\\r\\n'",
+            "description": null,
+            "id": "2bbbbca6-7425-4b82-a652-5cf511ede10e",
+            "masked": "false",
+            "name": "assignment"
+        }
+    }
+}

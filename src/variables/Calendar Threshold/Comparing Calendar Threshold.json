@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Generate CT, Download it, Compare to template file, Log differences",
+        "name": "Comparing Calendar Threshold",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "a95f657d-c711-4a3e-a972-adb0af65ae1b",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "2d680160-1850-4663-8c8f-3035352cb8c4"
+        },
+        "variable": {
+            "defaultValue": "'PI'",
+            "description": null,
+            "id": "2d680160-1850-4663-8c8f-3035352cb8c4",
+            "masked": "false",
+            "name": "reportType"
+        }
+    }
+}

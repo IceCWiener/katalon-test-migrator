@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing Error Log- Business Travel Regression",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "a4bb82e2-855f-48e6-82da-e99ac6a24fd1",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "eca8bb22-b6f6-47a4-8aad-e2320d02ebdb"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "d71884c2-6c2c-49a7-bf85-bd3a176014d9"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "90c13d14-de99-4484-bf46-b4eb0546d4d9"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "eca8bb22-b6f6-47a4-8aad-e2320d02ebdb",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Compensation After Payroll_Demo.xlsx'",
+                "description": null,
+                "id": "d71884c2-6c2c-49a7-bf85-bd3a176014d9",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'GlobalCompensationReport'",
+                "description": null,
+                "id": "90c13d14-de99-4484-bf46-b4eb0546d4d9",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

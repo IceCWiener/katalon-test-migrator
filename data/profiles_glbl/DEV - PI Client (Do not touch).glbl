@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalVariableEntities>
+   <description></description>
+   <name>DEV - PI Client (Do not touch)</name>
+   <tag></tag>
+   <defaultProfile>false</defaultProfile>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'https://gcm.ges-de-dev.deloitte.pt/GCM_Main/'</initValue>
+      <name>URL</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'C:\\Users\\diogovhenriques\\Documents\\GitHub\\GCM-Katalon-Tests\\Web UI Test\\Import Excels\\'</initValue>
+      <name>EXCELS_PATH</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>findTestObject('Test client 5/Page_Clients/Client_PI Client (Do not touch)')</initValue>
+      <name>CLIENT</name>
+   </GlobalVariableEntity>
+</GlobalVariableEntities>

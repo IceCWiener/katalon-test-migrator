@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing Error Log- Assignment Regression",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "f68a711a-8dad-41df-a3ee-8eb17dafbccb",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "62c4dffd-b04f-4d7d-800a-0a8d44d63499"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "fcfd154b-9ff9-46ab-a836-73a2b8e02d71"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "02d17632-e0b1-411e-8c08-b54f39e56172"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "62c4dffd-b04f-4d7d-800a-0a8d44d63499",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Compensation After Payroll_Demo.xlsx'",
+                "description": null,
+                "id": "fcfd154b-9ff9-46ab-a836-73a2b8e02d71",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'GlobalCompensationReport'",
+                "description": null,
+                "id": "02d17632-e0b1-411e-8c08-b54f39e56172",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

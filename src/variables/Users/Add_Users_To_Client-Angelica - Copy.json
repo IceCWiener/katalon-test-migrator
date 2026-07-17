@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Click into existing client and add a user to it",
+        "name": "Add_Users_To_Client-Angelica - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "ed277882-1203-4d4f-b539-88a2f713b980",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "e6e88f45-6952-423c-b507-50e7db2418c0"
+        },
+        "variable": {
+            "defaultValue": "'deloitteLogo.png'",
+            "description": null,
+            "id": "e6e88f45-6952-423c-b507-50e7db2418c0",
+            "masked": "false",
+            "name": "clientLogo"
+        }
+    }
+}

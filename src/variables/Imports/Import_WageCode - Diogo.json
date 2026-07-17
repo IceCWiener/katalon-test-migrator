@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_WageCode - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "9017f45e-b543-4a2e-b8b8-20cfcaf1a807",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "448a016b-9d57-4d38-8d40-81cd2407dd37"
+        },
+        "variable": {
+            "defaultValue": "'Portugal Company Wage Codes.xlsx'",
+            "description": null,
+            "id": "448a016b-9d57-4d38-8d40-81cd2407dd37",
+            "masked": "false",
+            "name": "file_WageCode"
+        }
+    }
+}

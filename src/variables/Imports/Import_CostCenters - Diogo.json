@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_CostCenters - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "d1432fcb-6ba2-45cb-8f4d-acfacfd77f09",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "8b465f7e-5a4b-439a-8f51-567977829574"
+        },
+        "variable": {
+            "defaultValue": "'Portugal Cost Centers.xlsx'",
+            "description": null,
+            "id": "8b465f7e-5a4b-439a-8f51-567977829574",
+            "masked": "false",
+            "name": "file_costCenters"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "UpdatingLocalContractsFields - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "b3ddcb25-6ca4-4c22-aa74-2cc9cab22423",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "e2484f9b-35c7-4458-a22f-2d37c42572bc"
+        },
+        "variable": {
+            "defaultValue": "'Second Local Contract.xlsx'",
+            "description": null,
+            "id": "e2484f9b-35c7-4458-a22f-2d37c42572bc",
+            "masked": "false",
+            "name": "file_LocalContract"
+        }
+    }
+}

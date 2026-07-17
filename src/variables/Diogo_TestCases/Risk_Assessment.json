@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Risk_Assessment",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "c7ac5fc1-8b75-4772-ace0-0fbb94072b6b",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "078dce31-56fe-4a3d-9c78-3f5023f1e74e"
+        },
+        "variable": {
+            "defaultValue": "'RA56785.xml'",
+            "description": null,
+            "id": "078dce31-56fe-4a3d-9c78-3f5023f1e74e",
+            "masked": "false",
+            "name": "xmlUpload"
+        }
+    }
+}

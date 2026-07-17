@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Host nontaxable up to's & taxable up to's",
+        "name": "Comparing PI Mar 2019 Company 2 - TST",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "b6a7566b-7170-4943-b421-d0787131d577",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "e24e798f-227e-4cd5-b152-01b922ffe431"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "a8824ddf-7083-4bee-9fe6-a9af077190a7"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "9e0048a1-7939-4c79-94c4-3976bf308d7e"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "e24e798f-227e-4cd5-b152-01b922ffe431",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "a8824ddf-7083-4bee-9fe6-a9af077190a7",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'PI'",
+                "description": null,
+                "id": "9e0048a1-7939-4c79-94c4-3976bf308d7e",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

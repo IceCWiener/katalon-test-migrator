@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_CompanyCode - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "c9770f79-f4ca-400e-aa14-3552326dc31d",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "f0f95393-5122-4db5-8c42-4cd04d307a68"
+        },
+        "variable": {
+            "defaultValue": "'Portugal Company Codes.xlsx'",
+            "description": null,
+            "id": "f0f95393-5122-4db5-8c42-4cd04d307a68",
+            "masked": "false",
+            "name": "file_CompanyCode"
+        }
+    }
+}

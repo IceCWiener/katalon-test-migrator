@@ -1,0 +1,39 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_LocalContracts -Download error log- Compare error",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "4c909f24-7422-4a4e-8caf-afcb1a4c6074",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "b6f5134e-9e55-402c-b745-9962927a36e0"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "ac8db2ed-c7af-4425-a4dd-60dcd770967b"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Importing Local Contracts_Revised.xlsx'",
+                "description": null,
+                "id": "b6f5134e-9e55-402c-b745-9962927a36e0",
+                "masked": "false",
+                "name": "file_localcontract"
+            },
+            {
+                "defaultValue": "'Importing Local Contracts_Revised.xlsx_ErrorLog.xlsx'",
+                "description": null,
+                "id": "ac8db2ed-c7af-4425-a4dd-60dcd770967b",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

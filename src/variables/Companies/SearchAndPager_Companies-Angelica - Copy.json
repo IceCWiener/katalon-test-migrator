@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Success] Import company. Company screen search bar & pager of items",
+        "name": "SearchAndPager_Companies-Angelica - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "1f7a5882-4142-411d-99de-913c2e6c1a8f",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "3fb250d5-a243-4c3e-a1a3-9ae7b7408845"
+        },
+        "variable": {
+            "defaultValue": "'C:\\\\\\\\Users\\\\\\\\diogovhenriques\\\\\\\\Documents\\\\\\\\GCM\\\\\\\\Master Client\\\\\\\\Companies Search and Pager.xlsx'",
+            "description": null,
+            "id": "3fb250d5-a243-4c3e-a1a3-9ae7b7408845",
+            "masked": "false",
+            "name": "file_companiesSearchAndPager"
+        }
+    }
+}

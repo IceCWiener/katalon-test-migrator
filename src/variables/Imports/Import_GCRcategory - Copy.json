@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_GCRcategory - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "0f189d1d-43fa-43c0-a7bc-a1fd428f5b8a",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "e108c779-c48f-4eaf-8400-61d5c49cd26b"
+        },
+        "variable": {
+            "defaultValue": "'Importing GCR Categories_Revised.xlsx'",
+            "description": null,
+            "id": "e108c779-c48f-4eaf-8400-61d5c49cd26b",
+            "masked": "false",
+            "name": "file_GCRcategory"
+        }
+    }
+}

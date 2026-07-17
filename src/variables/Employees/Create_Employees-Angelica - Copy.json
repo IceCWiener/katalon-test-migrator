@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Create employee, click add, verify added on screen",
+        "name": "Create_Employees-Angelica - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "e50f08d5-6c42-48bc-acc0-973836f3ed6e",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "d33f378d-34ad-4565-9013-dae7e7b26d81"
+        },
+        "variable": {
+            "defaultValue": "[:]",
+            "description": null,
+            "id": "d33f378d-34ad-4565-9013-dae7e7b26d81",
+            "masked": "false",
+            "name": "current_month"
+        }
+    }
+}

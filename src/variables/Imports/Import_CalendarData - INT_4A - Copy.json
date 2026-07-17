@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Positive] Import calendar data for katalon created employee INT_4A",
+        "name": "Import_CalendarData - INT_4A - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "4ab9add4-52da-4c7b-9607-13964c967d32",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "07f4a757-fb56-468b-bd0d-95fc5f2a9150"
+        },
+        "variable": {
+            "defaultValue": "'Importing Calendar Data_INT_4A_5.xlsx'",
+            "description": null,
+            "id": "07f4a757-fb56-468b-bd0d-95fc5f2a9150",
+            "masked": "false",
+            "name": "file_CalendarData"
+        }
+    }
+}

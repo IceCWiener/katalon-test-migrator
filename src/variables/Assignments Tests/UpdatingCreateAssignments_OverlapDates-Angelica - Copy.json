@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "[Negative] Edit & Update assignment with overlapping dates of other assignment",
+        "name": "UpdatingCreateAssignments_OverlapDates-Angelica - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "01309e1b-ace4-4a4d-a547-123d5833f2b0",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "f83b0f07-c3f3-4fbe-88e7-3f754f8329ce"
+        },
+        "variable": {
+            "defaultValue": "'Second Assignment.xlsx'",
+            "description": null,
+            "id": "f83b0f07-c3f3-4fbe-88e7-3f754f8329ce",
+            "masked": "false",
+            "name": "file_assignment"
+        }
+    }
+}

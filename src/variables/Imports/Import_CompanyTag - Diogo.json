@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_CompanyTag - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "5b2100fc-4998-4dcf-a221-a10f0f1b7974",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "90d6d4fd-af91-4e51-ad44-04c10e1347d9"
+        },
+        "variable": {
+            "defaultValue": "'Portugal Company Tags.xlsx'",
+            "description": null,
+            "id": "90d6d4fd-af91-4e51-ad44-04c10e1347d9",
+            "masked": "false",
+            "name": "file_CompanyTag"
+        }
+    }
+}

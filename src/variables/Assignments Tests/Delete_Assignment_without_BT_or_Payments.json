@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": "1. Go to Management - Assignments menu\n2. Click on \"...\" on Assignment\" INT_2A\"\n3. Click on delete option\n4. Pop up appears\n5. User confirms action\n6. assignment is deleted from screen - not found\n\n Example: test client 5, menu assignments, for assignment X, click \"...\", click \"delete\" (please do not delete)",
+        "name": "Delete_Assignment_without_BT_or_Payments",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "bc6056cc-7320-4c7e-b502-844a8cb5a696",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "826bf093-e207-4b1a-83f3-764c7d682921"
+        },
+        "variable": {
+            "defaultValue": "'INT_72A'",
+            "description": null,
+            "id": "826bf093-e207-4b1a-83f3-764c7d682921",
+            "masked": "false",
+            "name": "assignment"
+        }
+    }
+}

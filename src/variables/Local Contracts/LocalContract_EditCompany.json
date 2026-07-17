@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": "In this test, we edit one local contract in order to see if the same changes are applicated in the assignments/business travels",
+        "name": "LocalContract_EditCompany",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "6215250b-0a3e-43b5-bf17-3142b4a8994a",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "5ae64e5c-52a9-4cdd-a26a-20e59ff9375d"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "c1e280c8-086a-4b7d-97fc-db0a0aea5239"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "875ba7e9-26ca-407e-be6e-e2759e214226"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Edit Local Contracts test.xlsx'",
+                "description": null,
+                "id": "5ae64e5c-52a9-4cdd-a26a-20e59ff9375d",
+                "masked": "false",
+                "name": "localContract"
+            },
+            {
+                "defaultValue": "'Edit Local Contracts test - Assignment.xlsx'",
+                "description": null,
+                "id": "c1e280c8-086a-4b7d-97fc-db0a0aea5239",
+                "masked": "false",
+                "name": "assignment"
+            },
+            {
+                "defaultValue": "'Edit Local Contracts test - Business Travels.xlsx'",
+                "description": null,
+                "id": "875ba7e9-26ca-407e-be6e-e2759e214226",
+                "masked": "false",
+                "name": "businessTravel"
+            }
+        ]
+    }
+}

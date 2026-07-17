@@ -1,0 +1,39 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "ImportCalendarData_UsingTwoFiles",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "b84a0e74-3a66-48f6-9cb3-242978d21c04",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "a76a5472-4eb7-45d8-b444-3738aba3a211"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "f8435457-a615-4f62-a20f-2faccc0dd859"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Calendar Data - Workdays-File1 (using two files).xlsx'",
+                "description": null,
+                "id": "a76a5472-4eb7-45d8-b444-3738aba3a211",
+                "masked": "false",
+                "name": "file_calendarData1"
+            },
+            {
+                "defaultValue": "'Calendar Data - Workdays-File2 (using two files).xlsx'",
+                "description": null,
+                "id": "f8435457-a615-4f62-a20f-2faccc0dd859",
+                "masked": "false",
+                "name": "file_calendarData2"
+            }
+        ]
+    }
+}

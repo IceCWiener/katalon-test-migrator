@@ -1,0 +1,52 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing Comp Raw Data - TST",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "935b3f4d-6dfe-4940-9d64-9e2b8e3981e8",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "78e831f1-78e9-4d24-9f8c-132b3198acdf"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "4b00b95b-4c1b-4ca9-852f-02574d94ffee"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "8d9813c3-a57e-4554-8091-4f893dfaf18c"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Assignment_Demo.xlsx'",
+                "description": null,
+                "id": "78e831f1-78e9-4d24-9f8c-132b3198acdf",
+                "masked": "false",
+                "name": "assignments"
+            },
+            {
+                "defaultValue": "'Importing Compensation Before Payroll4.xlsx'",
+                "description": null,
+                "id": "4b00b95b-4c1b-4ca9-852f-02574d94ffee",
+                "masked": "false",
+                "name": "compensation_AfterPayroll"
+            },
+            {
+                "defaultValue": "'GlobalCompensationReport'",
+                "description": null,
+                "id": "8d9813c3-a57e-4554-8091-4f893dfaf18c",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

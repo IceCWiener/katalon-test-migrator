@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalVariableEntities>
+   <description></description>
+   <name>PreProduction</name>
+   <tag></tag>
+   <defaultProfile>false</defaultProfile>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'https://gcm.ges-de-preprd.deloitte.pt/GCM_Main'</initValue>
+      <name>URL</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'https://gcm.ges-de-preprd.deloitte.pt/GCM_Main/CreateEditMainUser'</initValue>
+      <name>ADD_USERS_URL</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>findTestObject('Test client 5/Page_Clients/Client_PIClient-PreProd')</initValue>
+      <name>CLIENT</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'C:\\Users\\angellopez\\Documents\\GitHub\\GCM-Katalon-Tests\\Web UI Test\\Import Excels\\'</initValue>
+      <name>EXCELS_PATH</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'C:\\Users\\angellopez\\Documents\\GitHub\\GCM-Katalon-Tests\\Web UI Test\\Images\\'</initValue>
+      <name>IMAGES_PATH</name>
+   </GlobalVariableEntity>
+</GlobalVariableEntities>

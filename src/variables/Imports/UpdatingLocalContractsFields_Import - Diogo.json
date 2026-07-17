@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "UpdatingLocalContractsFields_Import - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "7bb3b5fd-6bd0-4399-8b2c-35c19edf4a3f",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "788ea426-841a-4662-813e-4315238a268a"
+        },
+        "variable": {
+            "defaultValue": "'Importing Local Contracts_updating fields.xlsx'",
+            "description": null,
+            "id": "788ea426-841a-4662-813e-4315238a268a",
+            "masked": "false",
+            "name": "file_localContracts_updatingfields"
+        }
+    }
+}

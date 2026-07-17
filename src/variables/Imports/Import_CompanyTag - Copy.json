@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_CompanyTag - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "6808d0a0-6c8d-46e7-b53e-fc083d23bb45",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "181b2d8c-71b6-4d37-b76c-4e1e7eca1c27"
+        },
+        "variable": {
+            "defaultValue": "'Importing Company Tags_Revised.xlsx'",
+            "description": null,
+            "id": "181b2d8c-71b6-4d37-b76c-4e1e7eca1c27",
+            "masked": "false",
+            "name": "file_CompanyTag"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Comparing GCR",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "39f9cd67-3f49-498c-9cbe-8d2b9d7b20b9",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "bf5cd9b7-3970-4edd-bf0e-89b58815777d"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "68069858-0231-4a4b-b817-a3f8f2d30f48"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Compensations After Payroll - GCR Tests.xlsx'",
+                "description": null,
+                "id": "bf5cd9b7-3970-4edd-bf0e-89b58815777d",
+                "masked": "false",
+                "name": "file_AfterPayroll"
+            },
+            {
+                "defaultValue": "'GlobalCompensationReport'",
+                "description": null,
+                "id": "68069858-0231-4a4b-b817-a3f8f2d30f48",
+                "masked": "false",
+                "name": "reportType"
+            }
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "UpdatingAssignments_FieldsAndValidations-Import - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "c4bde504-bb4a-4e05-8733-76bf836e7474",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "509125fd-8a0b-4341-8644-eefeda7846b1"
+        },
+        "variable": {
+            "defaultValue": "'Importing Assignments_updating&validations.xlsx'",
+            "description": null,
+            "id": "509125fd-8a0b-4341-8644-eefeda7846b1",
+            "masked": "false",
+            "name": "file_assignments_updating"
+        }
+    }
+}

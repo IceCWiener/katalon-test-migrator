@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Create_Employees - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "7efa9d07-3cb3-4567-abc2-211689f07727",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "6b9725dc-7dc6-45a1-b3cf-1cbf41401baf"
+        },
+        "variable": {
+            "defaultValue": "[:]",
+            "description": null,
+            "id": "6b9725dc-7dc6-45a1-b3cf-1cbf41401baf",
+            "masked": "false",
+            "name": "current_month"
+        }
+    }
+}

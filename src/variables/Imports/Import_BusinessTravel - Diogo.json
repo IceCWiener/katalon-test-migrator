@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Import_BusinessTravel - Diogo",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "a7e12008-2b9a-4287-a43c-b9180cdb0320",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "1baac960-9569-4e50-9050-33c20e5da5de"
+        },
+        "variable": {
+            "defaultValue": "'Deloitte - Worten Business Travel.xlsx'",
+            "description": null,
+            "id": "1baac960-9569-4e50-9050-33c20e5da5de",
+            "masked": "false",
+            "name": "file_bt"
+        }
+    }
+}

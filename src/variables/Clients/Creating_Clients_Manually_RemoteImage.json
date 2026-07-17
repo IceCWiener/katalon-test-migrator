@@ -1,0 +1,22 @@
+{
+    "TestCaseEntity": {
+        "description": null,
+        "name": "Creating_Clients_Manually_RemoteImage",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "02827df9-76e5-4a70-87ec-b5e7f6671e8a",
+        "variableLinks": {
+            "testDataLinkId": null,
+            "type": "DEFAULT",
+            "value": null,
+            "variableId": "20d1d5d1-54ee-430f-96e7-423ec1ab2276"
+        },
+        "variable": {
+            "defaultValue": "'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpt.wikipedia.org%2Fwiki%2FGoogle_Imagens&psig=AOvVaw3sifBPrfpfjZWIbkPIXBDb&ust=1675957879892000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCLDUnOejhv0CFQAAAAAdAAAAABAD'",
+            "description": null,
+            "id": "20d1d5d1-54ee-430f-96e7-423ec1ab2276",
+            "masked": "false",
+            "name": "clientLogo"
+        }
+    }
+}

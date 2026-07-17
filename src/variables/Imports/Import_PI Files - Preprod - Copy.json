@@ -1,0 +1,104 @@
+{
+    "TestCaseEntity": {
+        "description": "[Success] Import all import types for PI",
+        "name": "Import_PI Files - Preprod - Copy",
+        "tag": null,
+        "comment": null,
+        "testCaseGuid": "875f49ca-b29e-40c8-b8e5-f049ac99ad2b",
+        "variableLinks": [
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "f5ab7f70-4509-44a3-a9d6-1ad812db6a08"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "08a050c8-f786-418a-abf4-878d85836507"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "fd5ac30b-8f20-479b-a571-d86514e136d4"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "602d82e9-5672-4a7d-8790-38688cd5eefa"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "212b0edc-0a7e-4fe5-a26b-31aaff06e6fb"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "5d07bc3f-3658-475c-9c64-778d340cea89"
+            },
+            {
+                "testDataLinkId": null,
+                "type": "DEFAULT",
+                "value": null,
+                "variableId": "e756322d-7939-47a2-ab86-52358a518cf3"
+            }
+        ],
+        "variable": [
+            {
+                "defaultValue": "'Importing Company _Revised2.xlsx'",
+                "description": null,
+                "id": "f5ab7f70-4509-44a3-a9d6-1ad812db6a08",
+                "masked": "false",
+                "name": "file_Companies"
+            },
+            {
+                "defaultValue": "'PI Employees.xlsx'",
+                "description": null,
+                "id": "08a050c8-f786-418a-abf4-878d85836507",
+                "masked": "false",
+                "name": "file_employee"
+            },
+            {
+                "defaultValue": "'PI Assignments.xlsx'",
+                "description": null,
+                "id": "fd5ac30b-8f20-479b-a571-d86514e136d4",
+                "masked": "false",
+                "name": "file_assignments"
+            },
+            {
+                "defaultValue": "'PI Client Payment Types.xlsx'",
+                "description": null,
+                "id": "602d82e9-5672-4a7d-8790-38688cd5eefa",
+                "masked": "false",
+                "name": "file_cpt"
+            },
+            {
+                "defaultValue": "'PI Calendar Data.xlsx'",
+                "description": null,
+                "id": "212b0edc-0a7e-4fe5-a26b-31aaff06e6fb",
+                "masked": "false",
+                "name": "file_CalendarData"
+            },
+            {
+                "defaultValue": "'PI Company Codes.xlsx'",
+                "description": null,
+                "id": "5d07bc3f-3658-475c-9c64-778d340cea89",
+                "masked": "false",
+                "name": "file_CompanyCode"
+            },
+            {
+                "defaultValue": "'PI Compensation Before Payroll - Including Up To Payments.xlsx'",
+                "description": null,
+                "id": "e756322d-7939-47a2-ab86-52358a518cf3",
+                "masked": "false",
+                "name": "file_BPayroll"
+            }
+        ]
+    }
+}
