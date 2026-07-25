@@ -333,21 +333,91 @@
 
 // Glossary
 #let entry-list = (
-  (key: "ide",
-  short: "IDE",
-  long: "Integrated Development Environment",
-  description: "Eine Software Anwendung, die Entwicklern eine umfassende Umgebung für die Softwareentwicklung bietet."
+  // ── Abkürzungen ─────────────────────────────────────────────────
+  (
+    key: "ide",
+    short: "IDE",
+    long: "Integrated Development Environment",
+    description: "Eine Software-Anwendung, die Entwicklern eine umfassende Umgebung für die Softwareentwicklung bietet. Typischerweise umfasst sie einen Code-Editor, Debugger, Build-Werkzeuge und oft eine grafische Projektansicht. Katalon Studio ist eine solche IDE, die speziell auf Testautomatisierung ausgelegt ist."
   ),
-  (key: "ui",
-  short: "UI",
-  long: "User Interface",
-  description: "Die Benutzerschnittstelle einer Anwendung, ueber die Nutzer mit dem System interagieren."
+  (
+    key: "ui",
+    short: "UI",
+    long: "User Interface",
+    description: "Die Benutzerschnittstelle einer Anwendung, über die Nutzer mit dem System interagieren. Im Kontext dieser Arbeit bezeichnet UI die grafische Oberfläche, die durch automatisierte Tests validiert wird."
   ),
-  (key: "poc",
-  short: "PoC",
-  long: "Proof of Concept",
-  description: "Ein Prototyp oder eine Machbarkeitsstudie, die zeigt, dass ein Konzept oder eine Idee praktisch umsetzbar ist."
-  )
+  (
+    key: "poc",
+    short: "PoC",
+    long: "Proof of Concept",
+    description: "Ein Prototyp oder eine Machbarkeitsstudie, die zeigt, dass ein Konzept oder eine Idee praktisch umsetzbar ist. In dieser Arbeit bezeichnet PoC die erste Umsetzung eines Migrationsskripts zur Überprüfung der Machbarkeit."
+  ),
+  (
+    key: "jvm",
+    short: "JVM",
+    long: "Java Virtual Machine",
+    description: "Eine Laufzeitumgebung, die plattformunabhängige Ausführung von Java-Bytecode ermöglicht. Groovy, die Skriptsprache von Katalon Studio, läuft auf der JVM."
+  ),
+  (
+    key: "ci",
+    short: "CI",
+    long: "Continuous Integration",
+    description: "Ein Softwareentwicklungsprinzip, bei dem Code-Änderungen regelmäßig in ein gemeinsames Repository integriert und automatisch gebaut und getestet werden. Automatisierte Testsuiten sind ein zentrales Werkzeug im CI-Prozess."
+  ),
+  (
+    key: "sut",
+    short: "SUT",
+    long: "System Under Test",
+    description: "Das zu testende System — in dieser Arbeit die Webanwendung, auf die die automatisierten Selenium-Tests angewendet werden."
+  ),
+  (
+    key: "api",
+    short: "API",
+    long: "Application Programming Interface",
+    description: "Eine definierte Schnittstelle, über die Softwarekomponenten miteinander kommunizieren. Selenium stellt eine API bereit, über die Tests den Browser steuern."
+  ),
+  (
+    key: "regex",
+    short: "Regex",
+    long: "Regular Expression",
+    description: "Ein formaler Ausdruck zur Beschreibung von Zeichenketten-Mustern. In dieser Arbeit werden Regular Expressions zur Transformation von Groovy-Syntax in Python-Syntax eingesetzt."
+  ),
+  // ── Fachbegriffe ────────────────────────────────────────────────
+  (
+    key: "object-repository",
+    short: "Object Repository",
+    description: "Eine zentrale Datenstruktur in Katalon Studio, die alle Testobjecte (z. B. Schaltflächen, Eingabefelder) mit ihren Lokalisierungsstrategien speichert. Jedes Objekt enthält Eigenschaften wie XPath, CSS-Selektor oder ID, anhand derer Selenium das Element im DOM der Webanwendung identifiziert."
+  ),
+  (
+    key: "fixture",
+    short: "Pytest Fixture",
+    description: "Ein Mechanismus in Pytest, der wiederverwendbare Test-Vorbedingungen und -Nachbedingungen definiert. Fixtures werden in der Datei conftest.py deklariert und stehen allen Tests im Projekt automatisch zur Verfügung, ohne explizit importiert werden zu müssen. Typische Anwendungen sind das Erstellen eines WebDriver-Objekts oder das Einrichten von Testdaten."
+  ),
+  (
+    key: "locator",
+    short: "Locator",
+    description: "Ein Ausdruck, mit dem Selenium ein HTML-Element auf einer Webseite identifiziert. Gängige Locator-Strategien sind ID, CSS-Selektor, XPath und Name. Katalon speichert Locatoren im Object Repository; bei der Migration werden sie in Selenium-kompatible By-Strategien überführt."
+  ),
+  (
+    key: "webdriver",
+    short: "WebDriver",
+    description: "Eine standardisierte API (W3C-Standard), über die Programme einen Webbrowser programmatisch steuern können. Selenium WebDriver ist die Referenzimplementierung und bildet die Grundlage aller in dieser Arbeit generierten Tests."
+  ),
+  (
+    key: "groovy",
+    short: "Groovy",
+    description: "Eine dynamisch typisierte Skriptsprache, die auf der JVM läuft und vollständig mit Java interoperabel ist. Katalon Studio verwendet Groovy als Skriptsprache für Testskripte. In dieser Arbeit wird Groovy-Code mittels Regex-Transformation in Python übersetzt."
+  ),
+  (
+    key: "vendor-lock-in",
+    short: "Vendor Lock-in",
+    description: "Die technische oder wirtschaftliche Abhängigkeit eines Unternehmens von einem einzelnen Anbieter, die einen Wechsel zu Alternativen erschwert oder verteuert. Im Kontext dieser Arbeit bezeichnet Vendor Lock-in die Bindung an Katalon Studio durch proprietäre Dateiformate und lizenzpflichtige Funktionen."
+  ),
+  (
+    key: "transpilation",
+    short: "Transpilation",
+    description: "Der Prozess der automatischen Übersetzung von Quellcode einer Programmiersprache in eine andere. Im Unterschied zur Kompilation bleibt das Abstraktionsniveau erhalten. In dieser Arbeit bezeichnet Transpilation die Übersetzung von Groovy-Testskripten nach Python."
+  ),
 )
 
 #let project(
@@ -440,10 +510,11 @@
     abstractEN: abstractEN
   )
   
-  // Abkürzungsverzeichnis
+  // Abkürzungs- und Begriffsverzeichnis
   show: make-glossary
   register-glossary(entry-list)
-  print-glossary(entry-list)
+  heading(level: 1, numbering: none, outlined: true)[Abkürzungs- und Begriffsverzeichnis]
+  print-glossary(entry-list, show-all: true)
 
   // Table of contents.
   // HACK: Set the state to true , print heading to table of contents, set state to false
