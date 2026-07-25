@@ -1,17 +1,14 @@
 import re
-import src.utils.helper_functions as hf
-import src.utils.katalon_helpers as kh
 
 
-class WriteTest:
-    """Class used by translate_groovy2python.py to translate groovy selenium-test functionality into pytest."""
+class TestAssembler:
+    """Assembles Python Pytest test code from parsed Katalon WebUI method calls."""
     # TODO: Implement logging
 
     def change_test_name(self, test_name: str) -> str:
         test_name = test_name.replace(' ', '_')
         test_name = test_name.replace(',', '_')
         test_name = test_name.replace('-', '')
-
         return test_name
 
     def __init__(self, test_case_name: str, test_path: str):
@@ -28,7 +25,7 @@ class WriteTest:
             "import pytest",
             "import time",
             "import src.utils.katalon_helpers as kh",
-            "from src.tests.base_test import *",
+            "from src.runtime.base_test import *",
             "from src.profiles.global_variables import GlobalVariables as GlobalVariable",
             "from selenium.webdriver.support.ui import Select",
         ]
@@ -43,14 +40,13 @@ class WriteTest:
             f"\tdef test_{test_case_name}(self):"
         ]
 
-        # List of availible translated functions
+        # List of available translated functions
         self.translate_methods_list = [ 
             "openBrowser",
             "closeBrowser",
             "navigateToUrl",
             "maximizeWindow",
             "click",
-            #"clickTestObject",
             "delay",
             "executeJavaScript",
             "findWebElements",
@@ -79,7 +75,7 @@ class WriteTest:
             "findTestData",
         ]
 
-    ### methods
+    ### Test method implementations
 
     def openBrowser(self, *args):
         self.file_content_tests.append("")
@@ -93,149 +89,93 @@ class WriteTest:
             stripped_url.startswith(("'", '"')) and stripped_url.endswith(("'", '"'))
         ) and "GlobalVariable." not in stripped_url and "vars." not in stripped_url:
             url = "'" + url + "'"
-        self.file_content_tests.append(
-                f"self.driver.get({url})"
-        )
+        self.file_content_tests.append(f"self.driver.get({url})")
 
     def maximizeWindow(self):
-        self.file_content_tests.append(
-            "self.driver.maximize_window()"
-        )
+        self.file_content_tests.append("self.driver.maximize_window()")
 
-    def click(self, to, *args): # TODO: Add 'FailureHandling.STOP_ON_FAILURE' handling
-        self.file_content_tests.append(
-            f"{to}.click()"
-        )
+    def click(self, to, *args):
+        self.file_content_tests.append(f"{to}.click()")
 
     def delay(self, time, *args):
-        self.file_content_tests.append(
-            f"time.sleep({time})"
-        )
+        self.file_content_tests.append(f"time.sleep({time})")
 
     def executeJavaScript(self, js: str, opt_args: str):
-        self.file_content_tests.append(
-            f"self.driver.execute_script({js}, {opt_args})"
-        )
+        self.file_content_tests.append(f"self.driver.execute_script({js}, {opt_args})")
 
     def findWebElements(self, to):
-        self.file_content_tests.append(
-            f"self.driver.find_elements({to})"
-        )
+        self.file_content_tests.append(f"self.driver.find_elements({to})")
 
     def getAttribute(self, to, *att):
-        self.file_content_tests.append(
-            f"{to}.get_attribute({att})"
-        )
+        self.file_content_tests.append(f"{to}.get_attribute({att})")
 
     def getText(self, to):
-        self.file_content_tests.append(
-            f"{to}.text"
-        )
+        self.file_content_tests.append(f"{to}.text")
 
-    # TODO: Add 'FailureHandling.STOP_ON_FAILURE' handling
     def refresh(self, *args):
-        self.file_content_tests.append(
-            "self.driver.refresh()"
-        )
+        self.file_content_tests.append("self.driver.refresh()")
 
     def scrollToElement(self, to, *args):
-        self.file_content_tests.append(
-            f"self.driver.execute_script('argument[0].scrollIntoView();', {to})"
-        )
+        self.file_content_tests.append(f"self.driver.execute_script('argument[0].scrollIntoView();', {to})")
 
     def selectOptionByValue(self, to, val, *args):
-        self.file_content_tests.append(
-            f"Select({to}).select_by_value({val})"
-        )
+        self.file_content_tests.append(f"Select({to}).select_by_value({val})")
 
-    def sendKeys(self, to, key, *args):    # Types out the keys
-        self.file_content_tests.append(
-            f"{to}.send_keys({key})"
-        )
+    def sendKeys(self, to, key, *args):
+        self.file_content_tests.append(f"{to}.send_keys({key})")
 
-    def setText(self, to, text, *args):    # Acts like ctrl+v
-        self.file_content_tests.append(
-            f"{to}.clear()\n" +
-            f"\t\t{to}.send_keys({text})"
-        )
+    def setText(self, to, text, *args):
+        self.file_content_tests.append(f"{to}.clear()\n\t\t{to}.send_keys({text})")
 
     def setViewPortSize(self, x, y):
-        self.file_content_tests.append(
-            f"self.driver.set_window_size({x}, {y})"
-        )
+        self.file_content_tests.append(f"self.driver.set_window_size({x}, {y})")
 
     def takeFullPageScreenshot(self):
-        self.file_content_tests.append(
-            "self.driver.save_screenshot('screenshot.png')"
-        )
+        self.file_content_tests.append("self.driver.save_screenshot('screenshot.png')")
 
     def uploadFile(self, to, path: str):
         if not path.__contains__('GlobalVariable'):
             path = f"'{path}'"
-        self.file_content_tests.append(
-            f"{to}.send_keys({path})"
-        )
+        self.file_content_tests.append(f"{to}.send_keys({path})")
 
     def verifyElementAttributeValue(self, to, att1, att2, *args):
-        self.file_content_tests.append(
-            f"assert {to}.get_attribute({att1}) == {att2}"
-        )
+        self.file_content_tests.append(f"assert {to}.get_attribute({att1}) == {att2}")
 
     def verifyElementNotPresent(self, to, token, *args):
-        self.file_content_tests.append(
-            f"assert {to} == None"
-        )
+        self.file_content_tests.append(f"assert {to} == None")
 
-    def verifyElementPresent(self, to, *args): # TODO: Add minimum count functionality i. E. WebUI.verifyElementPresent(findTestObject('Page_Assignment Details/Unlimited Tax Payer'), 10, FailureHandling.STOP_ON_FAILURE)
-        self.file_content_tests.append(
-            f"assert {to} != None"
-        )
+    def verifyElementPresent(self, to, *args):
+        self.file_content_tests.append(f"assert {to} != None")
 
-    def verifyMatch(self, att1, *att2): # log is a boolean that sets katalon to log or not. Not used here
-        self.file_content_tests.append(
-            f"assert {att1} == {att2}"
-        )
+    def verifyMatch(self, att1, *att2):
+        self.file_content_tests.append(f"assert {att1} == {att2}")
 
     def verifyNotMatch(self, att, to, control, *args):
-        self.file_content_tests.append(
-            f"assert not re.match({control}, {to}.get_attribute({att})) != 0"
-        )
+        self.file_content_tests.append(f"assert not re.match({control}, {to}.get_attribute({att})) != 0")
 
     def verifyTextNotPresent(self, text, *args):
-        self.file_content_tests.append(
-            f"assert {text} not in self.driver.page_source"
-        )
+        self.file_content_tests.append(f"assert {text} not in self.driver.page_source")
 
-    def verifyTextPresent(self, text, *args):  # TODO: needs functionality to link variables i. e. "assignments"
-        self.file_content_tests.append(
-            f"assert {text} in self.driver.page_source"
-        )
+    def verifyTextPresent(self, text, *args):
+        self.file_content_tests.append(f"assert {text} in self.driver.page_source")
 
     def waitForElementPresent(self, to, time):
-            self.file_content_tests.append(
-                f"WebDriverWait(self.driver, {time}).until(EC.presence_of_element_located((By.XPATH, {to})))"
-            )
+        self.file_content_tests.append(
+            f"WebDriverWait(self.driver, {time}).until(EC.presence_of_element_located((By.XPATH, {to})))"
+        )
 
     def clearText(self, to):
-        self.file_content_tests.append(
-            f"{to}.clear()"
-        )  
+        self.file_content_tests.append(f"{to}.clear()")
 
     def comment(self, text):
-        self.file_content_tests.append(
-            f"return ('#' + {text})"
-        )
+        self.file_content_tests.append(f"return ('#' + {text})")
         
-    def callTestCase(self, parameter: str, *opt_vars: str): # Add all callTestCase-Cases (in katalon_helpers.py, too)) i. e. "SSO_Login", "Login_Diogo", "Login_angelica" and so on
+    def callTestCase(self, parameter: str, *opt_vars: str):
         for x in opt_vars:
             parameter += x
+        self.file_content_tests.append(f"# {parameter}")
 
-        self.file_content_tests.append(
-            f"# {parameter}"
-        )
-
-
-    ### Utility methods
+    ### Parsing utility methods
 
     def filterTestMethod(self, file_line: str, line_start: str) -> str:
         method_name = ""
@@ -243,12 +183,8 @@ class WriteTest:
             start_index = file_line.find(line_start) + len(line_start)
             end_index = file_line.find("(", start_index)
             method_name = file_line[start_index:end_index]
-
         return method_name
 
-    '''
-    This takes a katalon test line i. e. WebUI.delay(5), and return the different parts seperated from each other.
-    '''
     def categorize_test_line(self, test_line: str):
         class_name = ""
         method_name = ""
@@ -285,7 +221,6 @@ class WriteTest:
         else:
             parameters = re.split(param_pattern, parameters) 
 
-        # Remove leading whitespaces
         for i in range(0, parameters.__len__()):
             parameters[i] = parameters[i].lstrip()
             if parameters[i] == "null":
@@ -299,7 +234,6 @@ class WriteTest:
             result = True
         elif method_name:
             print(f"[{method_name}] is an unknown testmethod")
-
         return result
 
     def check_param_amount_and_execute(self, method_name, test_path, *method_params):
@@ -311,29 +245,28 @@ class WriteTest:
             else:
                 method_to_execute()
         else:
-            print(f"Method declaration for {method_name} is missing in WriteTest.py!")
+            print(f"Method declaration for {method_name} is missing in TestAssembler.py!")
 
     def check_params_for_specialties(self, params: tuple[str], test_path: str) -> list[str]:
+        from src.utils.file_utils import get_variables_from_tc
+        
         params_list = list(params)
-
-        plus_concat_pattern = r".*,\s(.*)\+(.*)\)|.*,\s'(.*)'.*\+ '(.*)|(.*)\s\+\s(.*)" #r".*,\s(.*)\+(.*)\)|.*,\s(.*)\+(.*)" # TODO: See if the third regex takes more than it should
-        fto_param_str_pattern = r"(findTestObject\(('.+').*\))" #r".*(findTestObject\((\'.+\')\)).*" #r'.*findTestObject\((\'.+\')\).*' # WARNING: This filters out any second parameter of a findTestObject() i. e. fto('test/btn', [:])
-        ftd_param_str_pattern = r"(findTestData\(('.+').*\)\.getValue\((.+)\))" # Same as with findTestObject() but for findTestData() - TODO: Implement this in the check_params_for_specialties() method and add a findTestData() method to WriteTest.py, write find_katalon_test_data() in katalon_helpers.py and implement it in the test structure
+        fto_param_str_pattern = r"(findTestObject\(('.+').*\))"
+        ftd_param_str_pattern = r"(findTestData\(('.+').*\)\.getValue\((.+)\))"
 
         for i in range(params.__len__()):
             if type(params_list[i]) == int:
                 continue
 
-            var_list = hf.get_variables_from_tc(test_path)
+            var_list = get_variables_from_tc(test_path)
             params_list[i] = self.normalize_global_variables(params_list[i])
-            params_list[i] = self.replace_variables(params_list[i], var_list) # variables will be translated without changes now
+            params_list[i] = self.replace_variables(params_list[i], var_list)
 
-            '''Checks if the parameters contain findTestObject() and prunes them to fit into the resulting test'''
             to_match = re.search(fto_param_str_pattern, params_list[i])
             if to_match:
                 param = "kh.find_katalon_test_object(self.driver, " + to_match.group(2) + ")"
                 params_list[i] = params_list[i].replace(to_match.group(1), param)
-            '''Checks if the parameters contain findTestData() and prunes them to fit into the resulting test'''
+            
             ftd_match = re.search(ftd_param_str_pattern, params_list[i])
             if ftd_match:
                 param = "kh.find_katalon_test_data(self.driver, " + ftd_match.group(2) + ", " + ftd_match.group(3) + ")"
@@ -348,23 +281,19 @@ class WriteTest:
             param,
         )
 
-    '''Open .tc file containing json with variables corresponding to current test. Crosscheck existence of variable and replace'''
     def replace_variables(self, param: str, var_list):
-        if var_list.__len__() > 0:  # TODO: Fix this replacing variables that are inside strings and not a variable, see here: src\Tests\katalon structure\Scripts\Employees\Employee_CalendarData - David\Script1702483183702.groovy (Employee_CalendarDataFile gets replaced when it shouldn't)
+        if var_list.__len__() > 0:
             self.var_present = True
 
             for i in range(var_list.__len__()):
                 if var_list[i][0].__len__() > 2:
                     if param.__contains__(var_list[i][0]):
-                        # This looks for the variable name but in a sentence and then skips it i. e. "This assignment needs ..." or "... for this assignment."
                         pattern = r"\s" + var_list[i][0] + r"\s|\s" + var_list[i][0] + r"\."
                         if re.search(pattern, param):
                             continue
                         replacement = var_list[i][1]
                         if re.match(r"'.*(?!.)", replacement):
                             replacement = replacement.replace("'", "")
-                        # This now does not replace the variable name with the value but adds a "vars."" before the name
-                        #param = param.replace(var_list[i][0], replacement)
                         param = param.replace(var_list[i][0], "vars." + var_list[i][0])
         
         return param
@@ -397,4 +326,3 @@ class WriteTest:
             file_content_all_txt += "\t\t" + test_element + "\n"
 
         return file_content_all_txt
-    

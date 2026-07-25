@@ -386,7 +386,7 @@
   (
     key: "object-repository",
     short: "Object Repository",
-    description: "Eine zentrale Datenstruktur in Katalon Studio, die alle Testobjecte (z. B. Schaltflächen, Eingabefelder) mit ihren Lokalisierungsstrategien speichert. Jedes Objekt enthält Eigenschaften wie XPath, CSS-Selektor oder ID, anhand derer Selenium das Element im DOM der Webanwendung identifiziert."
+    description: "Eine zentrale Datenstruktur in Katalon Studio, die alle Test Objects (z. B. Schaltflächen, Eingabefelder) mit ihren Lokalisierungsstrategien speichert. Jedes Objekt enthält Eigenschaften wie XPath, CSS-Selektor oder ID, anhand derer Selenium das Element im DOM der Webanwendung identifiziert."
   ),
   (
     key: "fixture",
@@ -418,6 +418,11 @@
     short: "Transpilation",
     description: "Der Prozess der automatischen Übersetzung von Quellcode einer Programmiersprache in eine andere. Im Unterschied zur Kompilation bleibt das Abstraktionsniveau erhalten. In dieser Arbeit bezeichnet Transpilation die Übersetzung von Groovy-Testskripten nach Python."
   ),
+  (
+    key: "test-object",
+    short: "Test Object",
+    description: "Ein in Katalon Studio definiertes Objekt, das ein HTML-Element auf einer Webseite repräsentiert. Test Objects enthalten Informationen wie Name, Beschreibung und Locator. Sie werden im Object Repository gespeichert und in Testskripten referenziert."
+  )
 )
 
 #let project(

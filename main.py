@@ -1,6 +1,9 @@
-import src.utils.helper_functions as hf
-import src.utils.xml2json as x2j
-import src.utils.copy_utility_files as cf
+from src.pipeline.test_suite_translator import iterate_and_translate_test_cases
+from src.pipeline.object_repo_converter import create_object_repository
+from src.pipeline.variables_extractor import create_variables_as_py
+from src.pipeline.global_vars_generator import create_global_variables_file
+from src.pipeline.copy_runtime_files import copy_runtime_files, copy_data_files
+
 
 if __name__ == "__main__":
     source_root = r"C:\Repos\Bachelor Repos\sample-website-katalon-tests"
@@ -9,21 +12,21 @@ if __name__ == "__main__":
     print("Migration started")
 
     # Main translation
-    hf.Helper_Functions().iterate_and_translate_test_cases(source_root, destination_root)
+    iterate_and_translate_test_cases(source_root, destination_root)
 
     # Create new object repository
-    x2j.create_object_repository(source_root, destination_root)
+    create_object_repository(source_root, destination_root)
 
     # Create new variables from Test Cases
-    hf.Helper_Functions().create_variables_as_py(source_root, destination_root)
+    create_variables_as_py(source_root, destination_root)
 
     # Create Global Variable profiles
-    x2j.create_global_variables_file(source_root, destination_root)
+    create_global_variables_file(source_root, destination_root)
 
-    # Create utility files
-    cf.copy_utility_files(destination_root)
+    # Copy runtime utility files
+    copy_runtime_files(destination_root)
 
     # Copy data
-    cf.copy_data_files(source_root, destination_root)
+    copy_data_files(source_root, destination_root)
 
     print("Migration finished")

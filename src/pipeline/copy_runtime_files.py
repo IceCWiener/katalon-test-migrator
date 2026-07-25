@@ -1,5 +1,4 @@
 import shutil
-import xmltodict
 from pathlib import Path
 
 
@@ -43,20 +42,20 @@ pytest
 - `src/object_repository`: converted Katalon object repository files
 - `src/profiles/global_variables.py`: generated global variable definitions
 - `src/utils`: runtime helper modules used by generated tests
+- `src/runtime`: copied runtime utilities from the migrator
 - `data`: copied data files referenced by generated tests
 """,
 }
 
 
-def copy_utility_files(destination_root: str) -> None:
+def copy_runtime_files(destination_root: str) -> None:
     """
-    Copy utility files from their canonical locations in the migrator repo
-    into the destination project.
+    Copy runtime utility files from the migrator into the destination project.
+    These files are needed at runtime for the generated tests to function.
 
     Source → destination mapping:
-        src/utils/base_test.py          → destination/src/tests/base_test.py
-        src/utils/katalon_helpers.py    → destination/src/utils/katalon_helpers.py
-        src/utils/helper_functions.py   → destination/src/utils/helper_functions.py
+        src/runtime/base_test.py          → destination/src/runtime/base_test.py
+        src/runtime/katalon_helpers.py    → destination/src/runtime/katalon_helpers.py
 
     Args:
         destination_root: Root folder of the destination project.
@@ -65,9 +64,8 @@ def copy_utility_files(destination_root: str) -> None:
     destination_root_path = Path(destination_root)
 
     file_map = [
-        (src_root / "utils" / "base_test.py",         destination_root_path / "src" / "tests"),
-        (src_root / "utils" / "katalon_helpers.py",   destination_root_path / "src" / "utils"),
-        (src_root / "utils" / "xml2json.py",  destination_root_path / "src" / "utils"),
+        (src_root / "runtime" / "base_test.py",       destination_root_path / "src" / "runtime"),
+        (src_root / "runtime" / "katalon_helpers.py", destination_root_path / "src" / "runtime"),
     ]
 
     copied_count = 0
@@ -88,24 +86,7 @@ def copy_utility_files(destination_root: str) -> None:
         destination_file.write_text(content, encoding="utf-8")
         root_file_count += 1
 
-    print(f"Utilities: {copied_count} files copied, {root_file_count} root files created")
-
-
-def _extract_datasource_url(data_dict):
-    """Recursively search for dataSourceUrl in a nested dictionary."""
-    if isinstance(data_dict, dict):
-        if "dataSourceUrl" in data_dict:
-            return data_dict["dataSourceUrl"]
-        for value in data_dict.values():
-            result = _extract_datasource_url(value)
-            if result:
-                return result
-    elif isinstance(data_dict, list):
-        for item in data_dict:
-            result = _extract_datasource_url(item)
-            if result:
-                return result
-    return None
+    print(f"Runtime: {copied_count} files copied, {root_file_count} root config files created")
 
 
 def copy_data_files(source_root: str, dest_root: str) -> None:
@@ -117,6 +98,8 @@ def copy_data_files(source_root: str, dest_root: str) -> None:
         source_root: Root folder of the source project
         dest_root: Root folder of the destination project
     """
+    import xmltodict
+    
     data_files_folder = Path(source_root) / "Data Files"
     destination_data_folder = Path(dest_root) / "data"
 
@@ -161,3 +144,20 @@ def copy_data_files(source_root: str, dest_root: str) -> None:
             warning_count += 1
 
     print(f"Data files: {copied_count} copied, {warning_count} warnings")
+
+
+def _extract_datasource_url(data_dict):
+    """Recursively search for dataSourceUrl in a nested dictionary."""
+    if isinstance(data_dict, dict):
+        if "dataSourceUrl" in data_dict:
+            return data_dict["dataSourceUrl"]
+        for value in data_dict.values():
+            result = _extract_datasource_url(value)
+            if result:
+                return result
+    elif isinstance(data_dict, list):
+        for item in data_dict:
+            result = _extract_datasource_url(item)
+            if result:
+                return result
+    return None
