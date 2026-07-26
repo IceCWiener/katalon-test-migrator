@@ -24,14 +24,14 @@ class TestAssembler:
         self.file_content_imports = [
             "import pytest",
             "import time",
-            "import src.utils.katalon_helpers as kh",
+            "import src.runtime.katalon_helpers as kh\n",
             "from src.runtime.base_test import *",
             "from src.profiles.global_variables import GlobalVariables as GlobalVariable",
             "from selenium.webdriver.support.ui import Select",
         ]
 
         self.file_content_class = [
-            "class Test_" + test_case_name + "(BaseTest):"
+            "\nclass Test_" + test_case_name + "(BaseTest):"
         ]
 
         self.file_content_init = [""]

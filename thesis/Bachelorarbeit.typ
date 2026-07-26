@@ -177,30 +177,37 @@ Für den nächsten Ansatz wurde erst eine kleine Pipeline gebaut, die versuchte,
 
 == Architekturüberblick
 
-Die Migrationspipeline ist als modulares System entworfen, das auf folgenden Kernkomponenten basiert:
+Die Migrationspipeline enthält viele kleine Module die zusammen Schritt für Schritt alle Inhalte transformieren. Zusammen ergeben sich fünf Kernfunktionen, die zusammen den kompletten Transformationsprozess abbilden. Der "Scanner & Parsing"-Schritt fungiert als Einstiegspunkt. Dabei scannt und extrahiert man alle Projektkomponenten wie Test Cases, Object Repository, Variablen und Testdaten systematisch aus dem alten Projekt. Dann der "Transpilations"-Schritt, mit der Aufgabe Regex-basierte Leseregeln auf den Groovy-Syntax anzuwenden und den ursprünglichen Code schrittweise zu erkennen und zu übersetzen. Eng verzahnt damit, passiert währenddessen das Mapping und die Validation, um Katalon-Datentypen auf ihre Python-Äquivalente abzubilden und gleichzeitig die Integrität aller Transformationen zu validieren. Danach folgt die Code-Generierung. Hier wird aus den transformierten Strukturen, gültiger Selenium-Pytest-Code der unmittelbar ausführbar ist generiert. Als letztes kommt der kombinierende "Project Assembly"-Schritt, der alle generierten Dateien in eine korrekte und wartbare Selenium/Pytest-Projektstruktur schreibt. Diese Pipeline-Architektur gewährleistet, dass alle wichtigen Element eines Katalon-Projektes systematisch, nachvollziehbar und wartbar transformiert werden.
 
-1. *Katalon Project Parser* — Scannt und extrahiert alle Projektkomponenten (Test Cases, Object Repository, Variablen, Testdaten)
-2. *Transformation Engine* — Wendet Regex-basierte Transformationsregeln auf Groovy-Syntax an
-3. *Mapping & Validation Engine* — Mappt Katalon-Datentypen auf Python-Äquivalente und validiert die Integrität
-4. *Python Code Generator* — Synthetisiert gültiges Python-Selenium-Pytest-Code aus transformierten Strukturen
-5. *Asset Publisher* — Schreibt alle generierten Dateien in eine korrekte Selenium/Pytest-Projektstruktur
+== Transformationsablauf
+=== Syntaktische Transformation: Groovy zu Python
 
-Diese Pipeline gewährleistet, dass jedes Element eines Katalon-Projektes systematisch und wartbar transformiert wird.
+Die Groovy-Syntax wird durch Regex-Pattern-Matching in Python-Syntax überführt. Aus der Implementierung ergeben sich folgende Transformationen:
 
-== Transformationsstrategien
+*Beispiel 1: WebUI-Methodenaufrufe*
 
-Die Migration erfolgt auf drei Ebenen:
+Katalon (Groovy):
+```groovy
+WebUI.callTestCase(findTestCase('Util/login'), [:], FailureHandling.STOP_ON_FAILURE)
+WebUI.verifyTextPresent('View All Users', false)
+WebUI.click(findTestObject('All_Users/view_all_users_btn'))
+WebUI.setText(findTestObject('All_Users/search_input'), david)
+WebUI.verifyTextPresent(GlobalVariable.user4name, false)
+```
 
-=== Syntaktische Transformation: Groovy → Python
-Die Groovy-Syntax wird durch Regex-Pattern-Matching in Python-Syntax überführt. Beispiele:
+Generierter Python-Code:
+```python
+# findTestCase('Util/login')[:]FailureHandling.STOP_ON_FAILURE
+assert 'View All Users' in self.driver.page_source
+kh.find_katalon_test_object(self.driver, 'All_Users/view_all_users_btn').click()
+kh.find_katalon_test_object(self.driver, 'All_Users/search_input').clear()
+kh.find_katalon_test_object(self.driver, 'All_Users/search_input').send_keys(vars.david)
+assert GlobalVariable.USER4NAME in self.driver.page_source
+```
 
-- Groovy String-Interpolation `"${variable}"` → Python f-Strings `f"{variable}"`
-- Groovy Class Initializers `new ClassName()` → Python Constructor `ClassName()`
-- Groovy Method Calls mit optionalem Receiver → Python Attribute Access `obj.method(args)`
-- Groovy Closures `{ x -> x * 2 }` → Python Lambda Functions `lambda x: x * 2`
-- Katalon-spezifische Methoden wie `WebUI.click(testObject)` → Selenium WebDriver API `driver.find_element(By.ID, "id").click()`
+// Hier Bild mit Tests einfügen
 
-=== Semantische Transformation: Katalon Objects → Selenium Locators
+=== Semantische Transformation: Katalon Objects zu Selenium Locators
 Das Katalon @object-repository speichert Testobjekte als XML-Strukturen mit verschachtelten Eigenschaften. Diese werden in "@locator"-Strategien für Selenium überführt:
 
 - Katalon Properties (id, name, xpath, css) → Selenium By-Strategien (`By.ID`, `By.XPATH`, `By.CSS_SELECTOR`)
@@ -217,18 +224,6 @@ Katalon Structure:        →  Selenium/Pytest Structure:
 ├── Profiles/            →  tests/config/
 └── Data Files/          →  tests/data/
 ```
-
-== Transformations-Algorithmus
-
-Der zentrale Transformations-Algorithmus arbeitet nach folgendem Schema:
-
-1. *Reconnaissance Phase* — Scanne alle Katalon-Dateien und stelle ein Inventar zusammen
-2. *Extraction Phase* — Parse XML/JSON Strukturen mittels Regex und DOM-Parsing
-3. *Mapping Phase* — Ordne Katalon-Semantik auf Selenium-Semantik
-4. *"@transpilation Phase"* — Überführe "@groovy" nach Python mittels "@regex"-Pattern-Matching
-5. *Validation Phase* — Validiere, dass alle Referenzen aufgelöst wurden
-6. *Generation Phase* — Schreibe Python-Dateien in das Zielverzeichnis
-7. *Verification Phase* — Führe Syntax-Checks und Import-Validierungen durch
 
 == Regex-basierte Transformation
 
@@ -250,6 +245,38 @@ Dies transformiert `WebUI.click(testObject, [timeout: 3])` zu einer äquivalente
   ],
   caption: [Vereinfachter Datenfluss durch die Migrationspipeline. Jede Phase produziert Intermediate Representations, die in die nächste Phase fließen.],
 ) <fig-dataflow>
+
+== Detailliertes Aktivitätsdiagramm der Test-Transformation
+
+Das folgende Diagramm zeigt den genauen Transformationsablauf eines Katalon-Tests zu einem Python-Pytest-Test. Es illustriert die zentralen Phasen "Scanner & Parsing", "Transpilation" und "Code Generation" sowie das Fehlerbehandlungs-Verfahren für komplexe Tests:
+
+```mermaid
+graph TD
+    A["Start: Katalon Test<br/>Scripts/TestName.groovy"] --> B["Phase 1: Scanner<br/>Datei lesen"]
+    B --> C["Phase 2: Parsing<br/>Kommentare entfernen<br/>Zeilen extrahieren"]
+    C --> D["Regex-Filter<br/>WebUI-Methoden<br/>identifizieren"]
+    D --> E{Test zu<br/>komplex?}
+    
+    E -->|Ja| F["Phase 4: Error<br/>Klassifizierung"]
+    F --> G["Output: Fehler-Datei<br/>src/unreadable_tests/"]
+    
+    E -->|Nein| H["Phase 3: Transpilation<br/>Katalon Methoden<br/>↓<br/>Selenium WebDriver API"]
+    H --> I["Mapping:<br/>TestObject → Locator<br/>GlobalVariable → Attribute"]
+    I --> J["Phase 4: Code Generation<br/>Python-Pytest Code<br/>Assembly"]
+    J --> K["Imports + Klasse +<br/>Test-Methode +<br/>Fixtures"]
+    K --> L["Output: Python Test<br/>src/tests/TestName.py"]
+    L --> M["End: Generierter<br/>Pytest-Test"]
+    
+    G --> N["Archiv für<br/>manuelle Überprüfung"]
+    
+    style A fill:#e8f4f8
+    style M fill:#c8f4c8
+    style G fill:#f4c8c8
+    style H fill:#ffe8c8
+    style I fill:#ffe8c8
+```
+
+Das Diagramm verdeutlicht: Einfache Tests durchlaufen den vollständigen Transformationspfad. Komplexe Tests, die mit Regex-Pattern nicht zu erfassen sind, werden in ein separates Verzeichnis geschrieben und können später manuell überprüft oder angepasst werden.
 
 = Implementierung des Prototyps
 
@@ -287,6 +314,60 @@ Diese Struktur trennt eindeutig:
 - pipeline/: Transformation (läuft nur während Migration)
 - runtime/: Abhängigkeiten (werden ins Ziel-Projekt kopiert)
 - utils/: Gemeinsame Build-Time-Utilities
+
+Das folgende Diagramm zeigt die Datenfluss-Abhängigkeiten zwischen den 7 Pipeline-Modulen:
+
+```mermaid
+graph TB
+    subgraph Input["Katalon-Projekt Input"]
+        SF["Scripts/*.groovy<br/>Test Cases"]
+        OR["Object Repository/*.rs<br/>XML"]
+        TC["Test Cases/*.tc<br/>XML"]
+        PF["Profiles/default.glbl<br/>XML"]
+        DF["Data Files/*.dat"]
+    end
+    
+    subgraph Pipeline["Build-Time Pipeline"]
+        M1["Module 1:<br/>test_suite_translator<br/>Scanner + Orchestration"]
+        M2["Module 2:<br/>test_transpiler<br/>Groovy→Python"]
+        M3["Module 3:<br/>test_assembler<br/>Pytest Code Gen"]
+        M4["Module 4:<br/>object_repo_converter<br/>XML→JSON"]
+        M5["Module 5:<br/>variables_extractor<br/>TC Variables"]
+        M6["Module 6:<br/>global_vars_generator<br/>Profile Variables"]
+        M7["Module 7:<br/>copy_runtime_files<br/>Assembly + Config"]
+    end
+    
+    subgraph Output["Ziel-Projekt Output"]
+        OUT1["src/tests/test_*.py<br/>Pytest Tests"]
+        OUT2["src/object_repository/<br/>*.rs JSON"]
+        OUT3["src/variables/var_*.py<br/>Test Variables"]
+        OUT4["src/profiles/<br/>global_variables.py"]
+        OUT5["src/runtime/<br/>base_test.py<br/>katalon_helpers.py"]
+        OUT6["pytest.ini<br/>requirements.txt<br/>.gitignore"]
+        OUT7["data/<br/>kopierte Testdaten"]
+    end
+    
+    SF --> M1 --> M2 --> M3 --> OUT1
+    M1 --> M4
+    OR --> M4 --> OUT2
+    TC --> M5 --> OUT3
+    M1 --> M5
+    PF --> M6 --> OUT4
+    M1 --> M3 --> M7
+    M2 --> M7
+    M4 --> M7
+    M5 --> M7
+    M6 --> M7
+    DF --> M7 --> OUT7
+    M7 --> OUT5
+    M7 --> OUT6
+    
+    style Input fill:#e8f4f8
+    style Output fill:#c8f4c8
+    style Pipeline fill:#ffe8c8
+```
+
+Diese modulare Struktur gewährleistet, dass jede Pipeline-Phase isoliert getestet, validiert und bei Bedarf erweitert werden kann.
 
 == Pipeline-Phasen (Datenfluss)
 
@@ -401,6 +482,26 @@ Der Output ist eine JSON-Struktur, die von `katalon_helpers.py` im Ziel-Projekt 
 }
 ```
 
+Das folgende Diagramm zeigt den Transformationsprozess von Katalon Object Repository zu JSON:
+
+```mermaid
+graph LR
+    A["Input:<br/>Object Repository/<br/>*.rs XML"] --> B["Scanner:<br/>Alle .rs Dateien<br/>verzeichnis-rekursiv"]
+    B --> C["XML Parser:<br/>xmltodict"]
+    C --> D["Extract:<br/>WebElementEntity<br/>selectorMethod<br/>selectorCollection"]
+    D --> E["Transform:<br/>Nested XML →<br/>Flache JSON<br/>Struktur"]
+    E --> F["Map Locators:<br/>XPATH/CSS/ID<br/>zu Selenium<br/>By-Strategien"]
+    F --> G["Output:<br/>src/object_repository/<br/>*.rs JSON"]
+    
+    style A fill:#e8f4f8
+    style G fill:#c8f4c8
+    style C fill:#ffe8c8
+    style E fill:#ffe8c8
+    style F fill:#ffe8c8
+```
+
+Die konvertierten JSON-Dateien werden zur Laufzeit von `katalon_helpers.py` gelesen, um Locator-Strategien zu bestimmen.
+
 === global_vars_generator.py — Globale Variablen
 Liest `.glbl` XML-Profil und generiert Python:
 
@@ -416,6 +517,35 @@ def create_global_variables_file(source_root: str, dest_root: str):
         value = to_python_literal(entity["initValue"])
         # Write: name = value
 ```
+
+Das folgende Diagramm zeigt die Generierung von globalen Variablen und die Extraktion von Test-lokalen Variablen:
+
+```mermaid
+graph LR
+    A1["Input:<br/>Profiles/<br/>default.glbl"]
+    A2["Input:<br/>Test Cases/<br/>*.tc XML"]
+    
+    A1 --> B1["Parser:<br/>xmltodict<br/>GlobalVariableEntity"]
+    A2 --> B2["Parser:<br/>xmltodict<br/>variable tags"]
+    
+    B1 --> C1["Extract:<br/>Name +<br/>Initial Value +<br/>Type"]
+    B2 --> C2["Extract:<br/>Variable Name +<br/>Default Value +<br/>Type Info"]
+    
+    C1 --> D1["Normalize:<br/>SCREAMING_SNAKE_CASE<br/>Python Literal"]
+    C2 --> D2["Normalize:<br/>snake_case<br/>Class Attributes"]
+    
+    D1 --> E1["Output:<br/>src/profiles/<br/>global_variables.py"]
+    D2 --> E2["Output:<br/>src/variables/<br/>var_*.py"]
+    
+    style A1 fill:#e8f4f8
+    style A2 fill:#e8f4f8
+    style E1 fill:#c8f4c8
+    style E2 fill:#c8f4c8
+    style D1 fill:#ffe8c8
+    style D2 fill:#ffe8c8
+```
+
+Die generierten Variablen-Module stehen allen Tests zur Verfügung und können über Import oder direkt über ihren Klassen-Namespace angesprochen werden.
 
 === runtime/base_test.py — Selenium Base Class
 Die Basis-Testklasse für alle generierten Tests:

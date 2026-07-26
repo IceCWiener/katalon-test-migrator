@@ -18,6 +18,8 @@ def create_variables_as_py(source_root: str, destination_root: str) -> None:
     output_path = os.path.join(destination_root, "src", "variables")
     file_count = 0
     folder_count = 0
+    os.makedirs(output_path, exist_ok=True)
+    _touch_init(output_path)
     
     for root, dirs, files in os.walk(input_path):
         for file in files:
@@ -34,6 +36,7 @@ def create_variables_as_py(source_root: str, destination_root: str) -> None:
             if not os.path.exists(destination_parent):
                 folder_count += 1
             os.makedirs(destination_parent, exist_ok=True)
+            _touch_init(destination_parent)
 
             var_name = change_var_name(file)
             new_content = f"class {var_name}:\n"
@@ -46,7 +49,7 @@ def create_variables_as_py(source_root: str, destination_root: str) -> None:
                     new_content += (f"\t{decoded_json['TestCaseEntity']['variable']['name']} = {decoded_json['TestCaseEntity']['variable']['defaultValue']}")
                     break
 
-            new_filename = "var_" + change_var_name(file) + ".py"
+            new_filename = "var_" + var_name + ".py"
             new_file_path = os.path.join(destination_parent, new_filename)
 
             file_count += 1

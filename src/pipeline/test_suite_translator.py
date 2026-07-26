@@ -1,5 +1,5 @@
 import os
-from src.pipeline.test_transpiler import translate_katalon_test
+from src.pipeline.test_transpiler import process_katalon_test
 from src.utils.file_utils import _touch_init
 from src.utils.string_utils import change_var_name
 
@@ -54,7 +54,7 @@ def iterate_and_translate_test_cases(source_root: str, destination_root: str) ->
             if file.endswith('.groovy'):
                 source_file_path = os.path.join(root, file)
                 # Read Katalon test, translate and return new Selenium content
-                [content, error_content] = translate_katalon_test(source_file_path)
+                [content, error_content] = process_katalon_test(source_file_path)
                 if error_content.startswith("ERROR"):
                     error = True
 
@@ -63,6 +63,7 @@ def iterate_and_translate_test_cases(source_root: str, destination_root: str) ->
                         unreadable_path, os.path.relpath(source_file_path, input_path)
                     )
                     os.makedirs(os.path.dirname(unreadable_file_path), exist_ok=True)
+                    _touch_init(os.path.dirname(unreadable_file_path))
                     with open(unreadable_file_path, 'w', encoding="utf-8") as f:
                         f.write(error_content)
                     unreadable_count += 1

@@ -10,7 +10,7 @@ try:
     
     print("✓ All pipeline imports successful")
     
-    from src.pipeline.test_transpiler import translate_katalon_test
+    from src.pipeline.test_transpiler import process_katalon_test
     from src.pipeline.test_assembler import TestAssembler
     
     print("✓ All core transpiler imports successful")

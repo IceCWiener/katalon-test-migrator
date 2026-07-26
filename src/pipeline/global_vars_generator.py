@@ -1,7 +1,9 @@
 import os
 import xmltodict
+
 from pathlib import Path
 from src.utils.xml_utils import to_python_literal, normalize_identifier
+from src.utils.file_utils import _touch_init
 
 
 def create_global_variables_file(source_project_root: str, destination_project_root: str) -> str:
@@ -30,6 +32,7 @@ def create_global_variables_file(source_project_root: str, destination_project_r
 
     destination_dir = os.path.join(destination_project_root, "src", "profiles")
     os.makedirs(destination_dir, exist_ok=True)
+    _touch_init(destination_dir)
     destination_file = os.path.join(destination_dir, "global_variables.py")
 
     lines = [

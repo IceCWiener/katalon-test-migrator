@@ -77,7 +77,7 @@ def cast_parameter(param):
     return param
 
 
-def translate_katalon_test(katalon_test_path: str):
+def process_katalon_test(katalon_test_path: str):
     """
     Main translation function. Converts a Katalon Groovy test file
     to a Python Pytest test file.
@@ -88,13 +88,14 @@ def translate_katalon_test(katalon_test_path: str):
     Returns:
         Tuple of (python_content, error_message)
     """
+    error_content = ""
+    abn_test_pat = r"String\s\w+\s=|if\(|TestObject\s\w+\s="
+
     test_name = get_katalon_test_name(katalon_test_path)
     katalon_test = read_file(katalon_test_path)
-    error_content = ""
     content: str = parse_katalon_test(katalon_test, test_name, katalon_test_path)
 
-    # Check for handwritten abnormal tests
-    abn_test_pat = r"String\s\w+\s=|if\(|TestObject\s\w+\s="
+    # Label erroneous or handwritten abnormal tests
     if re.search(abn_test_pat, katalon_test) or content.startswith("ERROR"):
         error_content = "ERROR: This test is not automatically translateable because it has handwritten features. Origin: " + katalon_test_path + "\n\n\n" + katalon_test
     
