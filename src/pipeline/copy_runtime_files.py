@@ -41,7 +41,6 @@ pytest
 - `src/tests`: generated pytest test modules
 - `src/object_repository`: converted Katalon object repository files
 - `src/profiles/global_variables.py`: generated global variable definitions
-- `src/utils`: runtime helper modules used by generated tests
 - `src/runtime`: copied runtime utilities from the migrator
 - `data`: copied data files referenced by generated tests
 """,
@@ -63,14 +62,10 @@ def copy_runtime_files(destination_root: str) -> None:
     src_root = Path(__file__).resolve().parent.parent  # katalon-test-migrator/src/
     destination_root_path = Path(destination_root)
 
-    # Ensure base src/ directory and utils/ have __init__.py
+    # Ensure base src/ directory have __init__.py
     src_dir = destination_root_path / "src"
     src_dir.mkdir(parents=True, exist_ok=True)
     (src_dir / "__init__.py").touch()
-    
-    utils_dir = src_dir / "utils"
-    utils_dir.mkdir(parents=True, exist_ok=True)
-    (utils_dir / "__init__.py").touch()
 
     file_map = [
         (src_root / "runtime" / "base_test.py.template",       destination_root_path / "src" / "runtime"),

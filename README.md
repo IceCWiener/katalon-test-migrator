@@ -46,7 +46,6 @@ The generated project in `destination_root` will contain:
 - `src/tests/`: translated pytest test modules
 - `src/object_repository/`: converted object repository (JSON format)
 - `src/profiles/global_variables.py`: generated global variable definitions
-- `src/utils/`: runtime helpers (base test, object/data lookup)
 - `data/`: copied data files
 - `pytest.ini`: pytest configuration
 - `requirements.txt`: runtime dependencies
