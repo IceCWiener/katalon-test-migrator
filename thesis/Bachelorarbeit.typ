@@ -177,14 +177,31 @@ Für den nächsten Ansatz wurde erst eine kleine Pipeline gebaut, die versuchte,
 
 == Architekturüberblick
 
-Die Migrationspipeline enthält viele kleine Module die zusammen Schritt für Schritt alle Inhalte transformieren. Zusammen ergeben sich fünf Kernfunktionen, die zusammen den kompletten Transformationsprozess abbilden. Der "Scanner & Parsing"-Schritt fungiert als Einstiegspunkt. Dabei scannt und extrahiert man alle Projektkomponenten wie Test Cases, Object Repository, Variablen und Testdaten systematisch aus dem alten Projekt. Dann der "Transpilations"-Schritt, mit der Aufgabe Regex-basierte Leseregeln auf den Groovy-Syntax anzuwenden und den ursprünglichen Code schrittweise zu erkennen und zu übersetzen. Eng verzahnt damit, passiert währenddessen das Mapping und die Validation, um Katalon-Datentypen auf ihre Python-Äquivalente abzubilden und gleichzeitig die Integrität aller Transformationen zu validieren. Danach folgt die Code-Generierung. Hier wird aus den transformierten Strukturen, gültiger Selenium-Pytest-Code der unmittelbar ausführbar ist generiert. Als letztes kommt der kombinierende "Project Assembly"-Schritt, der alle generierten Dateien in eine korrekte und wartbare Selenium/Pytest-Projektstruktur schreibt. Diese Pipeline-Architektur gewährleistet, dass alle wichtigen Element eines Katalon-Projektes systematisch, nachvollziehbar und wartbar transformiert werden.
+Die Migrationspipeline enthält viele kleine Module die zusammen Schritt für Schritt alle Inhalte transformieren. Zusammen ergeben sich fünf Kernfunktionen, die zusammen den kompletten Transformationsprozess abbilden. Der "Scanner & Parsing"-Schritt fungiert als Einstiegspunkt. Dabei scannt und extrahiert man alle Projektkomponenten wie Test Cases, Object Repository, Variablen und Testdaten systematisch aus dem alten Projekt. Dann der "Transpilations"-Schritt, mit der Aufgabe Regex-basierte Leseregeln auf den Groovy-Syntax anzuwenden und den ursprünglichen Code schrittweise zu erkennen und zu übersetzen. Eng verzahnt damit, passiert währenddessen das Mapping und die Validation, um Katalon-Datentypen auf ihre Python-Äquivalente abzubilden und gleichzeitig die Integrität aller Transformationen zu validieren. Danach folgt die Code-Generierung. Hier wird aus den transformierten Strukturen, gültiger Selenium-Pytest-Code der unmittelbar ausführbar ist generiert. Als letztes kommt der kombinierende zusammenführende Schritt, der alle generierten Dateien in eine korrekte und wartbare Selenium/Pytest-Projektstruktur schreibt. Diese Pipeline-Architektur gewährleistet, dass alle wichtigen Element eines Katalon-Projektes systematisch, nachvollziehbar und wartbar transformiert werden.
 
 == Transformationsablauf
+
+=== Strukturelle Transformation: Projektlayout
+
+Die hierarchische Katalon-Struktur wird in eine flache, standardisierte Python-Struktur transformiert:
+```
+Katalon Struktur:        →  Selenium/Pytest Struktur:
+├── Tests/               →  src/tests/
+├── Object Repository/   →  tests/locators/
+├── Profiles/            →  tests/config/
+└── Data Files/          →  tests/data/
+```
+
+=== Semantische Transformation: Katalon Objects zu Selenium Locators
+Das Katalon @object-repository speichert Testobjekte als XML-Strukturen mit verschachtelten Eigenschaften. Diese werden in "@locator"-Strategien für Selenium überführt:
+
+- Katalon Properties (id, name, xpath, css) → Selenium By-Strategien (`By.ID`, `By.XPATH`, `By.CSS_SELECTOR`)
+- Mehrschichtige Objekthierarchien → Flache Locator-Listen mit Parent-Child-Referenzen
+- Dynamische Property-Substitution → Runtime Variable Substitution in Pytest Fixtures
+
 === Syntaktische Transformation: Groovy zu Python
 
-Die Groovy-Syntax wird durch Regex-Pattern-Matching in Python-Syntax überführt. Aus der Implementierung ergeben sich folgende Transformationen:
-
-*Beispiel 1: WebUI-Methodenaufrufe*
+Die Groovy-Syntax wird durch Regex-Pattern-Matching in Python-Syntax überführt. Aus der Implementierung ergeben sich beispielsweise folgende Transformationen:
 
 Katalon (Groovy):
 ```groovy
@@ -203,28 +220,12 @@ kh.find_katalon_test_object(self.driver, 'All_Users/search_input').send_keys(var
 assert GlobalVariable.USER4NAME in self.driver.page_source
 ```
 
+Das Folgende Diagramm stellt diesen Ablauf detaillierter dar:
+
 #figure(
-  image("diag/transpile_flow_v3.svg", width: 100%),
+  image("diag/transpile_flow_v4_1.png", width: 100%),
   caption: [Aktivitätsdiagramm der Transpilation: Transformationspfad eines Katalon-Tests zu einem Python-Pytest-Test.],
 ) <fig-transpile-flow>
-
-=== Semantische Transformation: Katalon Objects zu Selenium Locators
-Das Katalon @object-repository speichert Testobjekte als XML-Strukturen mit verschachtelten Eigenschaften. Diese werden in "@locator"-Strategien für Selenium überführt:
-
-- Katalon Properties (id, name, xpath, css) → Selenium By-Strategien (`By.ID`, `By.XPATH`, `By.CSS_SELECTOR`)
-- Mehrschichtige Objekthierarchien → Flache Locator-Listen mit Parent-Child-Referenzen
-- Dynamische Property-Substitution → Runtime Variable Substitution in Pytest Fixtures
-
-=== Strukturelle Transformation: Projektlayout
-Die hierarchische Katalon-Struktur wird in eine flache, standardisierte Python-Struktur transformiert:
-
-```
-Katalon Structure:        →  Selenium/Pytest Structure:
-├── Tests/               →  tests/
-├── Object Repository/   →  tests/locators/
-├── Profiles/            →  tests/config/
-└── Data Files/          →  tests/data/
-```
 
 == Regex-basierte Transformation
 
