@@ -236,15 +236,25 @@ class TestAssembler:
             print(f"[{method_name}] is an unknown testmethod")
         return result
 
+    """
+    This method checks if a method with the given name exists in the class and executes it with the provided parameters.
+    """
     def check_param_amount_and_execute(self, method_name, test_path, *method_params):
+        # 1. Prüfe: Existiert eine Methode mit diesem Namen in der Klasse?
         if hasattr(self, method_name):
+            # 2. Hole die Methode als Objekt
             method_to_execute = getattr(self, method_name)
+            # 3. Prüfe: Gibt es Parameter und ist der erste nicht None?
             if method_params and (method_params[0] != None):
+                # 4. Transformiere die Parameter (z.B. findTestObject → kh.find_katalon_test_object)
                 method_params = self.check_params_for_specialties(method_params, test_path)
+                # 5. Führe die Methode MIT transformierten Parametern aus
                 method_to_execute(*method_params)
             else:
+                # 5b. Oder: Führe die Methode OHNE Parameter aus
                 method_to_execute()
         else:
+            # Fehler: Methode nicht implementiert
             print(f"Method declaration for {method_name} is missing in TestAssembler.py!")
 
     def check_params_for_specialties(self, params: tuple[str], test_path: str) -> list[str]:

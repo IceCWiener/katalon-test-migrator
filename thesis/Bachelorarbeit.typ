@@ -188,7 +188,6 @@ Die Groovy-Syntax wird durch Regex-Pattern-Matching in Python-Syntax überführt
 
 Katalon (Groovy):
 ```groovy
-WebUI.callTestCase(findTestCase('Util/login'), [:], FailureHandling.STOP_ON_FAILURE)
 WebUI.verifyTextPresent('View All Users', false)
 WebUI.click(findTestObject('All_Users/view_all_users_btn'))
 WebUI.setText(findTestObject('All_Users/search_input'), david)
@@ -197,7 +196,6 @@ WebUI.verifyTextPresent(GlobalVariable.user4name, false)
 
 Generierter Python-Code:
 ```python
-# findTestCase('Util/login')[:]FailureHandling.STOP_ON_FAILURE
 assert 'View All Users' in self.driver.page_source
 kh.find_katalon_test_object(self.driver, 'All_Users/view_all_users_btn').click()
 kh.find_katalon_test_object(self.driver, 'All_Users/search_input').clear()
@@ -205,7 +203,10 @@ kh.find_katalon_test_object(self.driver, 'All_Users/search_input').send_keys(var
 assert GlobalVariable.USER4NAME in self.driver.page_source
 ```
 
-// Hier Bild mit Tests einfügen
+#figure(
+  image("diag/transpile_flow_v3.svg", width: 100%),
+  caption: [Aktivitätsdiagramm der Transpilation: Transformationspfad eines Katalon-Tests zu einem Python-Pytest-Test.],
+) <fig-transpile-flow>
 
 === Semantische Transformation: Katalon Objects zu Selenium Locators
 Das Katalon @object-repository speichert Testobjekte als XML-Strukturen mit verschachtelten Eigenschaften. Diese werden in "@locator"-Strategien für Selenium überführt:
@@ -235,6 +236,27 @@ Replacement: selenium_action("$1", locator="$2", args=$3)
 ```
 
 Dies transformiert `WebUI.click(testObject, [timeout: 3])` zu einer äquivalenten Python-Selenium-Aufrufen, die über eine Wrapper-Funktion abstrahiert werden.
+
+#figure(
+  table(
+    columns: (auto, 2fr, 3fr, 2fr),
+    inset: 8pt,
+    align: (center, left, left, left),
+    stroke: 0.5pt,
+    fill: (x, y) => if y == 0 { rgb("#e8f4f8") },
+    [*\#*], [*Pattern Name*], [*Regex*], [*Zweck*],
+    [1], [`comment_pattern`], [`/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/`], [Block-Kommentare entfernen],
+    [2], [`private_method_pat`], [`private void .*{\n[\s\w.\(\)=\"\,'\/\[+@\-\]\\;\<{}]*\n}`], [Private Methoden extrahieren],
+    [3], [`katalon_lines_pattern`], [`\/\*|\/\/.+|\/\*.+|WebUI.+\n.+|WebUI.+|CustomKeywords.*`], [Relevante Zeilen filtern],
+    [4], [`katalon_code_pattern`], [`(\w+)\.(\w+)\((.*)\)`], [Teilt Code in Klasse, Methode, Parameter],
+    [5], [`param_pattern`], [`,\s+(?=false)|(?!\]),\s(?=Fail.*)|(?<![a-zA-Z]),\s(?!\s)(?![a-zA-Z])|,\s(?=null)|,\s+(?=\[)`], [Parameter-Liste splitten],
+    [6], [`fto_param_str_pattern`], [`(findTestObject\(.*\))(?=,)`], [findTestObject-Methode&Parameter erkennen],
+    [7], [`ftd_param_str_pattern`], [`(findTestData\(.*\))(?=,)`], [findTestData-Methode&Parameter erkennen],
+    [8], [`GlobalVariable pattern`], [`GlobalVariable\.([A-Za-z_][A-Za-z0-9_]*)`], [Global Variablen normalisieren],
+    [9], [`abn_test_pat`], [`String\s\w+\s=|if\(|TestObject\s\w+\s=`], [Custom Code erkennen],
+  ),
+  caption: [Übersicht der Regex-Pattern im Transpilationsprozess],
+) <table-regex>
 
 == Datenfluss durch die Pipeline
 
@@ -382,7 +404,7 @@ Der Migrations-Prozess läuft durch 7 sequenzielle Phasen:
 - Parse jeden `.groovy`-Test mit Regex-Patterns
 - Extrahiere WebUI-Methodenaufrufe (z.B. `WebUI.click(...)`)
 - Identifiziere Test-Objekt-Referenzen und Variablen
-- Kennzeichne nicht-übersetzbare Tests (z.B. mit Handwritten-Code)
+- Kennzeichne nicht-übersetzbare Tests (z.B. mit Cutsom Code)
 
 *Phase 3 — Code Assembly* (test_assembler.py)
 - Assembliere TransPilot-Ausgaben in vollständige Python-Klassen
@@ -584,7 +606,7 @@ Diese Module werden ins Ziel-Projekt kopiert und sind Runtime-Abhängigkeiten.
 
 Das Tool implementiert mehrere Validierungsebenen:
 
-1. *Transpilation-Fehler*: Tests mit Handwritten-Code (z.B. `if`-Statements, String-Variablen-Deklarationen) werden als "not automatically translateable" gekennzeichnet und in `src/unreadable_tests/` geschrieben
+1. *Transpilation-Fehler*: Tests mit Custom Code (z.B. `if`-Statements, String-Variablen-Deklarationen) werden als "not automatically translateable" gekennzeichnet und in `src/unreadable_tests/` geschrieben
 
 2. *Referenz-Validierung*: `check_params_for_specialties()` validiert dass:
    - Alle `findTestObject('...')` Referenzen im Object Repository existieren

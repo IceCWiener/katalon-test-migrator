@@ -2,14 +2,32 @@ import re
 from src.pipeline.test_assembler import TestAssembler
 
 
-def read_file(groovy_file_path: str) -> str:
-    """Read Groovy test file content."""
-    with open(groovy_file_path, "r", encoding='utf-8') as file:
-        content = file.read()
-    return content
+def process_katalon_test(katalon_test_path: str):
+    """
+    Main processing function. Converts a Katalon Groovy test file
+    to a Python Pytest test file.
+    
+    Args:
+        katalon_test_path: Path to Katalon .groovy test file
+        
+    Returns:
+        Tuple of (python_content, error_message)
+    """
+    error_content = ""
+    abn_test_pat = r"String\s\w+\s=|if\(|TestObject\s\w+\s="
+
+    test_name = get_katalon_test_name(katalon_test_path)
+    katalon_test = read_file(katalon_test_path)
+    content: str = transpile_katalon_test(katalon_test, test_name, katalon_test_path)
+
+    # Label erroneous or handwritten abnormal tests
+    if re.search(abn_test_pat, katalon_test) or content.startswith("ERROR"):
+        error_content = "ERROR: This test is not automatically translateable because it has handwritten features. Origin: " + katalon_test_path + "\n\n\n" + katalon_test
+    
+    return content, error_content
 
 
-def parse_katalon_test(katalon_test: str, test_name: str, test_path: str) -> str:
+def transpile_katalon_test(katalon_test: str, test_name: str, test_path: str) -> str:
     """
     Parse Katalon Groovy test code and transpile to Python Pytest.
     
@@ -19,7 +37,7 @@ def parse_katalon_test(katalon_test: str, test_name: str, test_path: str) -> str
     assembler = TestAssembler(test_name, test_path)
     
     comment_pattern = "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/"
-    default_katalon_lines_pattern = r'\/\*|\/\/.+|\/\*.+|WebUI.+\n.+|WebUI.+|CustomKeywords.*'
+    katalon_lines_pattern = r'\/\*|\/\/.+|\/\*.+|WebUI.+\n.+|WebUI.+|CustomKeywords.*'
     
     # Extract and preserve custom methods
     private_method_pat = r"private void .*{\n[\s\w.\(\)=\"\,'\/\[+@\-\]\\;\<{}]*\n}"
@@ -36,7 +54,7 @@ def parse_katalon_test(katalon_test: str, test_name: str, test_path: str) -> str
     # Clean and parse test
     katalon_test = re.sub(private_method_pat, "", katalon_test)
     katalon_test = re.sub(comment_pattern, "", katalon_test)
-    content_lines = re.findall(default_katalon_lines_pattern, katalon_test)
+    content_lines = re.findall(katalon_lines_pattern, katalon_test)
     
     for line in content_lines:
         method_name = assembler.filterTestMethod(line.strip(), "WebUI.")
@@ -68,6 +86,13 @@ def get_katalon_test_name(test: str) -> str:
     return name
 
 
+def read_file(groovy_file_path: str) -> str:
+    """Read Groovy test file content."""
+    with open(groovy_file_path, "r", encoding='utf-8') as file:
+        content = file.read()
+    return content
+
+
 def cast_parameter(param):
     """Cast numeric string parameters to int or float."""
     if re.match(r"\d+\.", param):
@@ -75,28 +100,3 @@ def cast_parameter(param):
     elif param == '':
         param = None
     return param
-
-
-def process_katalon_test(katalon_test_path: str):
-    """
-    Main translation function. Converts a Katalon Groovy test file
-    to a Python Pytest test file.
-    
-    Args:
-        katalon_test_path: Path to Katalon .groovy test file
-        
-    Returns:
-        Tuple of (python_content, error_message)
-    """
-    error_content = ""
-    abn_test_pat = r"String\s\w+\s=|if\(|TestObject\s\w+\s="
-
-    test_name = get_katalon_test_name(katalon_test_path)
-    katalon_test = read_file(katalon_test_path)
-    content: str = parse_katalon_test(katalon_test, test_name, katalon_test_path)
-
-    # Label erroneous or handwritten abnormal tests
-    if re.search(abn_test_pat, katalon_test) or content.startswith("ERROR"):
-        error_content = "ERROR: This test is not automatically translateable because it has handwritten features. Origin: " + katalon_test_path + "\n\n\n" + katalon_test
-    
-    return content, error_content

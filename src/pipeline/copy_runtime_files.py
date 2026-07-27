@@ -73,8 +73,8 @@ def copy_runtime_files(destination_root: str) -> None:
     (utils_dir / "__init__.py").touch()
 
     file_map = [
-        (src_root / "runtime" / "base_test.py",       destination_root_path / "src" / "runtime"),
-        (src_root / "runtime" / "katalon_helpers.py", destination_root_path / "src" / "runtime"),
+        (src_root / "runtime" / "base_test.py.template",       destination_root_path / "src" / "runtime"),
+        (src_root / "runtime" / "katalon_helpers.py.template", destination_root_path / "src" / "runtime"),
     ]
 
     copied_count = 0
@@ -83,7 +83,7 @@ def copy_runtime_files(destination_root: str) -> None:
             print(f"Warning: source file not found: {src_file}")
             continue
         dest_folder.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src_file, dest_folder / src_file.name)
+        shutil.copy2(src_file, dest_folder / src_file.name.removesuffix(".template"))
         copied_count += 1
         init_file = dest_folder / "__init__.py"
         if not init_file.exists():
