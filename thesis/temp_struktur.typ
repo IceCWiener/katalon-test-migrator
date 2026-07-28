@@ -42,43 +42,6 @@ graph TD
 
 Das Diagramm verdeutlicht: Einfache Tests durchlaufen den vollständigen Transformationspfad. Komplexe Tests, die mit Regex-Pattern nicht zu erfassen sind, werden in ein separates Verzeichnis geschrieben und können später manuell überprüft oder angepasst werden.
 
-= Implementierung des Prototyps
-
-Die Implementierung des Migrations-Werkzeugs erfolgte in Python und nutzt eine streng modularisierte Architektur, die zwischen *Build-Time* (Migrations-Pipeline) und *Runtime* (Ziel-Projektdateien) unterscheidet. Diese Trennung ermöglicht Wartbarkeit, Testbarkeit und einfache Erweiterung.
-
-
-== Refaktorierte Projektstruktur
-
-Das Tool ist in folgende logische Schichten unterteilt:
-
-```
-src/
-├── pipeline/                       # Build-Time: Migrations-Pipeline
-│   ├── test_suite_translator.py    # Orchestrierung: Scannt Katalon Scripts
-│   ├── test_transpiler.py          # Groovy→Python Transpilation
-│   ├── test_assembler.py           # Pytest Code-Generierung
-│   ├── object_repo_converter.py    # Object Repository XML→JSON Konvertierung
-│   ├── global_vars_generator.py   # Global Variables Profile Generator
-│   ├── variables_extractor.py      # Test Case Variables → Python
-│   ├── copy_runtime_files.py       # Runtime-Dateien kopieren + Config erzeugen
-│   └── __init__.py
-│
-├── runtime/                        # Runtime: Wird ins Ziel-Projekt KOPIERT
-│   ├── base_test.py               # Selenium WebDriver Base Class
-│   ├── katalon_helpers.py         # Katalon-kompatible WebDriver-Helfer
-│   └── __init__.py
-│
-└── utils/                          # Build-Time Utilities
-    ├── file_utils.py              # Datei-Operationen + Variable-Extraktion
-    ├── string_utils.py            # Identifier-Normalisierung
-    ├── xml_utils.py               # Generische XML↔JSON Konvertierung
-    └── __init__.py
-```
-
-Diese Struktur trennt eindeutig:
-- pipeline/: Transformation (läuft nur während Migration)
-- runtime/: Abhängigkeiten (werden ins Ziel-Projekt kopiert)
-- utils/: Gemeinsame Build-Time-Utilities
 
 Das folgende Diagramm zeigt die Datenfluss-Abhängigkeiten zwischen den 7 Pipeline-Modulen:
 

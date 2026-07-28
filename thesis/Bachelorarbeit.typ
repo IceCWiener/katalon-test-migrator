@@ -179,11 +179,108 @@ Für den nächsten Ansatz wurde erst eine kleine Pipeline gebaut, die versuchte,
 
 Die Migrationspipeline enthält viele kleine Module die zusammen Schritt für Schritt alle Inhalte transformieren. Zusammen ergeben sich fünf Kernfunktionen, die zusammen den kompletten Transformationsprozess abbilden. Der "Scanner & Parsing"-Schritt fungiert als Einstiegspunkt. Dabei scannt und extrahiert man alle Projektkomponenten wie Test Cases, Object Repository, Variablen und Testdaten systematisch aus dem alten Projekt. Dann der "Transpilations"-Schritt, mit der Aufgabe Regex-basierte Leseregeln auf den Groovy-Syntax anzuwenden und den ursprünglichen Code schrittweise zu erkennen und zu übersetzen. Eng verzahnt damit, passiert währenddessen das Mapping und die Validation, um Katalon-Datentypen auf ihre Python-Äquivalente abzubilden und gleichzeitig die Integrität aller Transformationen zu validieren. Danach folgt die Code-Generierung. Hier wird aus den transformierten Strukturen, gültiger Selenium-Pytest-Code der unmittelbar ausführbar ist generiert. Als letztes kommt der kombinierende zusammenführende Schritt, der alle generierten Dateien in eine korrekte und wartbare Selenium/Pytest-Projektstruktur schreibt. Diese Pipeline-Architektur gewährleistet, dass alle wichtigen Element eines Katalon-Projektes systematisch, nachvollziehbar und wartbar transformiert werden.
 
+Die Implementierung des Migrations-Werkzeugs erfolgte in Python und nutzt eine streng modularisierte Architektur, die zwischen @build-time (Migrations-Pipeline) und @runtime (Ziel-Projektdateien) unterscheidet. 
+
+=== Projektstruktur
+
+Das Projekt ist in folgende logische Orndnerstruktur unterteilt:
+#figure(
+    ```
+    src/
+    ├── pipeline/                       # Build-Time: Migrations-Pipeline
+    │   ├── test_suite_translator.py    # Orchestrierung: Scannt Katalon Scripte
+    │   ├── test_transpiler.py          # Groovy zu Python Transpilation
+    │   ├── test_assembler.py           # Pytest Code-Generierung
+    │   ├── object_repo_converter.py    # Object Repository XML zu JSON Konvertierung
+    │   ├── global_vars_generator.py   # Global Variables Profile Generator
+    │   ├── variables_extractor.py      # Test Case Variables zu Python
+    │   ├── copy_runtime_files.py       # Runtime-Dateien kopieren + Config erzeugen
+    │   └── __init__.py
+    │
+    ├── runtime/                        # Runtime: Wird ins Ziel-Projekt kopiert
+    │   ├── base_test.py               # Selenium WebDriver Base Class
+    │   ├── katalon_helpers.py         # Katalon-kompatible WebDriver-Helfer
+    │   └── __init__.py
+    │
+    └── utils/                          # Build-Time Utilities
+        ├── file_utils.py              # Datei-Operationen + Variable-Extraktion
+        ├── string_utils.py            # Identifier-Normalisierung
+        ├── xml_utils.py               # Generische XML zu JSON Konvertierung
+        └── __init__.py
+    ```,
+    caption: [ASCII-Baumdiagramm der Ordnerstruktur des Migrationstools.],
+)<fig-migrator-structure>
+
+Die Struktur trennt klare Verantwortungen: Die pipeline führt die gesamte Transformation während der @build-time durch, @runtime bündelt die ins Ziel-Projekt zu kopierenden Abhängigkeiten, und utils stellt gemeinsame Hilfsfunktionen bereit.
+
 == Transformationsablauf
 
 === Strukturelle Transformation: Projektlayout
 
-Die hierarchische Katalon-Struktur wird in eine flache, standardisierte Python-Struktur transformiert:
+Die hierarchische Katalon-Struktur wird in eine flache, standardisierte Python-Struktur transformiert. Um die Komplexität dieser Transformation nachvollziehen zu können, wird zunächst die tatsächliche Katalon-Struktur dargestellt:
+
+#figure(
+  ```
+  sample-website-katalon-tests/
+  │
+  ├── Test Cases/                           ← Katalon IDE zeigt diese Ansicht
+  │   ├── Users/
+  │   │   ├── filter_for_admins.tc         ← .tc = XML Meta-Datei (Beschreibung, Variable)
+  │   │   ├── search_for_david_kim.tc      ← KEINE Testlogik enthalten!
+  │   │   └── show_active_viewers.tc
+  │   └── Menus/
+  │       └── navigation_bar.tc
+  │
+  ├── Scripts/                              ← Echte Testlogik (außer IDE verborgen)
+  │   ├── Users/
+  │   │   ├── filter_for_admins/
+  │   │   │   └── Script1781348815820.groovy  ← Zufällige Nummer! (!)
+  │   │   ├── search_for_david_kim/
+  │   │   │   └── Script1781447000826.groovy  ← Entspricht search_for_david_kim.tc
+  │   │   └── show_active_viewers/
+  │   │       └── Script...groovy
+  │   └── Menus/
+  │       └── navigation_bar/
+  │           └── Script...groovy
+  │
+  ├── Object Repository/                   ← Lokalisierungsstrategien (Selektoren)
+  │   ├── All_Users/
+  │   │   ├── view_all_users_btn.rs        ← .rs = XML Objekt (XPath, CSS, ID...)
+  │   │   ├── search_input.rs
+  │   │   ├── roles_dropdown.rs
+  │   │   ├── status_dropdown.rs
+  │   │   ├── user_row.rs
+  │   │   └── user_row_view_btn.rs
+  │   └── Nav_Bar/
+  │       └── ...weitere Test Objects
+  │
+  ├── Profiles/                            ← Globale Variablen nach Umgebung
+  │   └── default.glbl                     ← .glbl = XML (GlobalVariableEntity Einträge)
+  │
+  ├── Data Files/                          ← Externe Testdaten-Referenzen
+  │   └── users.dat                        ← .dat = XML Meta (verweist auf echte Datei)
+  │
+  ├── Keywords/                            ← Custom Methoden/Helper
+  │   ├── data/
+  │   └── TESTER.groovy                    ← Groovy Klasse mit eigenen Methoden
+  │
+  ├── Libs/
+  │   └── CustomKeywords.groovy            ← Statische Weiterleitungen zu Keywords
+  │
+  └── Plugins/, Test Listeners/, ...
+  ```,
+  caption: [Katalon-Projektstruktur: Komplexe Verschachtelung und Format-Vielfalt (.tc, .groovy, .rs, .glbl, .dat, .xml)],
+)<fig-katalon-input-structure>
+
+Diese Struktur zeigt die Komplexität, die eine Migration bewältigen muss:
+
+- *Format-Vielfalt*: .tc, .groovy, .rs, .glbl, .dat — alle XML-basiert
+- *Verstreute Information*: Testlogik in Scripts/, Metadaten in Test Cases/, separate Ordner für alle Assets
+- *Indirekte Referenzen*: Test Cases-Pfad muss in Scripts gespiegelt werden (Scripts/Users/filter_for_admins/Script1781348815820.groovy entspricht Test Cases/Users/filter_for_admins.tc)
+- *Zufällige Nummern*: Script-Dateien haben keine vorhersagbaren Namen (Script1781348815820)
+
+Danach wird diese komplexe Struktur in eine flache, standardisierte Python-Struktur transformiert:
+
 ```
 Katalon Struktur:        →  Selenium/Pytest Struktur:
 ├── Tests/               →  src/tests/
@@ -227,16 +324,38 @@ Das Folgende Diagramm stellt diesen Ablauf detaillierter dar:
   caption: [Aktivitätsdiagramm der Transpilation: Transformationspfad eines Katalon-Tests zu einem Python-Pytest-Test.],
 ) <fig-transpile-flow>
 
-== Regex-basierte Transformation
+==== Regex-basierte Transformation
 
-Das Werkzeug nutzt "@regex[s]" zur Transformation von "@groovy"-Syntax. Ein Beispiel-Pattern für Katalon WebUI-Befehle:
+Der Migrator nutzt "@regex[s]" zum Erkennen von "@groovy"-Syntax. Nach Friedl wird @regex als „_a language used to describe patterns within text_" definiert, also einer Sprache mit der Muster in einem Text beschrieben werden können@friedl2006regex. Ein @match ist dabei eine erfolgreiche Übereinstimmung: Wenn das Muster einen Teil des Textes findet, der der Regel entspricht, wird dieser als Match bezeichnet.
+Im Kontext dieser Migration dienen @regex Muster dazu, Groovy-Code zu identifizieren und ihn in seine Einzelteile zu zerlegen um diese wieder in Python-Äquivalente zu übersetzen.
+
+Ein vereinfachtes Beispiel: Um alle Aufrufe der Katalon-Methode `WebUI.click(...)` zu erkennen, wird ein Muster wie folgt definiert:
 
 ```
-Pattern:   WebUI\.(\w+)\(([^,]+),\s*(.+?)\)
-Replacement: selenium_action("$1", locator="$2", args=$3)
+Muster:    WebUI\.click\((.*?)\)
+Ersatz:    {$1}.click()
 ```
 
-Dies transformiert `WebUI.click(testObject, [timeout: 3])` zu einer äquivalenten Python-Selenium-Aufrufen, die über eine Wrapper-Funktion abstrahiert werden.
+Dieser Ausdruck sucht nach dem Text "WebUI.click", gefolgt von beliebigem Inhalt in Klammern, und ersetzt ihn durch den Inhalt der Klammern mit der Python-Methode `.click()`. Dadurch wird `WebUI.click(findTestObject('btn'))` zu `{find_katalon_test_object('btn')}.click()` transformiert.
+
+Zur Veranschaulichung folgen Bilder, die den Ablauf des Parsens der "findTestObject"-Methode zeigen. Dabei wird regex101.com verwendet, um die Muster anschaulicher darzustellen.
+
+#figure(
+    image("img/Regex/split_katalon_lines_vert.png", width: 100%),
+    caption: [Durch das `katalon_lines_pattern`-Muster werden aus einem Block aus Katalon Zeilen, drei getrennte Regex-Matches mit jeweils drei Gruppen für Klasse, Methode und Parameter extrahiert.],
+)<fig-split-katalon-lines>
+
+#figure(
+    image("img/Regex/get_fto_as_param_vert.png", width: 100%),
+    caption: [Das `fto_as_param_pat`-Muster erkennt in der Parsing-Phase die findTestObject()-Methode als ersten Parameter, falls ein Komma folgt und ermöglicht es diese zu trennen.],
+)<fig-get-fto-as-param>
+
+#figure(
+    image("img/Regex/get_fto_vert.png", width: 100%),
+    caption: [Das `fto_param_str_pattern`-Muster extrahiert die findTestObject()-Methode mit dem String-Argument, das für die Transformation benötigt wird.],
+)<fig-get-fto>
+
+Die folgende Tabelle zeigt die wichtigsten @regex Muster, die im Transpilationsprozess zum Einsatz kommen:
 
 #figure(
   table(
@@ -250,12 +369,16 @@ Dies transformiert `WebUI.click(testObject, [timeout: 3])` zu einer äquivalente
     [2], [`private_method_pat`], [`private void .*{\n[\s\w.\(\)=\"\,'\/\[+@\-\]\\;\<{}]*\n}`], [Private Methoden extrahieren],
     [3], [`katalon_lines_pattern`], [`\/\*|\/\/.+|\/\*.+|WebUI.+\n.+|WebUI.+|CustomKeywords.*`], [Relevante Zeilen filtern],
     [4], [`katalon_code_pattern`], [`(\w+)\.(\w+)\((.*)\)`], [Teilt Code in Klasse, Methode, Parameter],
-    [5], [`param_pattern`], [`,\s+(?=false)|(?!\]),\s(?=Fail.*)|(?<![a-zA-Z]),\s(?!\s)(?![a-zA-Z])|,\s(?=null)|,\s+(?=\[)`], [Parameter-Liste splitten],
-    [6], [`fto_param_str_pattern`], [`(findTestObject\(.*\))(?=,)`], [findTestObject-Methode&Parameter erkennen],
-    [7], [`ftd_param_str_pattern`], [`(findTestData\(.*\))(?=,)`], [findTestData-Methode&Parameter erkennen],
-    [8], [`GlobalVariable pattern`], [`GlobalVariable\.([A-Za-z_][A-Za-z0-9_]*)`], [Global Variablen normalisieren],
-    [9], [`abn_test_pat`], [`String\s\w+\s=|if\(|TestObject\s\w+\s=`], [Custom Code erkennen],
+    [5], [`fto_as_param_pat`], [`(findTestObject\(.*\))(?=,)`], [Erkennt findTestObject() als _erster_ Parameter mit Lookahead auf folgendes Komma],
+    [6], [`ftd_as_param_pat`], [`(findTestData\(.*\))(?=,)`], [Erkennt findTestData() als _erster_ Parameter mit Lookahead auf folgendes Komma],
+    [7], [`param_pattern`], [`,\s+(?=false)|(?!\]),\s(?=Fail.*)|(?<![a-zA-Z]),\s(?!\s)(?![a-zA-Z])|,\s(?=null)|,\s+(?=\[)`], [Parameter teilen, wenn mehrere vorhanden],
+    [8], [`fto_param_str_pattern`], [`(findTestObject\(('.+').*\))`], [Extrahiert findTestObject() mit String-Argument zur Transformation],
+    [9], [`ftd_param_str_pattern`], [`findTestData\(('.+').*\)\.getValue\((.+)\))`], [Extrahiert findTestData() mit String und getValue()-Argument],
+    [10], [`GlobalVariable pattern`], [`GlobalVariable\.([A-Za-z_][A-Za-z0-9_]*)`], [Global Variablen normalisieren],
+    [11], [`abn_test_pat`], [`String\s\w+\s=|if\(|TestObject\s\w+\s=`], [Custom Code erkennen],
   ),
-  caption: [Übersicht der Regex-Pattern im Transpilationsprozess],
+  caption: [Übersicht der @regex Muster im Transpilationsprozess],
 ) <table-regex>
+
+
 

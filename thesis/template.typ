@@ -384,6 +384,16 @@
   ),
   // ── Fachbegriffe ────────────────────────────────────────────────
   (
+    key: "build-time",
+    short: "Build-Time",
+    description: "Der Prozessablauf während der Ausführung des Migrationswerkzeugs. Im Gegensatz zu Runtime (dem Zeitpunkt der Testausführung) finden alle Transformationen, Konvertierungen und Code-Generierung während der Build-Time statt. In diesem Projekt umfasst die Build-Time alle Pipeline-Module (test_suite_translator, test_transpiler, test_assembler, etc.), die ein Katalon-Projekt einmalig in ein Selenium/Pytest-Projekt konvertieren."
+  ),
+  (
+    key: "runtime",
+    short: "Runtime",
+    description: "Der Zeitpunkt der Ausführung der generierten Tests. Im Gegensatz zu Build-Time (während der Migration) werden während der Runtime die migrierten Selenium-Pytest-Tests tatsächlich ausgeführt. Die in src/runtime/ gespeicherten Dateien (base_test.py, katalon_helpers.py) werden während dieser Phase verwendet und sind nicht Bestandteil des Migrationsprozesses."
+  ),
+  (
     key: "object-repository",
     short: "Object Repository",
     description: "Eine zentrale Datenstruktur in Katalon Studio, die alle Test Objects (z. B. Schaltflächen, Eingabefelder) mit ihren Lokalisierungsstrategien speichert. Jedes Objekt enthält Eigenschaften wie XPath, CSS-Selektor oder ID, anhand derer Selenium das Element im DOM der Webanwendung identifiziert."
@@ -397,6 +407,11 @@
     key: "locator",
     short: "Locator",
     description: "Ein Ausdruck, mit dem Selenium ein HTML-Element auf einer Webseite identifiziert. Gängige Locator-Strategien sind ID, CSS-Selektor, XPath und Name. Katalon speichert Locatoren im Object Repository; bei der Migration werden sie in Selenium-kompatible By-Strategien überführt."
+  ),
+  (
+    key: "match",
+    short: "Match",
+    description: "Eine erfolgreiche Übereinstimmung eines Regular-Expression-Musters mit einem Teil des Eingabetextes. Wenn ein Regex-Muster einen Textbereich findet, der der definierten Regel entspricht, wird dieser erkannte Bereich als Match bezeichnet. Ein Match enthält typischerweise auch Capture Groups, die Teilinformationen des Musters speichern."
   ),
   (
     key: "webdriver",
