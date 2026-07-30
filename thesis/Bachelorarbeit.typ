@@ -107,6 +107,7 @@ Für das in dieser Arbeit beschriebene Projekt manifestierte sich dieses Problem
 
 = Strukturanalyse
 == Katalon Projektstruktur
+//TODO: Die Bilder sollten aus der Katalon Studio IDE stammen
 
 //TODO: OR markierer setzen, Beschreibung erweitern, Abbildung einfügen, Quellen für Katalon Studio und Katalon Test Suite Management, weitere Ordner beschreiben
 Ein Katalon Studio Projekt besteht, aus dem Blickwinkel des IDE-Benutzers aus Tests, einem "Object Repository", globalen Variablen in Profilen, testeigenen Variablen und eingebundenen Test-Daten. Diese werden in einer hierarchischen Ordnerstruktur gespeichert, die von der IDE verwaltet wird. 
@@ -121,11 +122,13 @@ Die Testskripte in Katalon sind in @groovy geschrieben, einer dynamischen Sprach
 ==== Object Repository
 
 Das @object-repository ist ein zentrales Element in der Katalon Umgebung, das das Speichern von "@ui"-Elementen ermöglicht. Es speichert die Eigenschaften von HTML-Elementen, die während der Testausführung verwendet werden. Dafür kann der Benutzer die Elemente mit einem Tool das Katalon Studio bereitstellt auf der Webseite auswählen und im Object Repository generieren lassen. Diese Elemente können in verschiedenen Tests wiederverwendet werden, was die Wartung und Skalierbarkeit der Tests erleichtert.
+//TODO: Bild des Object Repositories, Markierungen für Glossar hinzufügen
 
 ==== Globale Variablen & Profile
 
-Jede/r User/in kann in Katalon eigene globale Variablen definieren, die in verschiedenen Test Cases verwendet werden können. Diese Variablen werden in Profilen gespeichert, welche unterschiedliche Benutzende oder Umgebungen repräsentieren können. Profile ermöglichen es, Tests in verschiedenen Konfigurationen auszuführen, ohne den Testcode selbst ändern zu müssen.
-Hat ein Profil die Variable "URL" mit dem Wert "https://staging.example.com" und ein anderes Profil die gleiche Variable mit dem Wert "https://production.example.com", kann der Test in beiden Umgebungen ausgeführt werden, indem einfach das entsprechende Profil ausgewählt wird.
+//TODO: Markierungen und Eintrag für Test Cases im Glossar hinzufügen, Bild der Profile einfügen
+Die User können in Katalon eigene globale Variablen definieren, die in verschiedenen Test Cases verwendet werden können. Diese Variablen werden in Profilen gespeichert, welche unterschiedliche Benutzende oder Umgebungen repräsentieren können. Profile ermöglichen es, Tests in verschiedenen Konfigurationen auszuführen, ohne den Testcode selbst ändern zu müssen.
+Hat ein Profil zum Beispiel die Variable "URL" mit dem Wert `https://staging.example.com` und ein anderes Profil die gleiche Variable mit dem Wert `https://production.example.com`, kann der Test in beiden Umgebungen ausgeführt werden, indem einfach das entsprechende Profil ausgewählt wird.
 
 ==== Testdaten & Einbindung
 
