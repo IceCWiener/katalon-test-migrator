@@ -603,7 +603,7 @@ Die automatisierte Migration des Beispielprojekts dauerte unter einer Sekunde. Z
 - Übersetzen von 5 Groovy-Testskripten nach Python (ca. 30–60 Minuten pro Test)
 - Manuelles Konvertieren von 9 XML-Objektdateien in lesbare Selenium-Locator-Definitionen
 - Extrahieren der GlobalVariables aus der .glbl-Datei und Erstellen einer Python-Klasse
-- Aufsetzen der Projektstruktur (pytest.ini, requirements.txt, Ordner, __init__.py-Dateien)
+- Aufsetzen der Projektstruktur (pytest.ini, requirements.txt, Ordner, init.py-Dateien)
 
 Der geschätzte manuelle Aufwand liegt bei 8-12 Stunden für das Beispielprojekt. Mit wachsender Testanzahl skaliert der Migrator linear, während der manuelle Aufwand überproportional steigt, da Querbezüge (Variablen, Objekte, Daten) zunehmend komplex werden.
 
