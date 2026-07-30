@@ -25,6 +25,7 @@ def create_object_repository(source_root: str, destination_root: str) -> None:
             if file.endswith(".rs"):
                 source_file_path = os.path.join(dir_path, file)
                 new_file_path = os.path.join(output_path, os.path.relpath(source_file_path, input_path))
+                new_file_path = new_file_path.removesuffix(".rs") + ".json"
                 write_xml_to_json(source_file_path, new_file_path)
                 file_count += 1
 

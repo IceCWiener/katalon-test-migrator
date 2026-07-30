@@ -11,9 +11,9 @@ from selenium import webdriver
 def find_katalon_test_object(driver, path: str) -> WebElement:
     """Locate and return a WebElement from converted Katalon object repository."""
     if path.__contains__("object_repository") == False:
-        path = os.path.abspath('src/object_repository/' + path + '.rs')
+        path = os.path.abspath('src/object_repository/' + path + '.json')
     else:
-        path = os.path.abspath('src/' + path + '.rs')
+        path = os.path.abspath('src/' + path + '.json')
 
     with open(path, 'r') as f:
         json_content = f.read()
