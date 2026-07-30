@@ -1,4 +1,4 @@
-from src.pipeline.test_suite_translator import iterate_and_translate_test_cases
+from pipeline.test_script_scanner import iterate_and_translate_test_cases
 from src.pipeline.object_repo_converter import create_object_repository
 from src.pipeline.variables_extractor import create_variables_as_py
 from src.pipeline.global_vars_generator import create_global_variables_file

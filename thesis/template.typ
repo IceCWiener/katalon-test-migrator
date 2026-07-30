@@ -365,6 +365,11 @@
     description: "Ein Softwareentwicklungsprinzip, bei dem Code-Änderungen regelmäßig in ein gemeinsames Repository integriert und automatisch gebaut und getestet werden. Automatisierte Testsuiten sind ein zentrales Werkzeug im CI-Prozess."
   ),
   (
+    key: "compiler",
+    short: "Compiler",
+    description: "Ein Programm, das Quellcode einer Programmiersprache analysiert und auf Fehler prüft oder in eine andere Form überführt. In dieser Arbeit bezeichnet Compiler den statischen Typ-Analysator Pyright, der Python-Dateien vor der Ausführung auf Typ- und Importfehler untersucht."
+  ),
+  (
     key: "sut",
     short: "SUT",
     long: "System Under Test",
@@ -381,6 +386,11 @@
     short: "Regex",
     long: "Regular Expression",
     description: "Ein formaler Ausdruck zur Beschreibung von Zeichenketten-Mustern. In dieser Arbeit werden Regular Expressions zur Transformation von Groovy-Syntax in Python-Syntax eingesetzt."
+  ),
+  (
+    key: "repository",
+    short: "Repository",
+    description: "Ein versioniertes Archiv für Quellcode und zugehörige Dateien, typischerweise verwaltet mit einem Versionskontrollsystem wie Git. In dieser Arbeit bezeichnet Repository sowohl das Quell-Katalon-Projekt als auch das generierte Ziel-Selenium/Pytest-Projekt als eigenständige, versionierbare Einheiten."
   ),
   // ── Fachbegriffe ────────────────────────────────────────────────
   (

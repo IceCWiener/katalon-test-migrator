@@ -57,26 +57,44 @@ Die technische Herausforderung liegt nicht nur in der syntaktischen Konvertierun
 
 == Ziel & Aufbau der Arbeit 
 
-Das Ziel dieser Arbeit ist es, einen automatisierten Migrator zu entwerfen, zu implementieren und zu evaluieren, der Katalon-basierte Testprojekte in eine Python-Selenium/Pytest-Projektstruktur konvertiert.
+//TODO: Marlon nach Meinung fragen
+Das Ziel dieser Arbeit ist es, einen automatisierten Migrator zu entwerfen, /*zu implementieren und zu evaluieren,*/ der Katalon-basierte Testprojekte in eine Python-Selenium/Pytest-Projektstruktur konvertiert.
 
-Um dieses Ziel zu erreichen wird in dieser Arbeit zuerst werden die Struktur eines Katalon-Projektes und die eines Python-Selenium/Pytest-Projektes analysiert. Dann wird Stück für Stück ein Migrationsalgorithmus entworfen, der die proprietären Formate des einen in offen nutzbare Formate des anderen überführt. Anschließend wird ein Prototyp implementiert, der die Transformation automatisiert und die Integrität der Tests sicherstellt. Abschließend werden die Ergebnisse evaluiert und diskutiert, um die Effektivität des Migrationsprozesses zu bewerten.
+Um dieses Ziel zu erreichen wird in dieser Arbeit zuerst die Struktur eines Katalon-Projektes und die eines Python-Selenium/Pytest-Projektes analysiert. Dann wird Stück für Stück ein Migrationsalgorithmus entworfen, der die proprietären Formate des einen, in offen nutzbare Formate des anderen überführt. Anschließend wird ein Prototyp implementiert, der die Transformation automatisiert und die Integrität der Tests sicherstellt. Abschließend werden die Ergebnisse evaluiert und diskutiert, um die Effektivität des Migrationsprozesses zu bewerten.
 
 = Grundlagen
 == Automatisiertes Testen
 
 Softwaretests sind ein grundlegender Bestandteil der Qualitätssicherung in der Softwareentwicklung. Ihr Ziel ist es, sicherzustellen, dass ein System korrekt funktioniert und definierte Anforderungen erfüllt. Dabei unterscheidet man grob zwischen manuellen und automatisierten Tests.
 
-Bei manuellen Tests führt eine Person die Testschritte selbst aus und bewertet das Ergebnis. Dieser Ansatz ist bei kleinen, seltenen oder testhaften Überprüfungen praktikabel, skaliert jedoch schlecht: Mit wachsender Softwarekomplexität steigt der Zeitaufwand für manuelle Regressionstests exponentiell.
+//TODO: Regressiontests ins glossar einfügen
+Bei manuellen Tests, auch "Regressiontests" genannt, führt eine Person die Testschritte selbst aus und bewertet das Ergebnis. Dieser Ansatz ist bei kleinen, seltenen oder exemplarischen Überprüfungen gut nutzbar, jedoch skaliert dessen Zeitaufwand schnell. Mit wachsender Softwarekomplexität steigt der Zeitaufwand für manuelle Tests exponentiell.
 
-Automatisiertes Testen bezeichnet das maschinengestützte Ausführen von Testfällen anhand von Testskripten. Die Skripte definieren Eingaben, Aktionen und erwartete Ergebnisse. Wesentliche Vorteile automatisierter Tests sind@istqb_glossary:
+Automatisiertes Testen bezeichnet das Ausführen von Tests mit Hilfe von Testskripten, die von einem Computer ausgeführt werden. Die Skripte definieren Eingaben, Aktionen und erwartete Ergebnisse. Wesentliche Vorteile automatisierter Tests sind@istqb_glossary:
+//TODO: Bulletpoints zu Fließtext 
+//TODO: Glossareintrag für Test-Suites, CI/CD, End-to-End-Tests
 - *Wiederholbarkeit*: Dieselben Tests können beliebig oft und konsistent ausgeführt werden.
-- *Geschwindigkeit*: Große Test-Suiten lassen sich in kurzer Zeit ausführen.
+- *Geschwindigkeit*: Große Test-Suits lassen sich in kurzer Zeit ausführen.
 - *Regressionssicherheit*: Nach Codeänderungen kann schnell geprüft werden, ob bestehende Funktionalität noch korrekt arbeitet.
 - *CI/CD-Integration*: Automatisierte Tests können direkt in Deployment-Pipelines eingebunden werden.
 
 Ein häufig eingesetztes Verfahren ist der *End-to-End-Test* (E2E-Test), bei dem eine Anwendung aus Nutzerperspektive durch die Benutzeroberfläche getestet wird. Werkzeuge wie die Selenium @webdriver ermöglichen solche Tests für webbasierte Anwendungen, indem sie einen Browser programmatisch steuern.
 
-== Vendor Lock-in bei proprietären Plattformen
+== Low-Code-Plattformen im Testbereich
+//TODO: Quellen einfügen, low code und pro code ins glossar einfügen und Stellen markieren
+Low-Code-Plattformen sind Entwicklungsumgebungen, die komplexe technische Operationen durch grafische Oberflächen und vorgefertigte Bausteine abstrahieren. Im Bereich der Testautomatisierung bieten sie einen niedrigschwelligen Einstieg: Tests können über eine GUI aufgezeichnet oder aus einem Katalog von vordefinierten Aktionen zusammengestellt werden, ohne tiefgehende Programmierkenntnisse vorauszusetzen.
+
+//TODO: Glossareinträge markieren, neuer Eintrag für Open-Source, Bullet-Points ersetzen, mehr Quellen
+Diese Eigenschaft macht Low-Code-Tools attraktiv für Teams die wenig Programmierkenntnisse haben. Mit wachsender Anforderungskomplexität stoßen auch sie oft schnell an an Grenzen@sahay2020lowcode:
+- Individuelle Logik, die über vorgefertigte Bausteine hinausgeht, ist schwer oder gar nicht umsetzbar.
+- Die Testlogik ist eng an die Plattform gebunden und schlecht in externe Versionskontrollsysteme integrierbar.
+- Skalierbarkeit und Anpassbarkeit sind durch das Plattformmodell begrenzt.
+
+Im Gegensatz dazu stehen sogenannte *Pro-Code*-Ansätze, bei denen Tests vollständig in einer allgemeinen Programmiersprache wie Python geschrieben werden. Frameworks wie Selenium und Pytest bieten dabei maximale Flexibilität, erfordern aber entsprechende Programmierkenntnisse. Dabei sind diese Frameworks alle Open-Source, also kostenlos, öffentlich zugänglich und transparent. Der Übergang von Low-Code zu Pro-Code ist inhaltlich des Kerns dieser Arbeit.
+
+== @vendor-lock-in bei proprietären Plattformen
+
+//TODO: weitere Quellen hinzufügen, keine Bulletpoints, vendor-lock in als Referenz markieren
 @vendor-lock-in beschreibt die Abhängigkeit eines Nutzers oder einer Organisation von einem bestimmten Anbieter, sodass ein Wechsel zu einer Alternative mit erheblichem Aufwand oder hohen Kosten verbunden ist@shapiro1998information. Diese Abhängigkeit entsteht häufig durch proprietäre Dateiformate, plattformspezifische Programmiersprachen oder APIs, die außerhalb des jeweiligen Ökosystems nicht verwendet werden können.
 
 Im Bereich der Testautomatisierung zeigt sich Vendor Lock-in beispielsweise dann, wenn:
@@ -84,29 +102,21 @@ Im Bereich der Testautomatisierung zeigt sich Vendor Lock-in beispielsweise dann
 - interne Datenstrukturen wie Objekt-Repositorys oder Profil-Konfigurationen in proprietären Formaten gespeichert sind,
 - bestimmte Funktionen nur in kostenpflichtigen Lizenzstufen verfügbar sind.
 
-Die Konsequenz ist, dass Teams entweder steigende Lizenzkosten akzeptieren oder bei einem Plattformwechsel einen erheblichen Teil ihrer bisherigen Arbeit verlieren. Für das in dieser Arbeit beschriebene Projekt manifestierte sich dieses Problem konkret: Grundlegende Entwicklungsfunktionen wie das Debugging über die CLI erforderten teurere Lizenzpakete, was die langfristige Nutzung der Plattform unwirtschaftlich machte.
-
-== Low-Code-Plattformen im Testbereich
-Low-Code-Plattformen sind Entwicklungsumgebungen, die komplexe technische Operationen durch grafische Oberflächen und vorgefertigte Bausteine abstrahieren. Im Bereich der Testautomatisierung bieten sie einen niedrigschwelligen Einstieg: Tests können über eine GUI aufgezeichnet oder aus einem Katalog von vordefinierten Aktionen zusammengestellt werden, ohne tiefgehende Programmierkenntnisse vorauszusetzen.
-
-Diese Eigenschaft macht Low-Code-Tools attraktiv für Teams in der frühen Phase der Testautomatisierung. Mit wachsender Anforderungskomplexität stoßen sie jedoch an Grenzen@sahay2020lowcode:
-- Individuelle Logik, die über vorgefertigte Bausteine hinausgeht, ist schwer oder gar nicht umsetzbar.
-- Die Testlogik ist eng an die Plattform gebunden und schlecht in externe Versionskontrollsysteme integrierbar.
-- Skalierbarkeit und Anpassbarkeit sind durch das Plattformmodell begrenzt.
-
-Im Gegensatz dazu stehen sogenannte *Pro-Code*-Ansätze, bei denen Tests vollständig in einer allgemeinen Programmiersprache wie Python geschrieben werden. Frameworks wie Selenium und Pytest bieten dabei maximale Flexibilität, erfordern aber entsprechende Programmierkenntnisse. Der Übergang von Low-Code zu Pro-Code ist inhaltlich des Kerns dieser Arbeit.
+Die Konsequenz ist, dass Teams entweder rasant steigende Lizenzkosten akzeptieren müssen oder bei einem Plattformwechsel einen erheblichen Teil ihrer bisherigen Arbeit verlieren. 
+Für das in dieser Arbeit beschriebene Projekt manifestierte sich dieses Problem in Form von grundlegenden Entwicklungsfunktionen, wie das Debugging über die CLI, die teurere Lizenzpakete erforderten, was wiederum die langfristige Nutzung der Plattform sehr teuer machte. //TODO: Hier Quelle für Katalon Pricing, und/oder Anekdote an anderer Stelle einfügen
 
 = Strukturanalyse
 == Katalon Projektstruktur
 
-Ein Katalon Studio Projekt besteht, aus dem Blickwinkel des IDE-Benutzers, unter Anderem aus Tests, einem "Object Repository", globalen Variablen in Profilen, testeigenen Variablen, eingebundenen Test-Daten. Diese werden in einer hierarchischen Ordnerstruktur gespeichert, die von der IDE verwaltet wird. 
-//Hier sollte eine Abbildung der Katalon Projektstruktur eingefügt werden, um die hierarchische Organisation und die Abhängigkeiten zwischen den verschiedenen Komponenten zu verdeutlichen.
+//TODO: OR markierer setzen, Beschreibung erweitern, Abbildung einfügen, Quellen für Katalon Studio und Katalon Test Suite Management, weitere Ordner beschreiben
+Ein Katalon Studio Projekt besteht, aus dem Blickwinkel des IDE-Benutzers aus Tests, einem "Object Repository", globalen Variablen in Profilen, testeigenen Variablen und eingebundenen Test-Daten. Diese werden in einer hierarchischen Ordnerstruktur gespeichert, die von der IDE verwaltet wird. 
+//TODO: Hier sollte eine Abbildung der Katalon Projektstruktur eingefügt werden, um die hierarchische Organisation und die Abhängigkeiten zwischen den verschiedenen Komponenten zu verdeutlichen.
 
-=== Elementare Ordner und Dateien
+=== Elementare Ordner und Dateien //TODO: Ggf. Namen anpassen
 ==== Test Cases & Variablen
 
 Die Testskripte in Katalon sind in @groovy geschrieben, einer dynamischen Sprache, die auf der @jvm läuft. Sie werden mit einer Vielzahl von eingebauten Keywords und Funktionen geliefert, die speziell für Testautomatisierung entwickelt wurden. Variablen können sowohl global als auch lokal definiert werden, wobei globale Variablen in Profilen gespeichert sind und in allen Tests zugänglich sind.
-//Bild eines Tests
+//TODO: Ggf. Bild eines Tests
 
 ==== Object Repository
 
@@ -449,7 +459,7 @@ Das Werkzeug ist in folgende logische Ordnerstruktur unterteilt:
     ```
     src/
     ├── pipeline/                       # Build-Time: Migrations-Pipeline
-    │   ├── test_suite_translator.py    # Orchestrierung: Scannt Katalon Scripte
+    │   ├── test_script_scanner.py      # Orchestrierung: Scannt Katalon Scripte
     │   ├── test_transpiler.py          # Groovy zu Python Transpilation
     │   ├── test_assembler.py           # Pytest Code-Generierung
     │   ├── object_repo_converter.py    # Object Repository XML zu JSON Konvertierung
@@ -472,19 +482,15 @@ Das Werkzeug ist in folgende logische Ordnerstruktur unterteilt:
     caption: [Ordnerstruktur des Migrationstools mit Trennung zwischen Build-Time und Runtime.],
 )<fig-migrator-structure>
 
-Die Struktur trennt klare Verantwortungen: `pipeline/` führt die gesamte Transformation während der @build-time durch, `runtime/` bündelt die ins Ziel-Projekt zu kopierenden Abhängigkeiten, und `utils/` stellt gemeinsame Hilfsfunktionen bereit.
+Die Struktur trennt die Verantwortungen: `pipeline/` führt die gesamte Transformation während der @build-time durch, `runtime/` bündelt die ins Ziel-Projekt zu kopierenden Abhängigkeiten, und `utils/` stellt gemeinsame Hilfsfunktionen bereit.
 
-== Build-Time vs. Runtime Trennung
+=== Build-Time vs. Runtime 
 
-Ein zentrales Architekturprinzip des Migrators ist die strikte Trennung zwischen @build-time und @runtime Code. @build-time bezeichnet die Ausführung des Migrators selbst — der Zeitpunkt, zu dem Katalon-Strukturen eingelesen, transformiert und in das neue Projektformat geschrieben werden. @runtime bezeichnet dagegen den späteren Zeitpunkt, zu dem die generierten Tests im Ziel-Projekt mit Selenium ausgeführt werden.
+Damit der Migrator funktioniert muss zwischen @build-time und @runtime Code unterschieden werden. @build-time bezeichnet die Ausführung des Migrators selbst. @runtime bezeichnet dagegen den späteren Zeitpunkt, zu dem die generierten Tests im Ziel-Projekt mit Selenium ausgeführt werden.
 
-Die Dateien in `src/runtime/` — `base_test.py` und `katalon_helpers.py` — sind keine Bestandteile der Migrationspipeline, sondern werden erst im Ziel-Projekt benötigt. Sie enthalten Selenium-WebDriver-Abhängigkeiten, die zum Zeitpunkt der Migration nicht installiert sind. Würden sie als gewöhnliche Python-Dateien im Migrator liegen, würde der statische Code-Analysator (Pyright) beim Analysieren des Migrator-Projekts Importfehler melden.
+Die Dateien im `src/runtime/`-Ordner sind keine Bestandteile der Migrationspipeline, sondern werden erst im Ziel-Projekt benötigt. Sie enthalten Selenium-WebDriver-Abhängigkeiten, die zum Zeitpunkt der Migration nicht installiert sind. Würden sie als gewöhnliche Python-Dateien im @repository liegen, würde der @compiler beim Analysieren des Migrator-Projekts Importfehler melden.
 
-Um dies zu vermeiden, tragen die Runtime-Dateien die Endung `.template` — etwa `base_test.py.template`. Dadurch werden sie vom Compiler ignoriert. `copy_runtime_files.py` kopiert sie während der @build-time in das Ziel-Projekt und entfernt dabei die Endung automatisch mit `removesuffix(".template")`:
-
-```python
-shutil.copy2(src_file, dest_folder / src_file.name.removesuffix(".template"))
-```
+Deswegen tragen die Runtime-Dateien die Endung `.template` und werden vom Compiler ignoriert. `copy_runtime_files.py` kopiert sie während der @build-time in das Ziel-Projekt und entfernt dabei die Endung automatisch.
 
 == Pipeline-Module im Detail
 
