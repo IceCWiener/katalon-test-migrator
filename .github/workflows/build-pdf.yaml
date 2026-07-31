@@ -1,7 +1,7 @@
 name: build-pdf
 on: push
 jobs:
-  compile:
+  compile: 
     runs-on: ubuntu-latest
     steps:
       - name: checkout_repo
@@ -10,7 +10,9 @@ jobs:
         uses: typst-community/setup-typst@v5
       - name: compile_pdf
         run: typst compile thesis/Bachelorarbeit.typ thesis/Bachelorarbeit.pdf
-    artifacts:
-      - name: Bachelorarbeit
-        path: thesis/Bachelorarbeit.pdf
+      - name: upload_pdf
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bachelorarbeit
+          path: thesis/Bachelorarbeit.pdf
         
