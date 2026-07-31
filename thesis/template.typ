@@ -365,6 +365,18 @@
     description: "Ein Softwareentwicklungsprinzip, bei dem Code-Änderungen regelmäßig in ein gemeinsames Repository integriert und automatisch gebaut und getestet werden. Automatisierte Testsuiten sind ein zentrales Werkzeug im CI-Prozess."
   ),
   (
+    key: "cli",
+    short: "CLI",
+    long: "Command Line Interface",
+    description: "Eine textbasierte Benutzerschnittstelle, über die Nutzer Programme durch Eingabe von Befehlen steuern."
+  ),
+  (
+    key: "rcp",
+    short: "RCP",
+    long: "Rich Client Platform",
+    description: "Ein von Eclipse bereitgestelltes Framework zum Entwickeln modularer Desktop-Anwendungen auf Basis von Plug-ins."
+  ),
+  (
     key: "compiler",
     short: "Compiler",
     description: "Ein Programm, das Quellcode einer Programmiersprache analysiert und auf Fehler prüft oder in eine andere Form überführt. In dieser Arbeit bezeichnet Compiler den statischen Typ-Analysator Pyright, der Python-Dateien vor der Ausführung auf Typ- und Importfehler untersucht."
@@ -407,6 +419,11 @@
     key: "object-repository",
     short: "Object Repository",
     description: "Eine zentrale Datenstruktur in Katalon Studio, die alle Test Objects (z. B. Schaltflächen, Eingabefelder) mit ihren Lokalisierungsstrategien speichert. Jedes Objekt enthält Eigenschaften wie XPath, CSS-Selektor oder ID, anhand derer Selenium das Element im DOM der Webanwendung identifiziert."
+  ),
+  (
+    key: "spy-web-utility",
+    short: "Spy Web Utility",
+    description: "Ein Werkzeug in Katalon Studio zum Erfassen und Anlegen von Test Objects direkt aus einer laufenden Webanwendung. Dabei werden Selektoren wie XPath, CSS oder Attribute ausgelesen und im Object Repository gespeichert."
   ),
   (
     key: "fixture",
