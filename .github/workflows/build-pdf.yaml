@@ -11,7 +11,7 @@ jobs:
       - name: compile_pdf
         run: typst compile thesis/Bachelorarbeit.typ thesis/Bachelorarbeit.pdf
       - name: upload_pdf
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Bachelorarbeit
           path: thesis/Bachelorarbeit.pdf
