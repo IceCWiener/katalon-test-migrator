@@ -446,6 +446,12 @@
     description: "Ein Trenn- oder Begrenzungszeichen, das den Anfang, das Ende oder die Struktur eines Ausdrucks markiert. Im Kontext von Regular Expressions wird ein Sonderzeichen wie der Punkt durch Escaping (z. B. `\\.`) als literales Zeichen behandelt und verliert seine spezielle Regex-Bedeutung."
   ),
   (
+    key: "guid",
+    short: "GUID",
+    long: "Globally Unique Identifier",
+    description: "Eine nahezu weltweit eindeutige Kennung, die zur Identifikation von Objekten oder Einträgen verwendet wird."
+  ),
+  (
     key: "webdriver",
     short: "WebDriver",
     description: "Eine standardisierte API (W3C-Standard), über die Programme einen Webbrowser programmatisch steuern können. Selenium WebDriver ist die Referenzimplementierung und bildet die Grundlage aller in dieser Arbeit generierten Tests."
