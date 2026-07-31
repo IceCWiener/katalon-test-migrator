@@ -72,7 +72,7 @@ profiles_glbl/        # Source Katalon global variable profiles
 ## Notes
 
 - Unreadable test cases (translation failures) are placed in `src/unreadable_tests/` with error messages
-- Local test case variables are prefixed with `vars.` and extracted from matching `.tc` files
+- Local test case variables are prefixed with `variables.` and extracted from matching `.tc` files
 - Global variables are converted to uppercase identifiers (e.g., `url` → `URL`) 
       
       ```python

@@ -87,7 +87,7 @@ class TestAssembler:
         stripped_url = url.strip()
         if not (
             stripped_url.startswith(("'", '"')) and stripped_url.endswith(("'", '"'))
-        ) and "GlobalVariable." not in stripped_url and "vars." not in stripped_url:
+        ) and "GlobalVariable." not in stripped_url and "variables." not in stripped_url:
             url = "'" + url + "'"
         self.file_content_tests.append(f"self.driver.get({url})")
 
@@ -304,7 +304,7 @@ class TestAssembler:
                         replacement = var_list[i][1]
                         if re.match(r"'.*(?!.)", replacement):
                             replacement = replacement.replace("'", "")
-                        param = param.replace(var_list[i][0], "vars." + var_list[i][0])
+                        param = param.replace(var_list[i][0], "variables." + var_list[i][0])
         
         return param
     
@@ -315,7 +315,7 @@ class TestAssembler:
             file_content_all_txt += entry + "\n"
 
         if self.var_present:
-            file_content_all_txt += f"from src.variables.{self.var_folder}var_{self.var_file_name} import {self.var_file_name} as vars"
+            file_content_all_txt += f"from src.variables.{self.var_folder}var_{self.var_file_name} import {self.var_file_name} as variables"
             self.var_present = False
 
         file_content_all_txt += "\n"
