@@ -100,17 +100,21 @@ Für das in dieser Arbeit beschriebene Projekt manifestierte sich dieses Problem
 
 == Grundlagen zu @regex
 
-Der Migrator verwendet @regex, um wiederkehrende Muster im Groovy-Quelltext automatisiert zu erkennen. Nach Friedl sind Regular Expressions eine formale Sprache zur Beschreibung von Textmustern@friedl2006regex. Praktisch bedeutet das: Ein Muster wird definiert, auf Text angewendet und liefert bei Übereinstimmung einen @match.
+Der Migrator verwendet @regex, um wiederkehrende Muster im Groovy-Quelltext automatisiert zu erkennen. Nach Friedl sind Regular Expressions eine formale Sprache zur Beschreibung von Textmustern@friedl2006regex. Das bedeutet ein Muster wird definiert, auf Text angewendet und liefert bei Übereinstimmung ein @match.
 
-Ein einfaches Beispiel ist das Erkennen von Katalon-Klickaufrufen:
+Hier zum Beispiel das Erkennen von Katalon-Klickaufrufen:
 
-```text
-Muster: WebUI\.click\((.*?)\)
-Text:   WebUI.click(findTestObject('All_Users/view_all_users_btn'))
-Match:  findTestObject('All_Users/view_all_users_btn')
-```
+#figure(
+  grid(
+    rows: 2,
+    image("img/Regex/regex101_katalon_click.png"),
+    image("img/Regex/regex101_katalon_click_expl.png")
+  ),
+  caption: [Oben: Erst ein Muster zum erkennen von Katalon-Klickaufrufen. Unten: Die Erklärung der einzelnen Bestandteile des Musters.],
+)<fig-regex-grundlagen-beispiel>
 
-Das Muster findet einen `WebUI.click(...)`-Aufruf und extrahiert den Inhalt der Klammern als Gruppe. Dieser extrahierte Teil kann anschließend in eine Python-Transformation überführt werden, z. B. zu einem Selenium-kompatiblen Methodenaufruf. In der eigentlichen Pipeline werden dafür mehrere spezialisierte Muster kombiniert, um Klassen, Methoden und Parameter systematisch zu zerlegen.
+Das Muster "`WebUI\.click\((.*)\)`" findet alle Zeilen die "`WebUI.click(...)`" enthalten, erstellt ein @match für jede Übereinstimmung und extrahiert den Inhalt der Klammern als Gruppe. Dieser extrahierte Teil kann anschließend in einen Selenium-Methodenaufruf eingeführt werden. Spezifisch wird zuerst nach der Buchstabenreihenfolge "`WebUI.click(`" gesucht. Dabei wird ein Backslash-@delimiter "`\`" vor dem Punkt "`.`", genutzt damit dieser seine eigentliche Funktion in der Regex-Sprache verliert und nur als Punkt interpretiert wird. Der gleiche @delimiter kommt danach für die Klammern ins Spiel. Darauf folgt direkt noch eine Klammer ohne Delimiter welche die Eröffnung einer Gruppe signalisiert. In der Gruppe wird nach einem Punkt "`.`" gesucht, das heißt ein Vorkommen eines beliebigen Zeichens außer Satzenden. Der Stern "`*`" kopiert die Funktion des vorherigen Zeichens kein mal oder beliebig oft. Dann schließt sich zuerst die Gruppe durch eine Klammer "`)`" und dann endet das Muster mit einer delimitierten schließenden Klammer "`)`".
+In der eigentlichen Pipeline werden dafür mehrere Muster kombiniert um alles Geschriebene in Tests wie Klassen, Methoden und Parameter systematisch zu zerlegen.
 
 = Strukturanalyse
 == Katalon Projektstruktur

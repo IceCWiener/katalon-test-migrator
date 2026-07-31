@@ -441,6 +441,11 @@
     description: "Eine erfolgreiche Übereinstimmung eines Regular-Expression-Musters mit einem Teil des Eingabetextes. Wenn ein Regex-Muster einen Textbereich findet, der der definierten Regel entspricht, wird dieser erkannte Bereich als Match bezeichnet. Ein Match enthält typischerweise auch Capture Groups, die Teilinformationen des Musters speichern."
   ),
   (
+    key: "delimiter",
+    short: "Delimiter",
+    description: "Ein Trenn- oder Begrenzungszeichen, das den Anfang, das Ende oder die Struktur eines Ausdrucks markiert. Im Kontext von Regular Expressions wird ein Sonderzeichen wie der Punkt durch Escaping (z. B. `\\.`) als literales Zeichen behandelt und verliert seine spezielle Regex-Bedeutung."
+  ),
+  (
     key: "webdriver",
     short: "WebDriver",
     description: "Eine standardisierte API (W3C-Standard), über die Programme einen Webbrowser programmatisch steuern können. Selenium WebDriver ist die Referenzimplementierung und bildet die Grundlage aller in dieser Arbeit generierten Tests."
