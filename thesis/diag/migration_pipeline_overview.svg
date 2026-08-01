@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1020" viewBox="0 0 1280 1020">
+  <defs>
+    <style>
+      .title { font: 700 30px 'Open Sans', Arial, sans-serif; fill: #1f2937; }
+      .label { font: 600 21px 'Open Sans', Arial, sans-serif; fill: #1f2937; }
+      .small { font: 400 17px 'Open Sans', Arial, sans-serif; fill: #374151; }
+      .start { fill: #dbeaf2; stroke: #6b7280; stroke-width: 2.4; rx: 14; ry: 14; }
+      .process { fill: #faefd9; stroke: #6b7280; stroke-width: 2.2; rx: 14; ry: 14; }
+      .group { fill: #ffffff; stroke: #d1d5db; stroke-width: 2; rx: 16; ry: 16; }
+      .side { fill: #f2d500; stroke: #b8a300; stroke-width: 2; rx: 10; ry: 10; }
+      .success { fill: #c8f0c8; stroke: #6b7280; stroke-width: 2.4; rx: 14; ry: 14; }
+      .arrow { stroke: #4b5563; stroke-width: 2.8; fill: none; marker-end: url(#arrowhead); }
+      .dash { stroke: #6b7280; stroke-width: 2; stroke-dasharray: 6 6; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 10,4 0,8" fill="#4b5563" />
+    </marker>
+  </defs>
+
+  <rect x="480" y="95" width="320" height="70" class="start" />
+  <text x="640" y="132" text-anchor="middle" class="label">Start: Migration</text>
+  <text x="640" y="156" text-anchor="middle" class="small">User input: src_root + dest_root</text>
+
+  <rect x="430" y="210" width="420" height="78" class="process" />
+  <text x="640" y="248" text-anchor="middle" class="label">1. Initialisierung</text>
+  <text x="640" y="272" text-anchor="middle" class="small">Scripts finden und Zielstruktur übernehmen</text>
+
+  <rect x="430" y="325" width="420" height="78" class="process" />
+  <text x="640" y="363" text-anchor="middle" class="label">2. Testtranspilation</text>
+  <text x="640" y="387" text-anchor="middle" class="small">Groovy zu Python</text>
+
+  <rect x="170" y="445" width="940" height="260" class="group" />
+  <text x="640" y="478" text-anchor="middle" class="label">3. Übernahme ergänzender Strukturen</text>
+
+  <rect x="210" y="510" width="250" height="74" class="process" />
+  <text x="335" y="548" text-anchor="middle" class="label">Object Repository</text>
+  <text x="335" y="572" text-anchor="middle" class="small">.rs-XML zu JSON</text>
+
+  <rect x="510" y="510" width="250" height="74" class="process" />
+  <text x="635" y="548" text-anchor="middle" class="label">Testvariablen</text>
+  <text x="635" y="572" text-anchor="middle" class="small">.tc-XML zu Python-Klassen</text>
+
+  <rect x="810" y="510" width="250" height="74" class="process" />
+  <text x="935" y="548" text-anchor="middle" class="label">Globale Variablen</text>
+  <text x="935" y="572" text-anchor="middle" class="small">.glbl-XML zu Python-Klasse</text>
+
+  <rect x="210" y="615" width="400" height="74" class="process" />
+  <text x="410" y="653" text-anchor="middle" class="label">Runtime + Configs</text>
+  <text x="410" y="677" text-anchor="middle" class="small">Helferdateien, README, pytest.ini, requirements</text>
+
+  <rect x="660" y="615" width="400" height="74" class="process" />
+  <text x="860" y="653" text-anchor="middle" class="label">Externe Testdaten</text>
+  <text x="860" y="677" text-anchor="middle" class="small">.dat-Referenzen nachgehen</text>
+
+  <rect x="510" y="760" width="260" height="74" class="success" />
+  <text x="640" y="798" text-anchor="middle" class="label">Ergebnis</text>
+  <text x="640" y="822" text-anchor="middle" class="small">Ausführbares Python Projekt</text>
+
+  <rect x="930" y="210" width="280" height="78" class="side" />
+  <text x="1070" y="244" text-anchor="middle" class="label">Input</text>
+  <text x="1070" y="268" text-anchor="middle" class="small">Katalon Projektdateien</text>
+
+  <rect x="930" y="760" width="280" height="78" class="side" />
+  <text x="1070" y="794" text-anchor="middle" class="label">Output</text>
+  <text x="1070" y="818" text-anchor="middle" class="small">Python Projektdateien</text>
+
+  <path d="M640 165 L640 200" class="arrow" />
+  <path d="M640 288 L640 315" class="arrow" />
+  <path d="M640 403 L640 435" class="arrow" />
+
+  <path d="M335 584 L335 605" class="arrow" />
+  <path d="M635 584 L635 605" class="arrow" />
+  <path d="M935 584 L935 605" class="arrow" />
+
+  <path d="M410 689 L410 725 L640 725 L640 750" class="arrow" />
+  <path d="M860 689 L860 725 L640 725 L640 750" class="arrow" />
+
+  <path d="M850 249 L920 249" class="dash" />
+  <path d="M770 797 L920 797" class="dash" />
+</svg>

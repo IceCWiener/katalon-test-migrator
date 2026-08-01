@@ -59,6 +59,7 @@ A core migration algorithm based on Python execution logic and Regular Expressio
 * **Object Repository:** A central data structure in Katalon Studio that stores all Test Objects (e.g., buttons, input fields) along with their localization strategies. Each object contains properties such as XPath, CSS selector, or ID, which Selenium uses to identify the element in the DOM of the web application.
 * **PoC (Proof of Concept):** A prototype or feasibility study demonstrating that a concept or idea is practically feasible. In this work, PoC refers to the initial implementation of a migration script to verify feasibility.
 * **Pytest:** A widely used Python testing framework for structuring, executing, and evaluating automated tests. In this work, Pytest serves as a test runner and organizational framework for the migrated Selenium tests.
+* **Python:** A widely used, interpreted programming language with clear syntax and a large ecosystem. In this work, Python serves as the target language of the migration and as the foundation for executing the generated Selenium/Pytest tests.
 * **RCP (Rich Client Platform):** A framework provided by Eclipse for developing modular desktop applications based on plug-ins.
 * **Regex (Regular Expression):** A formal expression used to describe string patterns. In this thesis, regular expressions are used to transform Groovy syntax into Python syntax.
 * **Regression Test:** A test to verify whether already existing and previously functioning software functionality still works correctly after changes. Regression tests are typically executed again after code adjustments to detect unintended side effects early.
@@ -72,6 +73,7 @@ A core migration algorithm based on Python execution logic and Regular Expressio
 * **UI (User Interface):** The user interface of an application through which users interact with the system. In the context of this work, UI refers to the graphical interface validated by automated tests.
 * **Vendor Lock-in:** The technical or economic dependence of a company on a single vendor, which makes a transition to alternatives difficult or expensive. In the context of this work, Vendor Lock-in refers to the binding to Katalon Studio through proprietary file formats and licensed features.
 * **WebDriver:** A standardized API (W3C standard) through which programs can programmatically control a web browser. Selenium WebDriver is the reference implementation and forms the basis of all tests generated in this work.
+* **XML (Extensible Markup Language):** A text-based, hierarchical data format for the structured description of information. In this work, several Katalon file types are interpreted as XML and converted into open target formats.
 
 ---
 
@@ -112,32 +114,33 @@ A core migration algorithm based on Python execution logic and Regular Expressio
     * 3.3.4 Python Configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
 
 **4 Conceptual Design of the Migration Pipeline** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-* 4.1 Limitations of the Migration Pipeline . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-* 4.2 Architectural Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-* 4.3 Transformation Process . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
-    * 4.3.1 Semantic Transformation: Katalon Test Objects to Selenium Locators . . 16
-    * 4.3.2 Syntactic Transformation: Groovy to Python . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+* 4.1 Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+* 4.2 Architecture Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+* 4.3 Transpilation of Test Cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+* 4.4 Adoption of Supplementary Structures . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+* 4.5 Limitations of the Migration Pipeline . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
 
-**5 Implementation** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-* 5.1 Tech Stack . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-    * 5.1.1 Python . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-    * 5.1.2 Selenium and Pytest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-    * 5.1.3 Git Versioning and GitHub . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-* 5.2 Project Structure of the Migrator . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-    * 5.2.1 Build-Time vs. Runtime . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-* 5.3 Pipeline Modules in Detail . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-* 5.4 Limitations of the Implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+**5 Implementation** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+* 5.1 Tech Stack . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+    * 5.1.1 Python . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+    * 5.1.2 Selenium and Pytest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+    * 5.1.3 Git Versioning and GitHub . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+* 5.2 Project Structure of the Migrator . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+* 5.3 Pipeline Modules in Detail . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+* 5.4 Transformation Process (Transformationsablauf) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+    * 5.4.1 Semantic Transformation: Katalon Test Object to Selenium Locators . . 20
+    * 5.4.2 Syntactic Transformation: Groovy to Python . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
 
-**6 Evaluation** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-* 6.1 Migration Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-* 6.2 Structural Integrity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
-* 6.3 Code Quality: Before-After Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
-* 6.4 Effort Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+**6 Evaluation** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+* 6.1 Migration Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+* 6.2 Structural Integrity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+* 6.3 Code Quality: Before-After Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+* 6.4 Effort Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
 
-**7 Discussion** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-**8 Conclusion & Future Work** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-**Bibliography** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
-**Declaration of Authorship** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+**7 Discussion** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+**8 Conclusion & Future Work** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+**Bibliography** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+**Declaration of Authorship** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
 
 ---
 
@@ -148,17 +151,18 @@ A core migration algorithm based on Python execution logic and Regular Expressio
 * **Figure 3:** Left: The folded filesystem of the Object Repository. Names marked in blue were generated by the Integrated Development Environment's (IDE) native AI. Right: A Test Object describing the properties of an HTML element . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
 * **Figure 4:** Left: View of the profiles in the filesystem. Right: A profile defining the Global Variables `URL`, `USERNAME1`, and `PASSWORD1`. The `PASSWORD1` variable is marked "protected" so that its value in the IDE is only displayed masked . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
 * **Figure 5:** Left: View of the test data in the filesystem. Right: A test dataset from the file `users.dat` . . . . . . . 7
-* **Figure 6:** Transpilation Activity Diagram: Transformation path of a Katalon test to a Python-Pytest test . . . . 16
-* **Figure 7:** Through the `katalon_lines_pattern` pattern, three separate regex matches with three groups each for class, method, and parameters are extracted from a block of Katalon lines . . . . . . . . . . . . . . . . . . . . . . . . . . 19
-* **Figure 8:** During the parsing phase, the `fto_as_param_pat` pattern detects the `findTestObject()` method as the first parameter if followed by a comma, allowing them to be split . . . . . . . . . . . . . . . . . . . . . . . . . . 20
-* **Figure 9:** The `fto_param_str_pattern` pattern extracts the `findTestObject()` method with the string argument required for the transformation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+* **Figure 6:** Overview diagram of the migration pipeline from a Katalon project to an executable Python project. Represented are the main phases: Initialization, Test Transpilation, Adoption of supplementary structures, and the provision of the final project structure with content . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+* **Figure 7:** Detailed activity diagram of the transpilation workflow of a Katalon test to a Python test. Illustrated are reading, filtering, extracting, parsing, transforming, generating, and assembling test logic . . . . . . . . . 17
+* **Figure 8:** Through the `katalon_lines_pattern` pattern, three separate regex matches with three groups each for class, method, and parameters are extracted from a block of Katalon lines . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+* **Figure 9:** During the parsing phase, the `fto_as_param_pat` pattern detects the `findTestObject()` method as the first parameter if followed by a comma, allowing them to be split . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+* **Figure 10:** The `fto_param_str_pattern` pattern extracts the `findTestObject()` method with the string argument required for the transformation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
 
 ---
 
 ## List of Tables
 
-* **Table 1:** Overview of the Regular Expression (Regex) patterns in the transpilation process . . . . . . . . . . . . . . . 22
-* **Table 2:** Migration Results: All components of the Katalon project were successfully transferred . . . . . . . . . . 26
+* **Table 1:** Overview of the Regular Expression (Regex) patterns in the transpilation process . . . . . . . . . . . . . . . 26
+* **Table 2:** Migration Results: All components of the Katalon project were successfully transferred . . . . . . . . . . 27
 
 ---
 
@@ -236,7 +240,7 @@ Specifically, the letter sequence `WebUI.click(` is searched first. A backslash 
 ### 3.1 Katalon Project Structure
 Katalon Studio is a proprietary test automation platform built on the Eclipse Rich Client Platform (RCP) [10]. Eclipse is a classic Integrated Development Environment (IDE) for Java development. 
 
-From a user's perspective, a Katalon Studio project consists of "Test Cases", an "Object Repository", "Global Variables" in profiles, test-specific variables, and integrated test data. These are stored in a hierarchical folder structure managed entirely by the IDE. Here, the most important folders and files of a Katalon project relevant to this migration are described.
+From a user's perspective, a Katalon Studio project consists of "Test Cases", an "Object Repository", "Global Variables" in profiles, test-specific variables, and integrated test data. These are stored in a hierarchical folder structure managed entirely by the IDE. Here, the most important folders and files of a Katalon-projekts relevant to this migration are described.
 
 #### 3.1.1 Test Cases and Test-Specific Variables
 The test scripts in Katalon are written in Groovy, a dynamic language that runs on the Java Virtual Machine (JVM). They are supplied with a variety of built-in keywords and functions specifically developed for test automation. Variables can be defined both globally and locally; global variables are stored in profiles and are accessible in all tests. Test-specific variables are defined in the respective test and are only available within that test.
@@ -454,153 +458,66 @@ sample-website-selenium-tests/
 
 ## 4 Conceptual Design of the Migration Pipeline
 
-An initial idea, when the task of migrating to another ecosystem arose, was to write a Python project that could directly read and execute Katalon tests. However, this idea was quickly discarded after consultation with other developers, as the proprietary formats and Katalon-specific logic were too complex to execute directly in an open-source framework. 
+### 4.1 Background
+When the task of migrating the internal testing system to another ecosystem arose, an initial concept was to write a Python project that could directly read and execute Katalon tests. However, this idea was quickly discarded after consultation with other developers, as the proprietary formats and Katalon-specific logic were too complex to execute directly in an open-source framework. 
 
-Instead, an approach was chosen that transforms the Katalon test logic into a new, open structure. Through this complete separation from Katalon structures, it was ensured that there would be no further dependency issues with Katalon in the future. The tests can be executed directly in the new structure without requiring Katalon Studio or other proprietary components if, for example, new tests or elements are needed. 
+Instead, an approach was chosen that transforms the Katalon test logic completely into a new, extensible, and freely usable structure. Through this complete separation from Katalon structures, it was to be ensured that in the future, no further problems with dependencies on Katalon would arise. The tests should be able to be executed directly in the new structure without requiring Katalon Studio if, for example, new tests or elements needed to be created. 
 
-For the next approach, a small pipeline was built first, which attempted to translate frequently occurring methods. This approach quickly showed that the Katalon structure in the background of the IDE is much more complex and nested than it appears at first glance. 
-
-Over time, regex-based methods developed to detect all Katalon function calls, followed by others to detect paths to Test Objects, then to detect test-specific variables, and finally to detect global variables and their values. Over time, a comprehensive migration pipeline was established that recognizes the central aspects of a Katalon structure, transforms them, and saves them in a new Python structure.
-
-### 4.1 Limitations of the Migration Pipeline
-The migration pipeline is designed to recognize the core functions of a Katalon project and transform them into a new structure. However, it is not capable of covering all possible Katalon functions and scenarios. 
-
-In particular, complex Custom Keywords, platform-specific extensions, or highly nested test logics can lead to problems. The pipeline focuses on the most common use cases and provides a solid foundation for migration, but may require manual adjustments for specific requirements.
+As a first approach, a small pipeline was built with the task of translating frequently occurring methods. This approach quickly showed that the Katalon structure in the background of the IDE was much more complex and nested than it seemed at first glance.
 
 ### 4.2 Architecture Overview
-The transpilation process shown in Figure 6 follows a fixed sequence of seven steps:
-1. **Read Groovy File:** The original Groovy file is read so its content can be processed as raw text.
-2. **Filter Comments & Imports:** Comments and import lines are removed to isolate the code relevant to the migration.
-3. **Extract Test Lines:** The actual test lines are extracted, representing exactly the instructions essential for test behavior.
-4. **Parse Instructions:** These lines are parsed individually, decomposing each instruction into its fundamental components (class reference, method name, and parameters).
-5. **Transform Methods & Parameters:** The detected methods and parameters are transformed into semantically equivalent constructs of the target environment.
-6. **Generate Python Code:** Valid Python-Selenium-Pytest code is generated, representing the previously identified test logic in executable form.
-7. **Assemble Code Fragments:** The generated code fragments are assembled into a complete test and written to the target structure.
+To master the complexity, the Katalon project is structurally broken down into its parts. One advantage of the proprietary structure is that it dictates the layout and is predictable, which makes this type of algorithm possible in the first place. 
 
-> **Key Takeaway:** The pipeline progressively reduces the original Groovy test to its essential logic and systematically transfers it into a Python-based test format.
+1. **Initialization:** First, the algorithm receives the paths of the source and target projects from the user. Subsequently, all files in the source project are recursively searched, and relevant structures, such as the "Test Case" folders and the Object Repository, are mirrored in the target project as empty folders. The unchanged system paths leading from the "root" directory to the files are integral to this.
+2. **Test Transpilation:** Once the basic structures are initialized, files from the source are opened and processed. First, the Test Cases are transpiled from the Groovy programming language into the Python language. The more precise workflow of this can be read in Section 4.3.
+3. **Adoption of Supplementary Structures:** Subsequently, the Test Objects, global variables, and test data are found, read, and translated. All of them contain Extensible Markup Language (XML) data but have different file extensions. The Test Objects are converted into JSON files, the Global Variables into Python classes, and the test data is copied over.
+4. **Final Assembly:** Finally, configuration files and utility files are created in the target project so that it is executable without major preparations. These include runtime helpers, test configurations, the list of dependencies, and documentation.
+
+*(Refer to Figure 6/Abbildung 6 in the original PDF for the overview diagram of the migration pipeline).*
 
 ---
 
-*(Refer to Figure 6/Abbildung 6 in the original PDF for the Transpilation Activity Diagram).*
+### 4.3 Transpilation of the Test Cases
+The transpilation process shown in Figure 7 follows a fixed sequence of seven steps. First, the original Groovy file is read so its content can be processed as raw text. Subsequently, comments and import lines are removed to isolate the code relevant for the migration. In the third step, the actual test lines are extracted from it—meaning exactly those instructions essential for test behavior. 
 
----
+These lines are then parsed individually, so that each instruction is decomposed into its basic components such as class reference, method name, and parameters. On this structured basis, the transformation of the recognized methods and parameters into semantically equivalent constructs of the target environment follows. 
 
-### 4.3 Transformation Process
+From this, Python code is subsequently generated, representing the previously identified test logic in executable form. In the last step, the generated code fragments are assembled into a complete test and transferred to the target structure. The entire process thus progressively reduces the original Groovy test to its essential logic and systematically transfers it into a Python-based test format.
 
-#### 4.3.1 Semantic Transformation: Katalon Test Object to Selenium Locators
-The Katalon Object Repository stores test objects as `.rs` files—renamed XML files with a `WebElementEntity` structure. Each file describes an HTML element via a `selectorCollection` containing one or more localization strategies as key-value pairs (e.g., `BASIC`/`XPath` or `CSS`), as well as a `selectorMethod` field determining the preferred strategy.
+*(Refer to Figure 7/Abbildung 7 in the original PDF for the detailed transpilation activity diagram).*
 
-During Build-Time, `object_repo_converter.py` converts these XML files into JSON format. The internal structure remains fully preserved—only the file format changes. The following example shows the transformation of the object file `view_all_users_btn`:
+### 4.4 Adoption of Supplementary Structures
+An executable target project only arises when, alongside the test logic, the associated context structures also exist. Therefore, after the transpilation of the Test Cases, the supplementary structures must also be adopted. These include, in particular, object descriptions from the Object Repository, variable sources (global or local), test data, as well as runtime and configuration files. Without these elements, many generated tests would indeed be syntactically present, but could not correctly access selectors, data, or environment parameters.
 
-```xml
-<!-- Object Repository/All_Users/view_all_users_btn.rs (Katalon XML) -->
-<WebElementEntity>
- <name>view_all_users_btn</name>
- <selectorCollection>
- <entry>
- <key>BASIC</key>
- <value>//*[@id = 'hero-cta']</value>
- </entry>
- </selectorCollection>
- <selectorMethod>BASIC</selectorMethod>
-</WebElementEntity>
-```
+The adoption therefore pursues the goal of transferring the dependencies scattered throughout Katalon into an open and traceable target structure without losing the semantic meaning of the tests. This ensures that not only individual code is migrated, but a consistent testing system is created that can be directly developed and executed in the new ecosystem.
 
-```json
-// src/object_repository/All_Users/view_all_users_btn.json (generated JSON)
-{
- "WebElementEntity": {
- "name": "view_all_users_btn",
- "selectorCollection": {
- "entry": { "key": "BASIC", "value": "//*[@id = 'hero-cta']" }
- },
- "selectorMethod": "BASIC"
- }
-}
-```
+### 4.5 Limitations of the Migration Pipeline
+The migration pipeline is designed to recognize the core functions of a Katalon project and transform them into a new structure. However, it is not capable of covering all possible Katalon functions and scenarios. 
 
-At Runtime, the helper function `find_katalon_test_object()` in `katalon_helpers.py` reads the JSON file, extracts the `selectorMethod`, and searches for the matching value from the `selectorCollection`. It then locates the element via the Selenium API: using `By.CSS_SELECTOR` for CSS, and `By.XPATH` for all other strategies (including BASIC). The call in the generated test code remains structurally identical to the Katalon original:
+In particular, self-written Custom Keywords, platform-specific extensions, or highly nested test logics can lead to problems. The pipeline focuses on the most common use cases and provides a solid foundation for migration, but may require manual adjustments for specific requirements. 
 
-**Katalon (Groovy):**
-```groovy
-WebUI.click(findTestObject('All_Users/view_all_users_btn'))
-```
-**Generated Python Code:**
-```python
-kh.find_katalon_test_object(self.driver, 'All_Users/view_all_users_btn').click()
-```
-
-Through this two-stage approach—format conversion at Build-Time, resolution at Runtime—the generated test code does not need to know the localization strategy used. The binding between test logic and element selector is preserved without changing the test input.
-
----
-
-#### 4.3.2 Syntactic Transformation: Groovy to Python
-The Groovy syntax is translated into Python syntax via regex pattern matching. The implementation yields transformations such as:
-
-**Katalon (Groovy):**
-```groovy
-WebUI.verifyTextPresent('View All Users', false)
-WebUI.click(findTestObject('All_Users/view_all_users_btn'))
-WebUI.setText(findTestObject('All_Users/search_input'), david)
-WebUI.verifyTextPresent(GlobalVariable.user4name, false)
-```
-
-**Generated Python Code:**
-```python
-assert 'View All Users' in self.driver.page_source
-kh.find_katalon_test_object(self.driver, 'All_Users/view_all_users_btn').click()
-kh.find_katalon_test_object(self.driver, 'All_Users/search_input').clear()
-kh.find_katalon_test_object(self.driver, 'All_Users/search_input').send_keys(variables.david)
-assert GlobalVariable.USER4NAME in self.driver.page_source
-```
-
-##### 4.3.2.1 Regex-based Transformation
-The pipeline uses multiple coordinated patterns to translate Groovy test code step-by-step into an executable Python test format.
-
-According to the conceptual diagram, this process begins by reading the original Groovy file. Then, comments and import lines are removed, leaving only the code relevant for transpilation. From this filtered code, the actual test lines are extracted. These test lines are then parsed and decomposed into their basic components such as class reference, method name, and parameters. 
-
-Based on this, the transformation of detected methods and parameters into corresponding constructs of the target environment takes place. From the transformed building blocks, Python code is generated that represents the original test logic in a new form. Finally, the generated fragments are assembled into a complete test. 
-
-To illustrate, figures showing the parsing flow of the `findTestObject` method follow, utilizing regex101.com to present the patterns more clearly.
-
-*(Refer to Figures 7, 8, and 9 in the original PDF for the regex matching views).*
-
-The following table shows the most important regex patterns used in the transpilation process:
-
----
-
-### Table 1: Overview of the Regular Expression (Regex) Patterns in the Transpilation Process
-
-| # | Pattern Name | Regex | Purpose |
-| :--- | :--- | :--- | :--- |
-| **1** | `comment_pattern` | `/\*[^*]*\*+(?:[^/*][^*]*\*+)*/` | Remove block comments |
-| **2** | `private_method_pat` | `private void .*{\n[\s\w.\(\)=\"\,\'\/\[+@\-\]\\;\<{}]*\n}` | Extract private methods |
-| **3** | `katalon_lines_pattern` | `\/\*\|\/\/.+\|\/\*.+\|WebUI.+\n.+\|WebUI.+\|CustomKeywords.*` | Filter relevant code lines |
-| **4** | `katalon_code_pattern` | `(\w+)\.(\w+)\((.*)\)` | Decomposes code into Class, Method, Parameter |
-| **5** | `fto_as_param_pat` | `(findTestObject\(.*\))(?=,)` | Detects `findTestObject()` as the first parameter with positive lookahead for a comma |
-| **6** | `ftd_as_param_pat` | `(findTestData\(.*\))(?=,)` | Detects `findTestData()` as the first parameter with positive lookahead for a comma |
-| **7** | `param_pattern` | `,\s+(?=false)\|(!\]),\s(?=Fail.*)\|(?<![a-zA-Z]),\s(?!\s)(?![a-zA-Z])\|,\s(?=null)\|,\s+(?=\[)` | Split parameters when multiple are present |
-| **8** | `fto_param_str_pattern`| `(findTestObject\(('.+').*\))` | Extracts `findTestObject()` with string argument for transformation |
-| **9** | `ftd_param_str_pattern`| `findTestData\(('.+').*\)\.getValue\((.+)\))` | Extracts `findTestData()` with string and `getValue()` argument |
-| **10**| `GlobalVariable_pattern`| `GlobalVariable\.([A-Za-z_][A-Za-z0-9_]*)` | Normalize global variables |
-| **11**| `abn_test_pat` | `String\s\w+\s=\|if\(|TestObject\s\w+\s=` | Detect custom user code |
+Writing a regex-based translation of these complex structures is not impossible, as other transpilations show, but within the scope of the original task, this would have been too time-consuming.
 
 ---
 
 ## 5 Implementation
 
-This chapter describes the technical implementation of the migration tool: its folder structure, the separation between migration and runtime code, and the tasks of the individual pipeline modules.
+This chapter describes the technical implementation of the migration tool: its folder structure, the separation between migration and runtime code, as well as the tasks of the individual pipeline modules.
 
 ### 5.1 Tech Stack
 
 #### 5.1.1 Python
-The fundamental programming language of the migrator is Python. It was chosen because Python is an easily usable and understandable language, particularly suited for rapid prototyping due to its minimal syntax complexity. Furthermore, I had already used Python extensively for other projects in the past, including a project on automated testing. In this former project, I had my first contact with Selenium and Pytest, which had a significant impact on the decision to reuse them. The decision was not made, however, without weighing the technical currency and actual advantages of both frameworks.
+The fundamental programming language of the migrator is Python. It was chosen because, on one hand, Python is an easily usable and understandable language, particularly suited for rapid prototyping due to its minimal syntax complexity. On the other hand, I had already used Python extensively for other projects in the past, including a project on automated testing. In this former project, I had my first contact with Selenium and Pytest, which had a significant impact on the decision to reuse them. The decision was not made, however, without weighing the technical currency and actual advantages of both frameworks.
 
 #### 5.1.2 Selenium and Pytest
 Selenium is an established and widely used open-source framework for web browser automation that supports a variety of browsers and platforms. It offers a robust API that makes it possible to control and test web applications. Pytest is another open-source framework known for its simple syntax, flexibility, and extensive functionality. It supports the creation of test cases, test suites, and offers a variety of plug-ins to extend functionality. Together they form a versatile and highly practical tech stack for test automation.
 
-#### 5.1.3 Git Versioning and GitHub
-For versioning the source code, Git is used. It is a widely used version control system that allows tracking changes in the code, storing them clearly in connection with GitHub, and falling back on older versions if necessary. Particularly helpful is the possibility to create dedicated "Branches", which allows developers in a team to follow independent development lines. Since this project was developed alone, this was not the main reason for use, but rather the history to document the development. GitHub also allows storing the source code in a central repository accessible from anywhere, making the code globally available.
+#### 5.1.3 Git as Versioning and GitHub
+For versioning the source code, Git is used. It is a widely used version control system that allows tracking changes in the code, storing them clearly in connection with GitHub, and falling back on older versions if necessary. Particularly helpful is the possibility to create dedicated "Branches", which allows developers in a team to follow independent development lines. 
+
+Since this project was developed alone, this was not the main reason for use, but rather the history to document the development. GitHub also allows storing the source code in a central repository accessible from anywhere, making the code globally available.
+
+---
 
 ### 5.2 Project Structure of the Migrator
 The tool is divided into the following logical folder structure:
@@ -637,32 +554,131 @@ For the migrator to function, a distinction must be made between Build-Time and 
 
 The files in the `src/runtime/` folder are not part of the migration pipeline; they are only needed in the target project. They contain Selenium WebDriver dependencies that are not installed at the time of migration. If they were kept as standard Python files in the repository, the compiler would report import errors when analyzing the migrator project. 
 
-Therefore, runtime files carry the extension `.template` and are ignored by the compiler. `copy_runtime_files.py` copies them during Build-Time to the target project, removing the extension automatically.
+Deswegen tragen die Runtime-Dateien die Endung `.template` und werden vom Compiler ignoriert. `copy_runtime_files.py` kopiert sie während der Build-Time in das Ziel-Projekt und entfernt dabei die Endung automatisch.
 
 ---
 
-### 5.3 Pipeline Modules in Detail
-The migration pipeline consists of six specialized modules called sequentially by `main.py`. Each module is responsible for exactly one transformation:
+### 5.3 Pipeline-Module im Detail
+Die Migrationspipeline besteht aus sechs spezialisierten Modulen, die nacheinander von `main.py` aufgerufen werden. Jedes Modul ist für genau eine Transformation verantwortlich.
 
-* `test_suite_translator.py` is the entry point of the pipeline. It recursively traverses the `Scripts/` folder of the Katalon project, filters out `.groovy` files, and delegates each file to `test_transpiler.py` and `test_assembler.py`. The directory structure of the Katalon project is mirrored in the target structure `src/tests/`. Tests that cannot be fully translated are placed in `src/unreadable_tests/`.
-* `test_transpiler.py` performs the actual syntactic transformation. It applies the regex patterns documented in Table 1 to the Groovy code, detects Katalon method calls, and translates them step-by-step into Python equivalents. The result is a list of already transformed lines of code.
-* `test_assembler.py` takes the transpiled lines and assembles them into a complete Python-Pytest test class. It adds the necessary imports (`pytest`, `selenium`, `katalon_helpers`, `base_test`, `global_variables`), generates the class structure with `BaseTest` inheritance, and wraps the test logic in a `test_` method.
-* `object_repo_converter.py` converts all `.rs` files in the `Object Repository/` folder from XML to JSON. The internal `WebElementEntity` structure is preserved; only the file format changes. The result is saved under `src/object_repository/`.
-* `global_vars_generator.py` reads `Profiles/default.glbl` (an XML file with `GlobalVariableEntity` entries) and generates `src/profiles/global_variables.py`—a Python class `GlobalVariables` with class variables for each global variable of the Katalon project.
-* `variables_extractor.py` reads the `.tc` metadata files of the Test Cases and extracts test-specific variables. For each test with variables, a dedicated Python file is generated under `src/variables/`, providing the variables as a Python class.
-* `copy_runtime_files.py` completes the migration: it copies `base_test.py.template` and `katalon_helpers.py.template` into `src/runtime/` of the target project (removing the template extension) and generates the configuration files `pytest.ini`, `requirements.txt`, `.gitignore`, and `README.md` in the root directory.
+* `test_script_scanner.py` ist der Einstiegspunkt der Pipeline. Es durchläuft rekursiv den `Scripts/`-Ordner des Katalon-Projekts, filtert `.groovy`-Dateien heraus und delegiert jede Datei an `test_transpiler.py` und `test_assembler.py`. Dabei wird die Ordnerstruktur des Katalon-Projekts in der Zielstruktur `src/tests/` gespiegelt. Tests, die nicht vollständig übersetzbar sind, werden in `src/unreadable_tests/` abgelegt.
+* `test_transpiler.py` führt die eigentliche syntaktische Transformation durch. Es wendet die in Tabelle 1 dokumentierten Regex Muster auf den Groovy-Code an, erkennt Katalon-Methodenaufrufe und übersetzt sie schrittweise in Python-Äquivalente. Das Ergebnis ist eine Liste von bereits transformierten Code-Zeilen.
+* `test_assembler.py` nimmt die transpilierten Zeilen und baut daraus eine vollständige Python-Pytest-Testklasse zusammen. Es fügt die notwendigen Imports hinzu (`pytest`, `selenium`, `katalon_helpers`, `base_test`, `global_variables`), erzeugt die Klassenstruktur mit `BaseTest`-Vererbung und verpackt die Testlogik in eine `test_`-Methode.
+* `object_repo_converter.py` konvertiert alle `.rs`-Dateien im `Object Repository/`-Ordner von XML nach JSON. Die interne `WebElementEntity`-Struktur bleibt erhalten; lediglich das Dateiformat ändert sich. Das Ergebnis wird unter `src/object_repository/` abgelegt.
+* `global_vars_generator.py` liest `Profiles/default.glbl` (eine XML-Datei mit `GlobalVariableEntity`-Einträgen) und erzeugt daraus `src/profiles/global_variables.py` — eine Python-Klasse `GlobalVariables` mit Klassenvariablen für jede globale Variable des Katalon-Projekts.
+* `variables_extractor.py` liest die `.tc`-Metadateien der Test Cases und extrahiert testeigene Variablen. Für jeden Test mit Variablen wird eine eigene Python-Datei unter `src/variables/` erzeugt, die die Variablen als Python-Klasse bereitstellt.
+* `copy_runtime_files.py` schließt die Migration ab: Es kopiert `base_test.py.template` und `katalon_helpers.py.template` in `src/runtime/` des Ziel-Projekts (mit Endungs-Entfernung) und generiert die Konfigurationsdateien `pytest.ini`, `requirements.txt`, `.gitignore` und `README.md` im Wurzelverzeichnis.
 
-### 5.4 Limitations of the Implementation
-*(Section left intentionally blank / minimal content)*
+---
+
+### 5.4 Transformationsablauf
+
+#### 5.4.1 Semantische Transformation: Katalon Test Object zu Selenium Locators
+Das Katalon Object Repository speichert Testobjekte als `.rs`-Dateien — umbenannte XML-Dateien mit einer `WebElementEntity`-Struktur. Jede Datei beschreibt ein HTML-Element über eine `selectorCollection`, die eine oder mehrere Lokalisierungsstrategien als Schlüssel-Wert-Paare enthält (z. B. BASIC/XPath oder CSS), sowie ein `selectorMethod`-Feld, das die bevorzugte Strategie bestimmt.
+
+Während der Build-Time konvertiert `object_repo_converter.py` diese XML-Dateien in das JSON-Format. Die interne Struktur bleibt dabei vollständig erhalten — lediglich das Dateiformat ändert sich. Das folgende Beispiel zeigt die Transformation der Objektdatei `view_all_users_btn`:
+
+```xml
+<!-- Object Repository/All_Users/view_all_users_btn.rs (Katalon XML) -->
+<WebElementEntity>
+ <name>view_all_users_btn</name>
+ <selectorCollection>
+ <entry>
+ <key>BASIC</key>
+ <value>//*[@id = 'hero-cta']</value>
+ </entry>
+ </selectorCollection>
+ <selectorMethod>BASIC</selectorMethod>
+</WebElementEntity>
+```
+
+```json
+// src/object_repository/All_Users/view_all_users_btn.json (generiertes JSON)
+{
+ "WebElementEntity": {
+ "name": "view_all_users_btn",
+ "selectorCollection": {
+ "entry": { "key": "BASIC", "value": "//*[@id = 'hero-cta']" }
+ },
+ "selectorMethod": "BASIC"
+ }
+}
+```
+
+Zur Runtime liest die Hilfsfunktion `find_katalon_test_object()` in `katalon_helpers.py` die JSON-Datei ein, liest `selectorMethod` aus und sucht den passenden Wert aus der `selectorCollection`. Anschließend lokalisiert sie das Element über die API von Selenium: bei CSS mit `By.CSS_SELECTOR`, bei allen anderen Strategien (einschließlich BASIC) mit `By.XPATH`. Der Aufruf im generierten Testcode bleibt dabei strukturell identisch zum Katalon-Original:
+
+**Katalon (Groovy):**
+```groovy
+WebUI.click(findTestObject('All_Users/view_all_users_btn'))
+```
+**Generierter Python-Code:**
+```python
+kh.find_katalon_test_object(self.driver, 'All_Users/view_all_users_btn').click()
+```
+
+Durch diese Zweistufigkeit — Format-Konvertierung zur Build-Time, Auflösung zur Runtime — muss der generierte Testcode selbst keine Kenntnis über die verwendete Lokalisierungsstrategie haben. Die Bindung zwischen Testlogik und Element-Selektor bleibt erhalten, ohne dass sich die Testeingabe ändert.
+
+---
+
+#### 5.4.2 Syntaktische Transformation: Groovy zu Python
+Die Groovy-Syntax wird durch Regex-Pattern-Matching in Python-Syntax überführt. Aus der Implementierung ergeben sich beispielsweise folgende Transformationen:
+
+**Katalon (Groovy):**
+```groovy
+WebUI.verifyTextPresent('View All Users', false)
+WebUI.click(findTestObject('All_Users/view_all_users_btn'))
+WebUI.setText(findTestObject('All_Users/search_input'), david)
+WebUI.verifyTextPresent(GlobalVariable.user4name, false)
+```
+
+**Generierter Python-Code:**
+```python
+assert 'View All Users' in self.driver.page_source
+kh.find_katalon_test_object(self.driver, 'All_Users/view_all_users_btn').click()
+kh.find_katalon_test_object(self.driver, 'All_Users/search_input').clear()
+kh.find_katalon_test_object(self.driver, 'All_Users/search_input').send_keys(variables.david)
+assert GlobalVariable.USER4NAME in self.driver.page_source
+```
+
+##### 5.4.2.1 Regex-basierte Transformation
+Die Pipeline nutzt mehrere aufeinander abgestimmte Muster, um Groovy-Testcode schrittweise in ein ausführbares Python-Testformat zu überführen.
+
+Im Sinne des Diagramms beginnt dieser Ablauf mit dem Einlesen der ursprünglichen Groovy-Datei. Danach werden Kommentare und Importzeilen entfernt, sodass nur der für die Transpilation relevante Code verbleibt. Aus diesem gefilterten Code werden im nächsten Schritt die eigentlichen Testzeilen extrahiert. Diese Testzeilen werden anschließend geparst und in ihre Grundbestandteile wie Klassenbezug, Methodenname und Parameter zerlegt. 
+
+Auf dieser Grundlage folgt die Transformation erkannter Methoden und Parameter in entsprechende Konstrukte der Zielumgebung. Aus den transformierten Bausteinen wird danach Python-Code erzeugt, der die ursprüngliche Testlogik in neuer Form abbildet. Abschließend werden die generierten Fragmente zu einem vollständigen Test zusammengesetzt. 
+
+Zur Veranschaulichung folgen Bilder, die den Ablauf des Parsens der „findTestObject“-Methode zeigen. Dabei wird regex101.com verwendet, um die Muster anschaulicher darzustellen.
+
+*(Refer to Figures 8, 9, and 10 in the original PDF for the regex matching views).*
+
+Die folgende Tabelle zeigt die wichtigsten Regex Muster, die im Transpilationsprozess zum Einsatz kommen:
+
+---
+
+### Table 1: Overview of the Regular Expression (Regex) Patterns in the Transpilation Process
+
+| # | Pattern Name | Regex | Purpose |
+| :--- | :--- | :--- | :--- |
+| **1** | `comment_pattern` | `/\*[^*]*\*+(?:[^/*][^*]*\*+)*/` | Remove block comments |
+| **2** | `private_method_pat` | `private void .*{\n[\s\w.\(\)=\"\,\'\/\[+@\-\]\\;\<{}]*\n}` | Extract private methods |
+| **3** | `katalon_lines_pattern` | `\/\*\|\/\/.+\|\/\*.+\|WebUI.+\n.+\|WebUI.+\|CustomKeywords.*` | Filter relevant code lines |
+| **4** | `katalon_code_pattern` | `(\w+)\.(\w+)\((.*)\)` | Decomposes code into Class, Method, Parameter |
+| **5** | `fto_as_param_pat` | `(findTestObject\(.*\))(?=,)` | Detects `findTestObject()` as the first parameter with positive lookahead for a comma |
+| **6** | `ftd_as_param_pat` | `(findTestData\(.*\))(?=,)` | Detects `findTestData()` as the first parameter with positive lookahead for a comma |
+| **7** | `param_pattern` | `,\s+(?=false)\|(!\]),\s(?=Fail.*)\|(?<![a-zA-Z]),\s(?!\s)(?![a-zA-Z])\|,\s(?=null)\|,\s+(?=\[)` | Split parameters when multiple are present |
+| **8** | `fto_param_str_pattern`| `(findTestObject\(('.+').*\))` | Extracts `findTestObject()` with string argument for transformation |
+| **9** | `ftd_param_str_pattern`| `findTestData\(('.+').*\)\.getValue\((.+)\))` | Extracts `findTestData()` with string and `getValue()` argument |
+| **10**| `GlobalVariable_pattern`| `GlobalVariable\.([A-Za-z_][A-Za-z0-9_]*)` | Normalize global variables |
+| **11**| `abn_test_pat` | `String\s\w+\s=\|if\(|TestObject\s\w+\s=` | Detect custom user code |
 
 ---
 
 ## 6 Evaluation
 
-To evaluate the migration tool, the Katalon sample project `sample-website-katalon-tests` was used. It contains real end-to-end tests, an Object Repository, a global variable profile, and an integrated CSV data file. The migration was performed on a Windows 11 machine with Python 3.13.0 and pytest 8.4.1.
+Zur Evaluation des Migrationswerkzeugs wurde das Katalon-Beispielprojekt `sample-website-katalon-tests` verwendet. Es enthält reale End-to-End-Tests, ein Object Repository, ein globales Variablen-Profil und eine eingebundene CSV-Datendatei. Die Migration wurde auf einem Windows-11-Rechner mit Python 3.13.0 und pytest 8.4.1 durchgeführt.
 
-### 6.1 Migration Results
-Running the migrator (`python main.py`) yields the following results:
+### 6.1 Migrationsergebnis
+Die Ausführung des Migrators (`python main.py`) liefert folgendes Ergebnis:
 
 ---
 
@@ -745,29 +761,27 @@ The automated migration of the sample project took less than one second. In comp
 
 The estimated manual effort is **8–12 hours** for this sample project. As the number of tests grows, the migrator scales linearly, whereas the manual effort increases disproportionately due to increasingly complex cross-references (variables, objects, data).
 
----
+## 7 Diskussion
+*(Sektion im Original leergelassen)*
 
-## 7 Discussion
-*(Section left intentionally blank / minimal content)*
-
-## 8 Conclusion & Future Work
-*(Section left intentionally blank / minimal content)*
+## 8 Fazit & Ausblick
+*(Sektion im Original leergelassen)*
 
 ---
 
 ## Bibliography (Quellenverzeichnis)
 
 * **[1]** regex101, "regex101: build, test, and debug regular expressions". Accessed: July 31, 2026. [Online]. Available: `https://regex101.com/`
-* **[2]** Katalon, Inc., "Katalon | The AI Platform for Software Quality". Accessed: July 21, 2026. [Online]. Available: `https://katalon.com/`
+* **[2]** Katalon, Inc., "Katalon \| The AI Platform for Software Quality". Accessed: July 21, 2026. [Online]. Available: `https://katalon.com/`
 * **[3]** International Software Testing Qualifications Board, "ISTQB Glossary". Accessed: July 22, 2026. [Online]. Available: `https://glossary.istqb.org/`
 * **[4]** D. R. Kuhn, R. N. Kacker, and Y. Lei, "Practical Combinatorial Testing", NIST Special Publication 800–142, 2010. doi: `10.6028/NIST.SP.800-142`.
 * **[5]** S. Chittala, "Enhancing Developer Productivity Through Automated CI/CD Pipelines: A Comprehensive Analysis", *International Journal of Computer Engineering and Technology (IJCET)*, Vol. 15, No. 5, pp. 882–891, 2024, doi: `10.5281/zenodo.13929524`.
-* **[6]** Selenium Contributors, "WebDriver | Selenium". Accessed: July 30, 2026. [Online]. Available: `https://www.selenium.dev/documentation/webdriver/`
+* **[6]** Selenium Contributors, "WebDriver \| Selenium". Accessed: July 30, 2026. [Online]. Available: `https://www.selenium.dev/documentation/webdriver/`
 * **[7]** A. Sahay, A. Indamutsa, D. Di Ruscio, and A. Pierantonio, "Supporting the Understanding and Comparison of Low-Code Development Platforms", in *Proceedings of the 46th Euromicro Conference on Software Engineering and Advanced Applications (SEAA)*, IEEE, 2020, pp. 171–178. doi: `10.1109/SEAA51224.2020.00036`.
 * **[8]** C. Shapiro and H. R. Varian, *Information Rules: A Strategic Guide to the Network Economy*. Boston: Harvard Business School Press, 1998.
 * **[9]** J. E. Friedl, *Mastering Regular Expressions*, 3rd ed. Sebastopol, CA: O'Reilly Media, 2006.
 * **[10]** devalex88, "Katalon Studio 8 with Eclipse RCP 4.13 - Miscellaneous - Katalon Community". Accessed: July 31, 2026. [Online]. Available: `https://forum.katalon.com/t/katalon-studio-8-with-eclipse-rcp-4-13/36808`
-* **[11]** Katalon Docs, "Spy Web utility in Katalon Studio | Katalon Docs". Accessed: July 31, 2026. [Online]. Available: `https://docs.katalon.com/katalon-studio/record-and-spy/webui-record-and-spy-utilities/spy-web-utility-in-katalon-studio`
+* **[11]** Katalon Docs, "Spy Web utility in Katalon Studio \| Katalon Docs". Accessed: July 31, 2026. [Online]. Available: `https://docs.katalon.com/katalon-studio/record-and-spy/webui-record-and-spy-utilities/spy-web-utility-in-katalon-studio`
 * **[12]** pytest development team, "Pytest Documentation: Configuration". Accessed: July 24, 2026. [Online]. Available: `https://docs.pytest.org/en/stable/reference/customize.html`
 * **[13]** pytest development team, "Pytest Documentation: Good Integration Practices". Accessed: July 24, 2026. [Online]. Available: `https://docs.pytest.org/en/stable/explanation/goodpractices.html`
 * **[14]** Python Packaging Authority, "Python Packaging User Guide: src layout vs flat layout". Accessed: July 24, 2026. [Online]. Available: `https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/`

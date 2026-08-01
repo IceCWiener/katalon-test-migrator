@@ -387,6 +387,11 @@
     description: "Ein Programm, das Quellcode zur Laufzeit schrittweise ausführt, ohne ihn vollständig vorab in Maschinencode zu übersetzen. Python wird typischerweise über einen Interpreter ausgeführt."
   ),
   (
+    key: "python",
+    short: "Python",
+    description: "Eine weit verbreitete, interpretierte Programmiersprache mit klarer Syntax und großem Ökosystem. In dieser Arbeit dient Python als Zielsprache der Migration und als Grundlage für die Ausführung der generierten Selenium/Pytest-Tests."
+  ),
+  (
     key: "sut",
     short: "SUT",
     long: "System Under Test",
@@ -408,6 +413,12 @@
     short: "HTML",
     long: "HyperText Markup Language",
     description: "Eine standardisierte Auszeichnungssprache zur Strukturierung von Webinhalten. HTML beschreibt den Aufbau von Elementen wie Formularen, Buttons, Tabellen und Textbereichen, auf die automatisierte UI-Tests zugreifen."
+  ),
+  (
+    key: "xml",
+    short: "XML",
+    long: "Extensible Markup Language",
+    description: "Ein textbasiertes, hierarchisches Datenformat zur strukturierten Beschreibung von Informationen. In dieser Arbeit werden mehrere Katalon-Dateitypen als XML interpretiert und in offene Zielformate ueberfuehrt."
   ),
   (
     key: "regex",
