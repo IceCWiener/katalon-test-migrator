@@ -15,8 +15,30 @@ __pycache__/
 .mypy_cache/
 *.pyc
 """,
-    "requirements.txt": """pytest
-selenium
+    "requirements.txt": """attrs==26.1.0
+certifi==2026.6.17
+cffi==2.1.0
+colorama==0.4.6
+h11==0.16.0
+idna==3.18
+iniconfig==2.3.0
+outcome==1.3.0.post0
+packaging==26.2
+pluggy==1.6.0
+pycparser==3.0
+Pygments==2.20.0
+PySocks==1.7.1
+pytest==9.1.1
+selenium==4.46.0
+sniffio==1.3.1
+sortedcontainers==2.4.0
+trio==0.33.0
+trio-websocket==0.12.2
+typing_extensions==4.16.0
+urllib3==2.7.0
+websocket-client==1.9.0
+wsproto==1.3.2
+xmltodict==1.0.4
 """,
     "README.md": """# Generated Selenium Pytest Project
 
@@ -35,6 +57,27 @@ python -m pip install -r requirements.txt
 ```powershell
 pytest
 ```
+
+## Configure VS Code test discovery (optional)
+
+If you use VS Code, create `.vscode/settings.json` in the generated project and add:
+
+```json
+{
+    "python.testing.pytestArgs": [
+        "src"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
+```
+
+Then run `Python: Discover Tests` from the command palette.
+
+## Git ignore behavior
+
+When the migrator creates root configuration files, an existing `.gitignore` is never overwritten.
+Missing default Python ignore entries are appended automatically.
 
 ## Project structure
 
@@ -85,12 +128,39 @@ def copy_runtime_files(destination_root: str) -> None:
             init_file.touch()
 
     root_file_count = 0
+    merged_gitignore_count = 0
+    unchanged_gitignore_count = 0
     for file_name, content in RUNTIME_ROOT_FILES.items():
         destination_file = destination_root_path / file_name
+
+        if file_name == ".gitignore" and destination_file.exists():
+            existing_text = destination_file.read_text(encoding="utf-8")
+            existing_lines = existing_text.splitlines()
+            existing_entries = {line.strip() for line in existing_lines if line.strip()}
+
+            missing_lines = [
+                line for line in content.splitlines()
+                if line.strip() and line.strip() not in existing_entries
+            ]
+
+            if missing_lines:
+                append_block = "\n".join(missing_lines) + "\n"
+                separator = "" if not existing_text or existing_text.endswith("\n") else "\n"
+                destination_file.write_text(existing_text + separator + append_block, encoding="utf-8")
+                merged_gitignore_count += 1
+                root_file_count += 1
+            else:
+                unchanged_gitignore_count += 1
+            continue
+
         destination_file.write_text(content, encoding="utf-8")
         root_file_count += 1
 
-    print(f"Runtime: {copied_count} files copied, {root_file_count} root config files created")
+    print(
+        f"Runtime: {copied_count} files copied, {root_file_count} root config files created, "
+        f"{merged_gitignore_count} existing .gitignore merged, "
+        f"{unchanged_gitignore_count} existing .gitignore unchanged"
+    )
 
 
 def copy_data_files(source_root: str, dest_root: str) -> None:

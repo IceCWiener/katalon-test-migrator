@@ -46,34 +46,29 @@ Automatisiertes Testen ist eine zentrale Komponente moderner Software-Qualitäts
 
 Da sich die Anforderungen des Projekts weiterentwickelten, benötigte das Team fortgeschrittenere Automatisierungs-Techniken, wie automatisiertes Berechnen von Datums-Einträgen und eine tiefere Kontrolle über die Testausführung und das Debugging. In dieser Phase traten erste Blockaden auf: Erweiterte Funktionen, die im Programmieren als elementar gesehen werden, erforderten zusätzliche Lizenzen, was erhebliche Kosten verursachte und die Skalierung der Infrastruktur einschränkte. Dies kristallisierte sich schnell als ein blockierendes Problem heraus da die Preise in keinem Verhältnis zu den Leistungen standen und über längere Zeit nicht tragbar waren. Als Lösungsansatz wurde eine Migration zu einem Open-Source Projekt vorgeschlagen. 
 
-Angesichts der erheblichen bestehenden Investitionen in eine Katalon-basierte Test-Umgebung war ein vollständiges Neuschreiben der aller gesammelten Tests von Grund auf, nicht machbar. Deswegen wurde ein Migrationsansatz als PoC untersucht, um die zuvor erstellten Tests und alles Zugehörige zu erhalten und gleichzeitig den Übergang zu einer offenen und erweiterbaren Open-Source Struktur zu ermöglichen.
-//TODO: Hinzufügen warum Selenium gewählt wurde, vll. mit Unterehader wie Technologien in Teams gewählt werden. Z. B. Bezug auf Team Skillset etc.
+Angesichts der erheblichen bestehenden Investitionen in eine Katalon-basierte Test-Umgebung war ein vollständiges Neuschreiben der aller gesammelten Tests von Grund auf, nicht machbar. Deswegen wurde ein Migrationsansatz als @poc untersucht, um die zuvor erstellten Tests und alles Zugehörige zu erhalten und gleichzeitig den Übergang zu einer offenen und erweiterbaren Open-Source Struktur zu ermöglichen.
 
 == Problemstellung
 
-Das Kernproblem das in dieser Arbeit behandelt wird, ist die Frage wie ein bestehendes Katalon-Projekt beim Wechsel in eine lizenzunabhängige Open-Source Umgebung beibehalten und wiederverwendet werden kann. Eine manuelle Migration von Katalon-Tests zu Selenium/Pytest ist extrem zeitaufwendig und bei einer großen Testmenge praktisch unerreichbar. Das liegt daran, dass neben der reinen Skriptübersetzung eine Menge an zusätzlichen Abhängigkeiten und Konfigurationen berücksichtigt werden müssen. Ein Katalon-Projekt besteht nicht nur aus Testskripten, sondern auch aus einer Vielzahl von Assets wie Objekt-Repositorys, Variablen-Definitionen, globalen Profilen und Datenabhängigkeiten. Diese sind jeweils in proprietären Formaten gespeichert und müssten manuell "ausgegraben" und zusammengeführt werden.
-Eine manuelle Migration würde daher nicht nur die Übersetzung von Groovy nach Python erfordern, sondern auch die Rekonstruktion der gesamten Projektstruktur und die Anpassung an die Open-Source-Frameworks.
+Das Kernproblem das in dieser Arbeit behandelt wird, ist die Frage wie ein bestehendes Katalon Projekt beim Wechsel in eine lizenzunabhängige Open-Source Umgebung beibehalten und wiederverwendet werden kann. Eine manuelle Migration von Katalon Tests zu Selenium/@pytest Tests ist relativ zeitaufwendig und bei einer großen Testmenge wird dies praktisch unerreichbar. Das liegt daran, dass neben der reinen Skriptübersetzung auch noch eine Menge an zusätzlichen Abhängigkeiten und Konfigurationen berücksichtigt werden müssen. Ein Katalon Projekt besteht nicht nur aus Testskripten, sondern auch aus einer Vielzahl von Teilen wie dem "Objekt-Repository", testexterne Variablen-Definitionen, Profilen und Datenabhängigkeiten. Diese sind jeweils in proprietären Formaten gespeichert, in ihrer Funktionsweise verschleiert und müssten manuell "ausgegraben" und zusammengeführt werden.
+Eine manuelle Migration würde daher nicht nur die Übersetzung von Groovy nach Python erfordern, sondern auch die Rekonstruktion aller Teile der Projektstruktur und ihre Anpassung an die Open-Source-Frameworks.
 
 Die technische Herausforderung liegt nicht nur in der syntaktischen Konvertierung des Testcodes, sondern in der End-to-End-Transformation eines kompletten Testautomatisierungsprojekts in ein ausführbares und skalierbares alternatives Format.
 
 == Ziel & Aufbau der Arbeit 
 
-//TODO: Katalon-Projekt und Python-Projekt als Namen nutzen
-Das Ziel dieser Arbeit ist es, einen automatisierten Migrator zu entwerfen, zu implementieren und zu evaluieren, der Katalon-basierte Testprojekte in eine Python-Projektstruktur konvertiert. Im Folgenden wird das Katalon-Projekt als Ausgangspunkt und das Python-Projekt als Zielprojekt bezeichnet.
-
-Um dieses Ziel zu erreichen wird in dieser Arbeit zuerst die Struktur eines Katalon-Projektes und die eines Python-Selenium/Pytest-Projektes analysiert. Dann wird Stück für Stück ein Migrationsalgorithmus entworfen, der die proprietären Formate des einen, in offen nutzbare Formate des anderen überführt. Anschließend wird ein Prototyp implementiert, der die Transformation automatisiert und die Integrität der Tests sicherstellt. Abschließend werden die Ergebnisse evaluiert und diskutiert, um die Effektivität des Migrationsprozesses zu bewerten.
+Das Ziel dieser Arbeit ist es, einen automatisierten Migrator zu entwerfen, zu implementieren und zu evaluieren, der Katalon-basierte Testprojekte in eine Python-Projektstruktur konvertiert. Um dieses Ziel zu erreichen wird in dieser Arbeit zuerst die Struktur eines Katalon Projektes und die eines Python Projektes analysiert. Dann wird Stück für Stück ein Migrationsalgorithmus entworfen, der die proprietären Formate des einen, in offen nutzbare Formate des anderen überführt. Anschließend wird ein Prototyp implementiert, der die Transformation automatisiert und die Integrität der Tests sicherstellt. Abschließend werden die Ergebnisse evaluiert und diskutiert, um die Effektivität des Migrationsprozesses zu bewerten.
 
 = Grundlagen
 == Automatisiertes Testen
 
 Softwaretests sind ein grundlegender Bestandteil der Qualitätssicherung in der Softwareentwicklung. Ihr Ziel ist es, sicherzustellen, dass ein System korrekt funktioniert und definierte Anforderungen erfüllt. Dabei unterscheidet man grob zwischen manuellen und automatisierten Tests.
 
-//TODO: Regressiontests ins glossar einfügen
-Bei manuellen Tests, auch "Regressiontests" genannt, führt eine Person die Testschritte selbst aus und bewertet das Ergebnis@istqb_glossary. Dieser Ansatz ist bei kleinen, seltenen oder exemplarischen Überprüfungen gut nutzbar, jedoch skaliert dessen Zeitaufwand schnell. Mit wachsender Softwarekomplexität steigt der Zeitaufwand für manuelle Tests exponentiell.
+Bei manuellen Tests, auch @regression-test genannt, führt eine Person die Testschritte selbst aus und bewertet das Ergebnis@istqb_glossary. Dieser Ansatz ist bei kleinen, seltenen oder exemplarischen Überprüfungen gut nutzbar, jedoch skaliert dessen Zeitaufwand schnell. Mit wachsender Softwarekomplexität steigt der Zeitaufwand für manuelle Tests bei vollständiger Abdeckung stark an, da die Anzahl möglicher Kombinationen mit der Anzahl von Eingabeparametern exponentiell wächst@nist_sp800_142[S. 34, S. 37].
 
 Automatisiertes Testen bezeichnet das Ausführen von Tests mit Hilfe von Testskripten, die von einem Computer ausgeführt werden. Die Skripte definieren Eingaben, Aktionen und erwartete Ergebnisse. Einer der größten Vorteile davon, gegenüber manuellen Tests ist die Frequenz. Man kann sie beliebig oft und sehr konsistent durchführen. Die sich dadurch ergebende Geschwindigkeit erlaubt es große Mengen an Tests effizient in Form von Test-Suites abzuarbeiten. Nach Codeänderungen kann dadurch zum Beispiel schnell überprüft werden ob bestehende Funktionalität noch korrekt arbeitet. Dazu kann man automatisierte Tests direkt in CI/CD-Pipelines einbinden und so in den regulären Entwicklungsprozess integrieren@chittala2024cicd[S. 884].
 
-Für webbasierte Anwendungen hat sich dabei Selenium @webdriver als weit verbreitetes Werkzeug etabliert. Der @webdriver ist eine standardisierte API, über die Testskripte einen Browser programmatisch steuern — Klicks, Formulareingaben und Navigationsbefehle werden direkt an den Browser gesendet, als ob ein Nutzer sie manuell ausführen würde@selenium_webdriver.
+Für webbasierte Anwendungen hat sich dabei Selenium @webdriver als weit verbreitetes Werkzeug etabliert. Der @webdriver ist ein standardisiertes @api, über die Testskripte einen Browser programmatisch steuern — Klicks, Formulareingaben und Navigationsbefehle werden direkt an den Browser gesendet, als ob ein Nutzer sie manuell ausführen würde@selenium_webdriver.
 
 == Low-Code-Plattformen im Testbereich
 //TODO: Quellen einfügen, low code und pro code ins glossar einfügen und Stellen markieren
@@ -88,7 +83,7 @@ Im Gegensatz dazu stehen sogenannte *Pro-Code*-Ansätze, bei denen Tests vollst�
 == @vendor-lock-in bei proprietären Plattformen
 
 //TODO: weitere Quellen hinzufügen, keine Bulletpoints, vendor-lock in als Referenz markieren
-@vendor-lock-in beschreibt die Abhängigkeit eines Nutzers oder einer Organisation von einem bestimmten Anbieter, sodass ein Wechsel zu einer Alternative mit erheblichem Aufwand oder hohen Kosten verbunden ist@shapiro1998information. Diese Abhängigkeit entsteht häufig durch proprietäre Dateiformate, plattformspezifische Programmiersprachen oder APIs, die außerhalb des jeweiligen Ökosystems nicht verwendet werden können.
+@vendor-lock-in beschreibt die Abhängigkeit eines Nutzers oder einer Organisation von einem bestimmten Anbieter, sodass ein Wechsel zu einer Alternative mit erheblichem Aufwand oder hohen Kosten verbunden ist@shapiro1998information. Diese Abhängigkeit entsteht häufig durch proprietäre Dateiformate, plattformspezifische Programmiersprachen oder @api, die außerhalb des jeweiligen Ökosystems nicht verwendet werden können.
 
 Im Bereich der Testautomatisierung zeigt sich Vendor Lock-in beispielsweise dann, wenn:
 - Testskripte in einer plattformeigenen Skriptsprache verfasst sind und nicht ohne Weiteres auf andere Frameworks übertragen werden können,
@@ -123,12 +118,9 @@ In der eigentlichen Pipeline werden dafür mehrere Muster kombiniert um alles Ge
 //TODO: OR markierer setzen, Beschreibung erweitern, Abbildung einfügen, Quellen für Katalon Studio und Katalon Test Suite Management, weitere Ordner beschreiben
 Katalon Studio ist eine proprietäre Testautomatisierungsplattform, die technisch auf der Eclipse @rcp aufbaut@katalon_rcp_413. Eclipse ist eine klassische @ide für Java-Entwicklung. 
 Ein Katalon Studio Projekt besteht, aus dem Blickwinkel des Benutzers aus "Test Cases", einem "Object Repository", "Global Variables" in Profilen, testeigenen Variablen und eingebundenen Testdaten. Diese werden in einer hierarchischen Ordnerstruktur gespeichert, die komplett von der IDE verwaltet wird. 
-
-=== Ordner und Dateien
-
 Hier werden die wichtigsten Ordner und Dateien eines Katalon-Projekts beschrieben und alle die für dieses Projekt relevant sind. 
 
-==== Test Cases und testeigene Variablen
+=== Test Cases und testeigene Variablen
 
 Die Testskripte in Katalon sind in @groovy geschrieben, einer dynamischen Sprache, die auf der @jvm läuft. Sie werden mit einer Vielzahl von eingebauten Keywords und Funktionen geliefert, die speziell für Testautomatisierung entwickelt wurden. Variablen können sowohl global als auch lokal definiert werden, wobei globale Variablen in Profilen gespeichert sind und in allen Tests zugänglich sind. Testeigene Variablen werden im jeweiligen Test definiert und sind nur innerhalb dieses Tests verfügbar.
 #figure(
@@ -140,20 +132,20 @@ Die Testskripte in Katalon sind in @groovy geschrieben, einer dynamischen Sprach
   caption: [Links: Das Dateisystem der Test Cases. Rechts: Ein Test Case mit Testlogik die erst das Fenster "All Users" öffnet, dann nach dem User "David Kim" sucht, diesen markiert und danach dessen Details verifiziert.]
 )<fig-katalon-test-case>
 
-==== Object Repository und Test Objects
+=== Object Repository und Test Objects
 //TODO: Um Test Objects erweitern
-Das @object-repository ist ein zentrales Element in der Katalon Umgebung, das das Speichern von "@ui"-Elementen ermöglicht. Es speichert die Eigenschaften von HTML-Elementen, die während der Testausführung verwendet werden. Dafür können die User die Elemente mit der @spy-web-utility, die Katalon Studio bereitstellt, auf der Webseite auswählen und im Object Repository generieren lassen@katalon_spy_web_utility. Diese Elemente können in verschiedenen Tests wiederverwendet werden.
+Das @object-repository ist ein zentrales Element in der Katalon Umgebung, das das Speichern von "@ui"-Elementen ermöglicht. Es speichert die Eigenschaften von @html Elementen, die während der Testausführung verwendet werden. Dafür können die User die Elemente mit der @spy-web-utility, die Katalon Studio bereitstellt, auf der Webseite auswählen und im Object Repository generieren lassen@katalon_spy_web_utility. Diese "Test Objects" können in verschiedenen Tests wiederverwendet werden.
 #figure(
   grid(
     columns: 2,
     image("img/Katalon Studio/object_repository_file_system.png", ),
     image("img/Katalon Studio/test_object.png"),
   ),
-  caption: [Links: Das Dateisystem des Object Repository aufgefaltet. Blau markierte Namen wurden mit Unterstützung der @ide eigenen AI generiert. Rechts: Ein Test Object das die Eigenschaften eines HTML-Elements beschreibt.]
+  caption: [Links: Das Dateisystem des Object Repository aufgefaltet. Blau markierte Namen wurden mit Unterstützung der @ide eigenen AI generiert. Rechts: Ein Test Object das die Eigenschaften eines @html Elements beschreibt.]
 )<fig-katalon-object-repository>
 //TODO: Markierungen für Glossar hinzufügen
 
-==== Global Variables und Profile
+=== Global Variables und Profile
 
 //TODO: Markierungen und Eintrag für Test Cases im Glossar hinzufügen
 User können in Katalon eigene globale Variablen definieren, die in allen Tests verwendet werden können. Diese Variablen werden in Profilen gespeichert, welche unterschiedliche User oder Umgebungen repräsentieren können. Profile ermöglichen es, Tests in verschiedenen Konfigurationen auszuführen, ohne den Testcode selbst ändern zu müssen.
@@ -167,7 +159,7 @@ Hat ein Profil zum Beispiel die Variable "URL" mit dem Wert `https://staging.exa
   caption: [Links: Ansicht der Profile im Dateisystem. Rechts: Ein Profil das die Global Variables URL, USERNAME1 und PASSWORD1 definiert. Die PASSWORD1 Variable ist als "protected" markiert, sodass ihr Wert in der @ide nur maskiert angezeigt wird.],
 )<fig-katalon-profiles>
 
-==== Testdaten und Einbindung
+=== Testdaten und Einbindung
 
 Katalon kann Testdaten aus verschiedenen Quellen, wie Excel-Dateien, CSV-Dateien oder Datenbanken einbinden. Diese Testdaten können in den Testskripten referenziert werden, um die Tests mit unterschiedlichen Eingabewerten auszuführen.
 #figure(
@@ -179,135 +171,154 @@ Katalon kann Testdaten aus verschiedenen Quellen, wie Excel-Dateien, CSV-Dateien
   caption: [Links: Ansicht der Testdaten im Dateisystem. Rechts: Ein Testdatensatz aus der Datei users.dat.],
 )<fig-katalon-data-files>
 
-==== Custom Keywords
+=== Custom Keywords
 
 User können eigene Strukturen, sogenannte "Custom Keywords" erstellen, die in mehreren Tests wiederverwendet werden können. Sie funktionieren wie selbst geschriebene Methoden in klassischen objekt-orientierten Programmiersprachen. Diese Methoden werden in Groovy geschrieben und ermöglichen es, komplexere Logik für Tests zu nutzen und diese wiederverwendbar zu machen. 
 
-=== Verschachtelungen in der Katalon Struktur
+== Verschachtelungen in der Katalon Struktur
 //TODO: Abbildungen für Verschachtelungen einfügen, die die Komplexität der Katalon-Struktur verdeutlichen. (figure von unten nutzen)
 Alle Dateien und Ordner die man in der Katalon @ide erstellt, werden durch den Viewport übersichtlich dargestellt.
-Sobald man sich die Ordnerstruktur eines Katalon-Projekts jedoch außerhalb der @ide anschaut, erkennt man, dass die Testskripte nicht nur eine einzelne Datei sind, wie im Programmieren üblich. 
+Sobald man sich die Ordnerstruktur eines Katalon Projekts jedoch außerhalb der @ide anschaut, erkennt man, dass die jegliche selbsterstelle Inhalte nicht nur jeweils eine einzelne Datei sind, wie im Programmieren üblich, sondern aus mehreren Dateien bestehen.
 
-==== Verschachtelung der Test Cases
+=== Verschachtelung der Test Cases und ihrer Variablen
 
 Ein "Test Case" besteht in Katalon aus mehreren Dateien, die zusammenarbeiten. Folgt man der Katalon-Ordnerstruktur im Explorer unter "Test Cases", so wie sie in der @ide zu sehen ist landet man bei einer .tc-Datei. Öffnet man diese, erkennt man schnell, dass es sich dabei um eine umbenannte .xml-Datei handelt. Sie enthält Meta-Daten, wie eine Beschreibung, den Testnamen, Tags, Kommentare, eine @guid und die eigentlichen Werte der testeigenen Variablen. Es gibt keine offensichtliche Referenz auf die eigentliche Testlogik. Diese ist in einer weiteren Datei gespeichert. Man würde annehmen die @guid hilft bei der Referenzierung der beiden Dateien, doch die Testskripte enthalten diese an keiner Stelle. Um sie zu finden muss man den Ordner "Scripts" öffnen, dann den Pfad des "Test Cases" spiegeln. Dort befindet sich ein Ordner der den Testnamen trägt und dieser enthält dann eine .groovy-Datei, die den Namen "Script" kombiniert mit einer zufälligen Nummer trägt. Die Nummer steht in keiner Verbindung zu der .tc-Datei. In dieser .groovy-Datei befindet sich dann die eigentliche Testlogik. Greift der Test auf eine Variable zu, wird im Skript der "rohe" Name der Variable ausgeschrieben. "Roh" bedeutet, dass der Name im Code keinen Datentyp hat und auf nichts im Test verweist. Die Variable wird im Test weder deklariert, noch initialisiert.
 
-==== Verschachtelung der Globalen Variablen
+#figure(
+  text(size: 0.9em)[
+    ```
+  sample-website-katalon-tests/
+  │
+  ├── Test Cases/                           
+  │   ├── Users/
+  │   │   ├── filter_for_admins.tc         
+  │   │   ├── search_for_david_kim.tc      
+  │   │   └── show_active_viewers.tc
+  │   └── Menus/
+  │       └── navigation_bar.tc
+  │
+  └── Scripts/                              
+      ├── Users/
+      │   ├── filter_for_admins/
+      │   │   └── Script1781348815820.groovy  
+      │   ├── search_for_david_kim/
+      │   │   └── Script1781447000826.groovy  
+      │   └── show_active_viewers/
+      │       └── Script...groovy
+      └── Menus/
+          └── navigation_bar/
+              └── Script...groovy
+  
+  ```
+  ],
+  caption: [Die Abbildung zeigt die Ordnerstruktur der Test Cases und der zugehörigen Testskripte aus der Perspektive des Dateisystems. Die .tc-Dateien enthalten Meta-Daten und die .groovy-Dateien die eigentliche Testlogik.],
+)<fig-katalon-test-case-structure>
 
-Wenn der Test eine globale Variable verwendet, zeigt sich dies im Code als "GlobalVariable.VARIABLENNAME". Der Wert der Variable ist nicht im Skript zu finden sondern in der Profil-Datei mit der Endung .glbl, die im Ordner "Profiles" gespeichert ist. Diese Datei ist ebenfalls eine .xml-Datei und enthält die Variablen als Eintrag in einer "GlobalVariableEntity" - ein Eintrag der die Variable beschreibt. Diese Einträge enthalten den tatsächlichen Wert und Meta-Daten, bestehend aus einer Beschreibung, dem Variablennamen, dem Datentyp und einem Boolean der beschreibt ob der Wert "protected" ist. Ist er "protected", wird der Wert als sensibel behandelt und in der @ui und bei der Bearbeitung nur mit dem Stern-Charakter maskiert angezeigt. In "Logs" werden die Werte dann auch nicht angezeigt. In der .glbl-Datei ist der Wert jedoch unverschlüsselt und im Klartext zu sehen.
+=== Verschachtelung vom Objekt Repository und der Test Objects
 
-==== Verschachtelung der Testdaten
+Will ein Test ein "Test Object" verwenden, wird im Testskript der komplette Pfad zum Speicherort der .rs-Datei angegeben um diese aufzurufen. Die .rs-Datei enthält alle Selektoren und die Angabe  welcher davon als Hauptselektor verwendet werden soll. 
 
-Sobald man mit Katalon Studio ein Dateiformat mit Daten einbinden möchte, erstellt Katalon Studio eine .dat-Datei im Ordner "Data Files" die den gleichen Namen wie die eingebundene Datei trägt. Die Datei enthält ebenfalls XML-Strukturen, nur ein paar Meta-Daten enthalten. Unter anderem den Pfad zur eingebundenen Datei, die Dateiart, ggf. die Trenzeichen und ob der Pfad Projektintern oder -extern ist. Die eigentlichen Daten sind nicht in der .dat-Datei enthalten, sondern in der eingebundenen Datei.
-
-==== Verschachtelung der Custom Keywords
-
-Der Großteil der "Custom Keywords"-Logik wird im Ordner "Keywords" und selbst erstellten Unterordnern gespeichert, und ist in @groovy in der Form "KlassenName.groovy" geschrieben. Diese Skripte enthalten die eigentlichen Klassen und Methoden die in den Tests aufgerufen werden. 
-Im Ordner "Libs" gibt es die "CustomKeywords.groovy"-Datei. Diese definiert statische Weiterleitungen mit dem gleichen Namen wie die Klassen im Ordner "Keywords". Diese Methoden rufen die eigentlichen Methoden in den Klassen auf und machen sie dadurch in jedem Test aufrufbar.
-
-Die folgende Abbildung zeigt die vollständige Dateistruktur des Katalon Projekts, wie sie außerhalb der @ide im Filesystem vorliegt — inklusive aller in den vorangehenden Abschnitten beschriebenen Verschachtelungen:
-
-//TODO: Diese große Struktur unten als Anhang mitgeben und hier nur darauf hinweisen.
 #figure(
   text(size: 0.9em)[
   ```
   sample-website-katalon-tests/
   │
-  ├── Test Cases/                           - Katalon IDE zeigt diese Ansicht
-  │   ├── Users/
-  │   │   ├── filter_for_admins.tc         - .tc = XML Meta-Datei (Beschreibung, Variable)
-  │   │   ├── search_for_david_kim.tc      - KEINE Testlogik enthalten!
-  │   │   └── show_active_viewers.tc
-  │   └── Menus/
-  │       └── navigation_bar.tc
-  │
-  ├── Scripts/                              - Echte Testlogik (außer IDE verborgen)
-  │   ├── Users/
-  │   │   ├── filter_for_admins/
-  │   │   │   └── Script1781348815820.groovy  - Zufällige Nummer! (!)
-  │   │   ├── search_for_david_kim/
-  │   │   │   └── Script1781447000826.groovy  - Entspricht search_for_david_kim.tc
-  │   │   └── show_active_viewers/
-  │   │       └── Script...groovy
-  │   └── Menus/
-  │       └── navigation_bar/
-  │           └── Script...groovy
-  │
-  ├── Object Repository/                   - Lokalisierungsstrategien (Selektoren)
-  │   ├── All_Users/
-  │   │   ├── view_all_users_btn.rs        - .rs = XML Objekt (XPath, CSS, ID...)
-  │   │   ├── search_input.rs
-  │   │   ├── roles_dropdown.rs
-  │   │   ├── status_dropdown.rs
-  │   │   ├── user_row.rs
-  │   │   └── user_row_view_btn.rs
-  │   └── Nav_Bar/
-  │       └── ...weitere Test Objects
-  │
-  ├── Profiles/                            - Globale Variablen nach Umgebung
-  │   └── default.glbl                     - .glbl = XML (GlobalVariableEntity Einträge)
-  │
-  ├── Data Files/                          - Externe Testdaten-Referenzen
-  │   └── users.dat                        - .dat = XML Meta (verweist auf echte Datei)
-  │
-  ├── Keywords/                            - Custom Methoden/Helper
-  │   ├── data/
-  │   └── TESTER.groovy                    - Groovy Klasse mit eigenen Methoden
-  │
-  ├── Libs/
-  │   └── CustomKeywords.groovy            - Statische Weiterleitungen zu Keywords
-  │
-  └── Plugins/, Test Listeners/, ...
-  ```],
-  caption: [Katalon Projektstruktur: Komplexe Verschachtelung und Format-Vielfalt (.tc, .groovy, .rs, .glbl, .dat, .xml)],
-)<fig-katalon-input-structure>
+  └── Object Repository/                   
+      ├── All_Users/
+      │   ├── view_all_users_btn.rs        
+      │   ├── search_input.rs
+      │   ├── roles_dropdown.rs
+      │   ├── status_dropdown.rs
+      │   ├── user_row.rs
+      │   └── user_row_view_btn.rs
+      └── Nav_Bar/
+          └── ...weitere Test Objects
 
-Diese Struktur verdeutlicht die Komplexität, die eine Migration bewältigen muss. Besonders auffällig ist die Vielfalt der Dateiformate: Obwohl Dateien wie .tc, .rs, .glbl und .dat alle auf XML basieren, tragen sie proprietäre Endungen, die ihren Inhalt verschleiern. Hinzu kommt, dass ein einziger Test aus zwei getrennten Dateien in zwei verschiedenen Ordnern besteht — die Metadaten liegen in Test Cases/, die eigentliche Testlogik in Scripts/. Die Verbindung zwischen ihnen ist dabei nur indirekt über den Pfad herstellbar: Scripts/Users/filter_for_admins/Script1781348815820.groovy gehört zu Test Cases/Users/filter_for_admins.tc. Erschwerend kommt hinzu, dass die Script-Dateien zufällig generierte Nummern im Namen tragen, die keinerlei Rückschlüsse auf den zugehörigen Test Case erlauben.
+  ```],
+  caption: [Die Abbildung zeigt das Objekt Repository und die Test Objects aus der Perspektive des Dateisystems. Die .rs-Dateien enthalten die Selektoren von HTML-Elementen.],
+)<fig-katalon-object-repository-structure>
+
+=== Verschachtelung der Globalen Variablen
+
+Wenn der Test eine globale Variable verwendet, zeigt sich dies im Code als "GlobalVariable.VARIABLENNAME". Der Wert der Variable ist nicht im Skript zu finden sondern in der Profil-Datei mit der Endung .glbl, die im Ordner "Profiles" gespeichert ist. Diese Datei ist ebenfalls eine .xml-Datei und enthält die Variablen als Eintrag in einer "GlobalVariableEntity" - ein Eintrag der die Variable beschreibt. Diese Einträge enthalten den tatsächlichen Wert und Meta-Daten, bestehend aus einer Beschreibung, dem Variablennamen, dem Datentyp und einem Boolean der beschreibt ob der Wert "protected" ist. Ist er "protected", wird der Wert als sensibel behandelt und in der @ui und bei der Bearbeitung nur mit dem Stern-Charakter maskiert angezeigt. In "Logs" werden die Werte dann auch nicht angezeigt. In der .glbl-Datei ist der Wert jedoch unverschlüsselt und im Klartext zu sehen. Je nach dem welches Profil in der @ide ausgewählt ist, wird die entsprechende .glbl-Datei geladen und die Variablenwerte werden im Test verwendet.
+
+#figure(
+  text(size: 0.9em)[
+    ```
+  sample-website-katalon-tests/
+  │
+  └── Profiles/ 
+      ├── default.glbl              
+      └── staging.glbl                    
+
+  ```
+  ],
+  caption: [Die Abbildung zeigt die Ordnerstruktur der Profile aus der Perspektive des Dateisystems. Die .glbl-Dateien enthalten die Global Variables und deren Werte.],
+)<fig-katalon-profiles-structure>
+
+=== Verschachtelung der Testdaten
+
+Sobald man mit Katalon Studio ein Dateiformat mit Daten einbinden möchte, erstellt Katalon Studio eine .dat-Datei im Ordner "Data Files" die den gleichen Namen wie die eingebundene Datei trägt. Die Datei enthält ebenfalls XML-Strukturen, nur ein paar Meta-Daten enthalten. Unter anderem den Pfad zur eingebundenen Datei, die Dateiart, ggf. die Trenzeichen und ob der Pfad Projektintern oder -extern ist. Die eigentlichen Daten sind nicht in der .dat-Datei enthalten, sondern in der eingebundenen Datei.
+
+#figure(
+  text(size: 0.9em)[
+    ```
+  sample-website-katalon-tests/
+  │
+  └── Data Files/                          
+      └── users.dat                        
+  ```
+  ],
+  caption: [Die Abbildung zeigt die Ordnerstruktur der Testdaten aus der Perspektive des Dateisystems. Die .dat-Dateien enthalten Meta-Daten und verweisen auf die eigentlichen Testdaten.],
+)<fig-katalon-data-files-structure>
+
+=== Verschachtelung der Custom Keywords
+
+Der Großteil der "Custom Keywords"-Logik wird im Ordner "Keywords" und selbst erstellten Unterordnern gespeichert, und ist in @groovy in der Form "KlassenName.groovy" geschrieben. Diese Skripte enthalten die eigentlichen Klassen und Methoden die in den Tests aufgerufen werden. 
+Im Ordner "Libs" gibt es die "CustomKeywords.groovy"-Datei. Diese definiert statische Weiterleitungen mit dem gleichen Namen wie die Klassen im Ordner "Keywords". Diese Methoden rufen die eigentlichen Methoden in den Klassen auf und machen sie dadurch in jedem Test aufrufbar.
+
+#figure(
+  text(size: 0.9em)[
+    ```
+  sample-website-katalon-tests/
+  │
+  ├── Keywords/                          
+  │   ├── data/
+  │   └── TESTER.groovy                    
+  │
+  └── Libs/
+      └── CustomKeywords.groovy            
+  ```
+  ],
+  caption: [Die Abbildung zeigt die Ordnerstruktur der Custom Keywords aus der Perspektive des Dateisystems. Die .groovy-Dateien im Keywords-Ordner enthalten die Logik der Klassen und Methoden, die in den Tests aufgerufen werden. Im Libs-Ordner befindet sich die CustomKeywords.groovy-Datei, die statische Weiterleitungen zu den Klassen im Keywords-Ordner definiert.],
+)<fig-katalon-keywords-structure>
+
+
+/*Diese Struktur verdeutlicht die Komplexität, die eine Migration bewältigen muss. Besonders auffällig ist die Vielfalt der Dateiformate: Obwohl Dateien wie .tc, .rs, .glbl und .dat alle auf XML basieren, tragen sie proprietäre Endungen, die ihren Inhalt verschleiern. Hinzu kommt, dass ein einziger Test aus zwei getrennten Dateien in zwei verschiedenen Ordnern besteht — die Metadaten liegen in Test Cases/, die eigentliche Testlogik in Scripts/. Die Verbindung zwischen ihnen ist dabei nur indirekt über den Pfad herstellbar: Scripts/Users/filter_for_admins/Script1781348815820.groovy gehört zu Test Cases/Users/filter_for_admins.tc. Erschwerend kommt hinzu, dass die Script-Dateien zufällig generierte Nummern im Namen tragen, die keinerlei Rückschlüsse auf den zugehörigen Test Case erlauben.*/
 
 == Python Projektstruktur
 
-Ein Projekt, das Selenium und Pytest für die Testautomatisierung nutzt, ist im Gegensatz zu Katalon nicht an eine proprietäre Projektstruktur gebunden. Pytest erwartet nur eine nachvollziehbare Dateiorganisation durch Konventionen, gültige Python-Module und eine Konfiguration im Projektwurzelverzeichnis, der "root", in Form einer pyproject.toml oder pytest.ini@pytest_configuration. In einem reinen Testprojekt enthält das Repository dabei keinen  Anwendungscode, sondern ausschließlich Testfälle, gemeinsam genutzte Hilfsmodule, Konfigurationsdateien und Testdaten. Typischerweise existiert ein zentrales "tests"-Verzeichnis, das bei wachsender Projektgröße weiter in Teilbereiche der zu testenden Anwendung gegliedert wird, beispielsweise in UI-Tests und API-Tests@pytest_good_practices. Das aus Python-Paketprojekten bekannte src-Layout ist in diesem Fall nicht zwingend erforderlich. Laut Python Packaging User Guide dient das src-Layout vor allem dazu, importierbaren Anwendungscode klar von der Projekt-root zu trennen@pypa_src_layout.
+Ein Projekt, das Selenium und Pytest für die Testautomatisierung nutzt, ist im Gegensatz zu Katalon nicht an eine proprietäre Projektstruktur gebunden. Pytest erwartet nur eine nachvollziehbare Dateiorganisation durch Konventionen, gültige Python-Module und eine Konfiguration im Projektwurzelverzeichnis, der "root", in Form einer pyproject.toml oder pytest.ini@pytest_configuration. In einem reinen Testprojekt enthält das Repository dabei keinen  Anwendungscode, sondern ausschließlich Tests, gemeinsam genutzte Hilfsmodule, Konfigurationsdateien und Testdaten. Typischerweise existiert ein zentrales "tests"-Verzeichnis, das bei wachsender Projektgröße weiter in Teilbereiche der zu testenden Anwendung gegliedert wird, beispielsweise in UI-Tests und API-Tests@pytest_good_practices. Das aus Python-Paketprojekten bekannte src-Layout ist in diesem Fall nicht zwingend erforderlich. Laut Python Packaging User Guide dient das src-Layout vor allem dazu, importierbaren Anwendungscode klar von der Projekt-root zu trennen@pypa_src_layout.
+Da dieses Python Projekt in Abhängigkeit zur Katalon Struktur steht, wird die ursprüngliche Katalon Struktur in der Python Struktur wiedergespiegelt. Das src-Layout wird genutzt um die Katalon Strukturen von den üblichen Python Strukturen zu trennen.
 
 === Testskripte und Variablen
 
-Die eigentlichen Testfälle folgen den von Pytest vorgesehenen Namenskonventionen wie test_NAME.py oder NAME_test.py@pytest_good_practices. Anders als bei Katalon besteht ein Testfall dabei in der Regel aus genau einer Python-Datei, in der die Testlogik direkt lesbar ist. Wiederverwendbare Browser-Interaktionen, Element-Selektoren oder Methoden können in separate Hilfsmodule ausgelagert werden. Diese heißen oft "Helper"- oder "Utility"-Funktionen.
+Die eigentlichen Testfälle folgen den von Pytest vorgesehenen Namenskonventionen wie test_NAME.py oder NAME_test.py@pytest_good_practices. Anders als bei Katalon besteht ein Testfall dabei in der Regel aus genau einer Python-Datei, in der die Testlogik direkt lesbar ist. Wiederverwendbare Element-Selektoren oder Methoden können in separate Hilfsmodule ausgelagert werden. Diese heißen oft "Helper"- oder "Utility"-Funktionen.
 
-Variablen werden in einem solchen Projekt nicht über proprietäre Profil- oder Metadateien verwaltet, sondern über normale Python-Programmierstrukturen. Typisch sind Parametrisierungen in den Testfunktionen, Rückgabewerte von Fixtures, Umgebungsvariablen oder externe Konfigurationsdateien. Dadurch bleibt nachvollziehbar, woher ein Wert stammt und an welcher Stelle er in den Test eingebunden wird.
+Variablen werden in einem solchen Projekt normalerweise nicht über proprietäre Profil- oder Metadateien verwaltet, sondern über normale Python-Programmierstrukturen. Typisch sind Variablen direkt in einem Testskript oder werden in einer zentralen Konfigurationsdatei definiert. Dadurch bleibt nachvollziehbar, woher ein Wert stammt und an welcher Stelle er in den Test eingebunden wird.
 
-=== Testdaten und Einbindung
-
-Testdaten werden häufig in einem eigenen Verzeichnis wie z. B. "data", "resources" oder "testdata" abgelegt und dann bei Bedarf direkt von den Tests oder von Hilfsmodulen eingelesen. Dabei kann es sich beispielsweise um JSON-, CSV-, XML- oder Excel-Dateien handeln, jedoch ist praktisch jedes Format nutzbar. Im Unterschied zu Katalon entsteht hierbei keine zusätzliche proprietäre Metadatei, die nur einen Verweis auf die eigentliche Datenquelle enthält. Stattdessen sind Dateipfade, Ladeverhalten und Weiterverarbeitung unmittelbar im Python-Code oder in den zugehörigen Hilfsfunktionen sichtbar.
-
-=== Pytest Fixtures und Konfiguration
-
-Eine zentrale Rolle in Pytest nimmt die Datei conftest.py ein. Die dort definierten @fixture[s] sind wiederverwendbare Testkomponenten und stehen allen Tests automatisch zur Verfügung und müssen nicht explizit importiert werden@pytest_fixtures. Auf diese Weise lassen sich gemeinsam genutzte Setups, etwa die Erstellung eines WebDriver-Objekts, Logins, temporäre Verzeichnisse oder standardisierte Testdaten, an einer gemeinsamen Stelle sammeln.
-
-Die allgemeine Projektkonfiguration liegt typischerweise im root-Verzeichnis des Repositories. Dort können unter anderem Testpfade, Standardoptionen für den Testlauf oder Marker definiert werden@pytest_configuration. 
-
-Für ein reines Selenium/Pytest-Testprojekt ergibt sich damit eine vergleichsweise schlanke Struktur aus Testskripten, gemeinsam genutzten Fixtures, optionalen Hilfsmodulen und separaten Testdaten. Im Vergleich zur Katalon-Struktur sind sowohl die Pfade als auch die Abhängigkeiten zwischen Testlogik, Konfiguration und Daten deutlich direkter ablesbar.
-
-//TODO: Erklären dass das nicht die optimale struktur für ein Testprojekt ist, sondern nötig für die Migration
-Die folgende Abbildung zeigt die vom Migrator tatsächlich generierte Zielstruktur:
+Da Katalon Studio die Variablen in eigenen Dateien speichert und sie mithilfe eines Pfades aufruft, muss der Migrator die gleiche Struktur erstellen, um die Tests unverändert ausführen zu können. Es wird der Ordner "variables" angelegt der die Struktur der Test Cases mit Variablen wiederspiegelt. In den Unterordnern werden die Variablen in Python-Klassen gespeichert, die jeweils alle Variablen des Tests enthalten. Die Klassen werden dann in den Tests importiert und die Variablen können aufgerufen werden.
 
 #figure(
   text(size: 0.9em)[
   ```
-  sample-website-selenium-tests/                    - Neues Ziel-Projekt
-  │
-  ├── pytest.ini                                    - Pytest-Konfiguration (generiert)
-  ├── requirements.txt                              - Python-Abhängigkeiten (generiert)
-  ├── .gitignore                                    - Git-Konfiguration (generiert)
-  ├── README.md                                     - Projektdokumentation (generiert)
-  │
-  ├── data/                                         - Testdaten (aus Katalon "Data Files")
-  │   └── users.csv                                 - Originaldatei direkt kopiert
+  sample-website-selenium-tests/                    
   │
   └── src/
       ├── __init__.py
-      │
-      ├── tests/                                    - Aus: Test Cases/ + Scripts/
+      ├── tests/                                   
       │   ├── Users/
-      │   │   ├── test_filter_for_admins.py         - .../filter_for_admins/Script...groovy
+      │   │   ├── test_filter_for_admins.py        
       │   │   ├── test_search_for_david_kim.py
       │   │   ├── test_show_active_viewers.py
       │   │   └── __init__.py
@@ -315,33 +326,72 @@ Die folgende Abbildung zeigt die vom Migrator tatsächlich generierte Zielstrukt
       │   │   ├── test_navigation_bar.py
       │   │   └── __init__.py
       │   └── __init__.py
-      │
-      ├── object_repository/                        - Aus: Object Repository/ (.rs XML → JSON)
-      │   ├── All_Users/
-      │   │   ├── view_all_users_btn.json           - Inhalt: JSON (konvertiert aus .rs XML)
-      │   │   ├── search_input.json
-      │   │   ├── roles_dropdown.json
-      │   │   └── __init__.py
-      │   ├── Nav_Bar/
-      │   └── __init__.py
-      │
-      ├── profiles/                                 - Aus: Profiles/ (.glbl XML)
-      │   ├── global_variables.py                   - Python-Klasse mit allen GlobalVariables
-      │   └── __init__.py
-      │
-      ├── variables/                                - Aus: Test Cases/ (testeigene Variablen)
-      │   ├── Users/
-      │   │   ├── var_search_for_david_kim.py       - Python-Klasse pro Test (wenn vorhanden)
-      │   │   └── __init__.py
-      │   └── __init__.py
-      │
-      └── runtime/                                  - Kopiert aus dem Migrator selbst
-          ├── base_test.py                          - Selenium WebDriver Base Class
-          ├── katalon_helpers.py                    - Kompatibilitäts-Helfer
+      |
+      └── variables/                              
+          ├── Users/
+          │   ├── var_search_for_david_kim.py       
+          │   └── __init__.py
           └── __init__.py
   ```],
-  caption: [Tatsächlich generierte Selenium/Pytest-Projektstruktur nach Ausführung des Migrators.],
-)<fig-selenium-output-structure>
+  caption: [Die Abbildung zeigt die Struktur der Testskripte und der testeigenen Variablen im Zielprojekt. Die Tests sind in Python-Dateien organisiert, die den Testlogik enthalten. Die Variablen sind in separaten Python-Klassen gespeichert, die jeweils alle Variablen eines Tests enthalten.],
+)<fig-selenium-output-structure-tests-variables>
+
+=== Object Repository und Test Objects
+So wie Testskripte und Variablen in der Python Struktur gespiegelt werden, werden auch das Object Repository und die Test Objects darin gespiegelt. Die Test Objects werden in JSON-Dateien gespeichert, die die gleichen Informationen enthalten wie die ursprünglichen .rs-Dateien. Die Struktur der Ordner und Unterordner wird beibehalten, sodass die Tests weiterhin auf die Test Objects zugreifen können, indem sie den Pfad zu den JSON-Dateien angeben.
+
+#figure(
+  text(size: 0.9em)[
+  ```
+  sample-website-selenium-tests/                    
+  │
+  └── src/
+      ├── __init__.py
+      └── object_repository/                        
+          ├── All_Users/
+          │   ├── view_all_users_btn.json           
+          │   ├── search_input.json
+          │   ├── roles_dropdown.json
+          │   └── __init__.py
+          ├── Nav_Bar/
+          └── __init__.py
+  ```],
+  caption: [Die Abbildung zeigt die Struktur des Object Repositories und der "Test Objects"-Dateien die darin im JSON-Format gespeichert sind.],
+)<fig-selenium-output-structure-object-repository>
+
+=== Testdaten
+
+Testdaten werden häufig in einem eigenen Verzeichnis wie z. B. "data", "resources" oder "testdata" abgelegt und dann bei Bedarf direkt von den Tests oder von Hilfsmodulen eingelesen. Dabei kann es sich beispielsweise um JSON-, CSV-, XML- oder Excel-Dateien handeln, jedoch ist praktisch jedes Format nutzbar. In diesem Fall wird ein "data"-Ordner angelegt, der die Testdaten aus Katalon direkt kopiert. Die Tests können dann auf die Daten zugreifen, indem sie den Pfad zu den Dateien angeben.
+
+#figure(
+  text(size: 0.9em)[
+  ```
+  sample-website-selenium-tests/                    
+  │
+  └── data/                                         
+      └── users.csv                                
+  ```],
+  caption: [Die Abbildung zeigt die Struktur des "data"-Ordners, der die Testdaten im CSV-Format enthält.],
+)<fig-selenium-output-structure-data>
+
+=== Python Konfiguration
+Damit ein Python Projekt funktioniert muss es bestimmte Konventionen erfüllen. Dazu gehört, dass alle Verzeichnisse, die Python-Module enthalten sollen, eine \_\_init\_\_.py-Datei besitzen. Diese Dateien sind zwar leer, signalisieren dem Python-@interpreter jedoch, dass das Verzeichnis als Paket behandelt werden soll. In diesem Projekt werden sie in allen relevanten Verzeichnissen automatisch erstellt. 
+Des weiteren wird eine README.md-Datei erstellt. Zum einen enthält sie Schritte zum Erstellen einer Pytest-Konfigurationsdatei, `.vscode/settings.json`. Zum anderen enthält diese Schritte zum Einrichten einer virtuellen Umgebung namens ".venv". Dort werden alle Abhängigkeiten installiert, die in der requirements.txt-Datei aufgelistet sind, die auch vom Migrator erstellt wird. Die Abhängigkeiten stehen als Liste in der requirements.txt-Datei und fungieren als Referenz aller notwendigen Python-Pakete, die für die Ausführung der Tests erforderlich sind.
+Es wird eine pytest.ini-Datei erstellt, die die Konfiguration für Pytest enthält. Dort wird unter anderem der Pfad zu den Testskripten angegeben. 
+
+#figure(
+  text(size: 0.9em)[
+  ```
+  sample-website-selenium-tests/              
+  │
+  ├── data/                             
+  ├── src/
+  ├── .gitignore                                  
+  ├── pytest.ini                                
+  ├── README.md                                   
+  └── requirements.txt                            
+  ```],
+  caption: [Übersicht über erstellten Konfigurationsdateien.],
+)<fig-selenium-output-configuration>
 
 = Konzeption der Migrationspipeline
 Eine ursprüngliche Idee, als die Aufgabe der Migration in ein anderes Ökosystem aufkam, war es ein Selenium/Pytest-Projekt zu schreiben, das Katalon-Tests direkt lesen und ausführen kann. Diese Idee wurde nach Rücksprache mit anderen Entwicklern jedoch schnell verworfen, da die proprietären Formate und die Katalon-spezifische Logik zu komplex waren, um sie direkt in einem Open-Source-Framework auszuführen. Stattdessen wurde ein Ansatz gewählt, der die Katalon-Testlogik in eine neue, offene Struktur transformiert. Durch diese komplette Trennung von Katalon-Strukturen konnten Wartbarkeit und Erweiterbarkeit gesichert werden.
@@ -363,7 +413,7 @@ Die Migrationspipeline enthält viele kleine Module die zusammen Schritt für Sc
 
 === Strukturelle Transformation: Projektlayout
 //TODO: Verkürzen oder vll. rauslassen weil die Abbildung schon alles zeigt
-Wie in @fig-katalon-input-structure und @fig-selenium-output-structure (Kapitel 3) gezeigt, wird die hierarchische Katalon-Struktur in eine flache, einfach ausführbare Python-Projektstruktur überführt. Die wesentlichen Abbildungen sind:
+Wie im Kapitel 3, der Strukturanalyse, gezeigt wird die hierarchische Katalon-Struktur in eine flache, einfach ausführbare Python-Projektstruktur überführt. Die wesentlichen Abbildungen sind:
 
 - `Test Cases/` & `Scripts/` → `src/tests/` (zusammengeführt zu je einer Datei pro Test)
 - `Object Repository/` → `src/object_repository/` (XML-Inhalt zu JSON konvertiert)
@@ -373,7 +423,7 @@ Wie in @fig-katalon-input-structure und @fig-selenium-output-structure (Kapitel 
 
 === Semantische Transformation: Katalon @test-object zu Selenium Locators
 
-Das Katalon @object-repository speichert Testobjekte als .rs-Dateien — umbenannte XML-Dateien mit einer `WebElementEntity`-Struktur. Jede Datei beschreibt ein HTML-Element über eine `selectorCollection`, die eine oder mehrere Lokalisierungsstrategien als Schlüssel-Wert-Paare enthält (z. B. BASIC/XPath oder CSS), sowie ein `selectorMethod`-Feld, das die bevorzugte Strategie bestimmt.
+Das Katalon @object-repository speichert Testobjekte als .rs-Dateien — umbenannte XML-Dateien mit einer `WebElementEntity`-Struktur. Jede Datei beschreibt ein @html Element über eine `selectorCollection`, die eine oder mehrere Lokalisierungsstrategien als Schlüssel-Wert-Paare enthält (z. B. BASIC/XPath oder CSS), sowie ein `selectorMethod`-Feld, das die bevorzugte Strategie bestimmt.
 
 Während der @build-time konvertiert `object_repo_converter.py` diese XML-Dateien in das JSON-Format. Die interne Struktur bleibt dabei vollständig erhalten — lediglich das Dateiformat ändert sich. Das folgende Beispiel zeigt die Transformation der Objektdatei `view_all_users_btn`:
 
@@ -404,7 +454,7 @@ Während der @build-time konvertiert `object_repo_converter.py` diese XML-Dateie
 }
 ```
 
-Zur @runtime liest die Hilfsfunktion `find_katalon_test_object()` in `katalon_helpers.py` die JSON-Datei ein, liest `selectorMethod` aus und sucht den passenden Wert aus der `selectorCollection`. Anschließend lokalisiert sie das Element über die Selenium-API: bei `CSS` mit `By.CSS_SELECTOR`, bei allen anderen Strategien (einschließlich `BASIC`) mit `By.XPATH`. Der Aufruf im generierten Testcode bleibt dabei strukturell identisch zum Katalon-Original:
+Zur @runtime liest die Hilfsfunktion `find_katalon_test_object()` in `katalon_helpers.py` die JSON-Datei ein, liest `selectorMethod` aus und sucht den passenden Wert aus der `selectorCollection`. Anschließend lokalisiert sie das Element über die Selenium @api: bei `CSS` mit `By.CSS_SELECTOR`, bei allen anderen Strategien (einschließlich `BASIC`) mit `By.XPATH`. Der Aufruf im generierten Testcode bleibt dabei strukturell identisch zum Katalon-Original:
 
 ```groovy
 // Katalon (Groovy):

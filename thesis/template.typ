@@ -382,6 +382,11 @@
     description: "Ein Programm, das Quellcode einer Programmiersprache analysiert und auf Fehler prüft oder in eine andere Form überführt. In dieser Arbeit bezeichnet Compiler den statischen Typ-Analysator Pyright, der Python-Dateien vor der Ausführung auf Typ- und Importfehler untersucht."
   ),
   (
+    key: "interpreter",
+    short: "Interpreter",
+    description: "Ein Programm, das Quellcode zur Laufzeit schrittweise ausführt, ohne ihn vollständig vorab in Maschinencode zu übersetzen. Python wird typischerweise über einen Interpreter ausgeführt."
+  ),
+  (
     key: "sut",
     short: "SUT",
     long: "System Under Test",
@@ -392,6 +397,12 @@
     short: "API",
     long: "Application Programming Interface",
     description: "Eine definierte Schnittstelle, über die Softwarekomponenten miteinander kommunizieren. Selenium stellt eine API bereit, über die Tests den Browser steuern."
+  ),
+  (
+    key: "html",
+    short: "HTML",
+    long: "HyperText Markup Language",
+    description: "Eine standardisierte Auszeichnungssprache zur Strukturierung von Webinhalten. HTML beschreibt den Aufbau von Elementen wie Formularen, Buttons, Tabellen und Textbereichen, auf die automatisierte UI-Tests zugreifen."
   ),
   (
     key: "regex",
@@ -455,6 +466,16 @@
     key: "webdriver",
     short: "WebDriver",
     description: "Eine standardisierte API (W3C-Standard), über die Programme einen Webbrowser programmatisch steuern können. Selenium WebDriver ist die Referenzimplementierung und bildet die Grundlage aller in dieser Arbeit generierten Tests."
+  ),
+  (
+    key: "pytest",
+    short: "Pytest",
+    description: "Ein weit verbreitetes Python-Testframework zur Strukturierung, Ausfuehrung und Auswertung automatisierter Tests. In dieser Arbeit dient Pytest als Test-Runner und organisatorischer Rahmen fuer die migrierten Selenium-Tests."
+  ),
+  (
+    key: "regression-test",
+    short: "Regressionstest",
+    description: "Ein Test zur Ueberpruefung, ob bereits vorhandene und zuvor funktionierende Software-Funktionalitaet nach Aenderungen weiterhin korrekt arbeitet. Regressionstests werden typischerweise nach Codeanpassungen erneut ausgefuehrt, um unbeabsichtigte Seiteneffekte fruehzeitig zu erkennen."
   ),
   (
     key: "groovy",
