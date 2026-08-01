@@ -10,7 +10,7 @@
   abstractDE: [
     In der Softwareentwicklung bieten proprietäre Low-Code-Plattformen wie Katalon einen schnellen Einstieg in die Testautomatisierung. Mit steigender Projektkomplexität führen diese jedoch häufig zu einem massiven Kostenanstieg durch unflexible Lizenzmodelle für fortgeschrittene Funktionen. Da die Testlogik und Datenobjekte in proprietären Formaten gespeichert sind, stehen Nutzer vor dem Dilemma, entweder hohe Gebühren zu zahlen oder den Verlust der bisherigen Entwicklungsarbeit bei einem Plattformwechsel hinzunehmen. 
     Ziel dieser Bachelorarbeit ist die Entwicklung eines programmatischen Migrationspfades von Katalon zu einer Open-Source-Alternative, geschrieben in Selenium. Dabei soll die manuelle Neuerstellung der Test-Suites durch eine automatisierte Transformations-Pipeline ersetzt werden, um die bisherige Arbeit nicht zu verlieren. 
-    Es wird ein Migrations-Algorithmus entworfen, der auf Regular Expressions und Python-Methoden basiert. Dieser scannt die proprietären Strukturen, übersetzt die bestehende Testlogik von Groovy nach Python und bildet die internen Datenobjekte sowie Referenzdateien auf eine neue, Open-Source Projektstruktur im Selenium-Framework ab. 
+    Es wird ein Migrations-Algorithmus entworfen, der auf Regular Expressions und Python-Methoden basiert. Dieser scannt die proprietären Strukturen, übersetzt die bestehende Testlogik von Groovy nach Python und bildet die internen Datenobjekte sowie Referenzdateien auf eine neue, Open-Source Projektstruktur im Selenium Framework ab. 
     Das Ergebnis ist ein funktionsfähiger Prototyp eines Migrations-Tools. Dieses Tool ermöglicht den Transfer von Test-Suiten in ein erweiterbares Open-Source-Projekt. Dabei bleibt die Integrität der Tests gewahrt und die Abhängigkeit von Lizenzgebühren wird vollständig eliminiert. 
     Die Arbeit zeigt auf, wie durch automatisierte Code-Migration und -Transformation der Wechsel von proprietären "Low-Code" zu Open-Source "Pro-Code" gelingen kann. Die Ergebnisse bieten Nutzern eine gute Möglichkeit für den Ausstieg aus proprietären Test-Ökosystemen. 
   ],
@@ -50,7 +50,7 @@ Angesichts der erheblichen bestehenden Investitionen in eine Katalon-basierte Te
 
 == Problemstellung
 
-Das Kernproblem das in dieser Arbeit behandelt wird, ist die Frage wie ein bestehendes Katalon Projekt beim Wechsel in eine lizenzunabhängige Open-Source Umgebung beibehalten und wiederverwendet werden kann. Eine manuelle Migration von Katalon Tests zu Selenium/@pytest Tests ist relativ zeitaufwendig und bei einer großen Testmenge wird dies praktisch unerreichbar. Das liegt daran, dass neben der reinen Skriptübersetzung auch noch eine Menge an zusätzlichen Abhängigkeiten und Konfigurationen berücksichtigt werden müssen. Ein Katalon Projekt besteht nicht nur aus Testskripten, sondern auch aus einer Vielzahl von Teilen wie dem "Objekt-Repository", testexterne Variablen-Definitionen, Profilen und Datenabhängigkeiten. Diese sind jeweils in proprietären Formaten gespeichert, in ihrer Funktionsweise verschleiert und müssten manuell "ausgegraben" und zusammengeführt werden.
+Das Kernproblem das in dieser Arbeit behandelt wird, ist die Frage wie ein bestehendes Katalon Projekt beim Wechsel in eine lizenzunabhängige Open-Source Umgebung beibehalten und wiederverwendet werden kann. Eine manuelle Migration von Katalon Tests zu @selenium und @pytest Tests ist relativ zeitaufwendig und bei einer großen Testmenge wird dies praktisch unerreichbar. Das liegt daran, dass neben der reinen Skriptübersetzung auch noch eine Menge an zusätzlichen Abhängigkeiten und Konfigurationen berücksichtigt werden müssen. Ein Katalon Projekt besteht nicht nur aus Testskripten, sondern auch aus einer Vielzahl von Teilen wie dem "Objekt-Repository", testexterne Variablen-Definitionen, Profilen und Datenabhängigkeiten. Diese sind jeweils in proprietären Formaten gespeichert, in ihrer Funktionsweise verschleiert und müssten manuell "ausgegraben" und zusammengeführt werden.
 Eine manuelle Migration würde daher nicht nur die Übersetzung von Groovy nach Python erfordern, sondern auch die Rekonstruktion aller Teile der Projektstruktur und ihre Anpassung an die Open-Source-Frameworks.
 
 Die technische Herausforderung liegt nicht nur in der syntaktischen Konvertierung des Testcodes, sondern in der End-to-End-Transformation eines kompletten Testautomatisierungsprojekts in ein ausführbares und skalierbares alternatives Format.
@@ -68,7 +68,7 @@ Bei manuellen Tests, auch @regression-test genannt, führt eine Person die Tests
 
 Automatisiertes Testen bezeichnet das Ausführen von Tests mit Hilfe von Testskripten, die von einem Computer ausgeführt werden. Die Skripte definieren Eingaben, Aktionen und erwartete Ergebnisse. Einer der größten Vorteile davon, gegenüber manuellen Tests ist die Frequenz. Man kann sie beliebig oft und sehr konsistent durchführen. Die sich dadurch ergebende Geschwindigkeit erlaubt es große Mengen an Tests effizient in Form von Test-Suites abzuarbeiten. Nach Codeänderungen kann dadurch zum Beispiel schnell überprüft werden ob bestehende Funktionalität noch korrekt arbeitet. Dazu kann man automatisierte Tests direkt in CI/CD-Pipelines einbinden und so in den regulären Entwicklungsprozess integrieren@chittala2024cicd[S. 884].
 
-Für webbasierte Anwendungen hat sich dabei Selenium @webdriver als weit verbreitetes Werkzeug etabliert. Der @webdriver ist ein standardisiertes @api, über die Testskripte einen Browser programmatisch steuern — Klicks, Formulareingaben und Navigationsbefehle werden direkt an den Browser gesendet, als ob ein Nutzer sie manuell ausführen würde@selenium_webdriver.
+Für webbasierte Anwendungen hat sich dabei der @selenium @webdriver als weit verbreitetes Werkzeug etabliert. Der @webdriver ist ein standardisiertes @api, über das die Testskripte einen Browser programmatisch steuern. Klicks, Formulareingaben und Navigationsbefehle werden direkt an den Browser gesendet, als ob ein Nutzer sie manuell ausführen würde@selenium_webdriver.
 
 == Low-Code-Plattformen im Testbereich
 //TODO: Quellen einfügen, low code und pro code ins glossar einfügen und Stellen markieren
@@ -77,7 +77,7 @@ Low-Code-Plattformen sind Entwicklungsumgebungen, die komplexe technische Operat
 //TODO: Glossareinträge markieren, neuer Eintrag für Open-Source, mehr Quellen
 Diese Eigenschaft macht Low-Code-Tools attraktiv für Teams die wenig Programmierkenntnisse haben. Mit wachsender Anforderungskomplexität stoßen auch sie oft schnell an Grenzen@sahay2020lowcode. Individuelle Logik, die über vorgefertigte Bausteine hinausgeht, ist dabei schwer oder gar nicht umsetzbar. Da die Testlogik eng an die Plattform gebunden ist, lässt sie sich zudem schlecht in externe Versionskontrollsysteme integrieren. Skalierbarkeit und Anpassbarkeit bleiben durch das Plattformmodell begrenzt.
 
-Im Gegensatz dazu stehen sogenannte *Pro-Code*-Ansätze, bei denen Tests vollständig in einer allgemeinen Programmiersprache wie Python geschrieben werden. Frameworks wie Selenium und Pytest bieten dabei maximale Flexibilität, erfordern aber entsprechende Programmierkenntnisse. Dabei sind diese Frameworks alle Open-Source, also kostenlos, öffentlich zugänglich und transparent. Der Übergang von Low-Code zu Pro-Code ist inhaltlich des Kerns dieser Arbeit.
+Im Gegensatz dazu stehen sogenannte *Pro-Code*-Ansätze, bei denen Tests vollständig in einer allgemeinen Programmiersprache wie Python geschrieben werden. Frameworks wie @selenium und @pytest bieten dabei maximale Flexibilität, erfordern aber entsprechende Programmierkenntnisse. Dabei sind diese Frameworks alle Open-Source, also kostenlos, öffentlich zugänglich und transparent. Der Übergang von Low-Code zu Pro-Code ist inhaltlich des Kerns dieser Arbeit.
 //TODO: Vielleicht Bild von Low-Code UI einfügen
 
 == @vendor-lock-in bei proprietären Plattformen
@@ -108,7 +108,7 @@ Hier zum Beispiel das Erkennen von Katalon-Klickaufrufen:
   caption: [Oben: Erst ein Muster zum erkennen von Katalon-Klickaufrufen. Unten: Die Erklärung der einzelnen Bestandteile des Musters (Darstellung mit regex101@regex101).],
 )<fig-regex-grundlagen-beispiel>
 
-Das Muster "`WebUI\.click\((.*)\)`" findet alle Zeilen die "`WebUI.click(...)`" enthalten, erstellt ein @match für jede Übereinstimmung und extrahiert den Inhalt der Klammern als Gruppe. Dieser extrahierte Teil kann anschließend in einen Selenium-Methodenaufruf eingeführt werden. Spezifisch wird zuerst nach der Buchstabenreihenfolge "`WebUI.click(`" gesucht. Dabei wird ein Backslash-@delimiter "`\`" vor dem Punkt "`.`", genutzt damit dieser seine eigentliche Funktion in der Regex-Sprache verliert und nur als Punkt interpretiert wird. Der gleiche @delimiter kommt danach für die Klammern ins Spiel. Darauf folgt direkt noch eine Klammer ohne Delimiter welche die Eröffnung einer Gruppe signalisiert. In der Gruppe wird nach einem Punkt "`.`" gesucht, das heißt ein Vorkommen eines beliebigen Zeichens außer Satzenden. Der Stern "`*`" kopiert die Funktion des vorherigen Zeichens kein mal oder beliebig oft. Dann schließt sich zuerst die Gruppe durch eine Klammer "`)`" und dann endet das Muster mit einer delimitierten schließenden Klammer "`)`".
+Das Muster "`WebUI\.click\((.*)\)`" findet alle Zeilen die "`WebUI.click(...)`" enthalten, erstellt ein @match für jede Übereinstimmung und extrahiert den Inhalt der Klammern als Gruppe. Dieser extrahierte Teil kann anschließend in einen @selenium Methodenaufruf eingeführt werden. Spezifisch wird zuerst nach der Buchstabenreihenfolge "`WebUI.click(`" gesucht. Dabei wird ein Backslash-@delimiter "`\`" vor dem Punkt "`.`", genutzt damit dieser seine eigentliche Funktion in der Regex-Sprache verliert und nur als Punkt interpretiert wird. Der gleiche @delimiter kommt danach für die Klammern ins Spiel. Darauf folgt direkt noch eine Klammer ohne Delimiter welche die Eröffnung einer Gruppe signalisiert. In der Gruppe wird nach einem Punkt "`.`" gesucht, das heißt ein Vorkommen eines beliebigen Zeichens außer Satzenden. Der Stern "`*`" kopiert die Funktion des vorherigen Zeichens kein mal oder beliebig oft. Dann schließt sich zuerst die Gruppe durch eine Klammer "`)`" und dann endet das Muster mit einer delimitierten schließenden Klammer "`)`".
 In der eigentlichen Pipeline werden dafür mehrere Muster kombiniert um alles Geschriebene in Tests wie Klassen, Methoden und Parameter systematisch zu zerlegen.
 
 = Strukturanalyse
@@ -298,7 +298,7 @@ Im Ordner "Libs" gibt es die "CustomKeywords.groovy"-Datei. Diese definiert stat
 
 == Python Projektstruktur
 
-Ein Projekt, das Selenium und Pytest für die Testautomatisierung nutzt, ist im Gegensatz zu Katalon nicht an eine proprietäre Projektstruktur gebunden. Pytest erwartet nur eine nachvollziehbare Dateiorganisation durch Konventionen, gültige Python-Module und eine Konfiguration im Projektwurzelverzeichnis, der "root", in Form einer pyproject.toml oder pytest.ini@pytest_configuration. In einem reinen Testprojekt enthält das Repository dabei keinen  Anwendungscode, sondern ausschließlich Tests, gemeinsam genutzte Hilfsmodule, Konfigurationsdateien und Testdaten. Typischerweise existiert ein zentrales "tests"-Verzeichnis, das bei wachsender Projektgröße weiter in Teilbereiche der zu testenden Anwendung gegliedert wird, beispielsweise in UI-Tests und API-Tests@pytest_good_practices. Das aus Python-Paketprojekten bekannte src-Layout ist in diesem Fall nicht zwingend erforderlich. Laut Python Packaging User Guide dient das src-Layout vor allem dazu, importierbaren Anwendungscode klar von der Projekt-root zu trennen@pypa_src_layout.
+Ein Projekt, das @selenium und @pytest für die Testautomatisierung nutzt, ist im Gegensatz zu Katalon nicht an eine proprietäre Projektstruktur gebunden. Pytest erwartet nur eine nachvollziehbare Dateiorganisation durch Konventionen, gültige Python-Module und eine Konfiguration im Projektwurzelverzeichnis, der "root", in Form einer pyproject.toml oder pytest.ini@pytest_configuration. In einem reinen Testprojekt enthält das Repository dabei keinen  Anwendungscode, sondern ausschließlich Tests, gemeinsam genutzte Hilfsmodule, Konfigurationsdateien und Testdaten. Typischerweise existiert ein zentrales "tests"-Verzeichnis, das bei wachsender Projektgröße weiter in Teilbereiche der zu testenden Anwendung gegliedert wird, beispielsweise in UI-Tests und API-Tests@pytest_good_practices. Das aus Python-Paketprojekten bekannte src-Layout ist in diesem Fall nicht zwingend erforderlich. Laut Python Packaging User Guide dient das src-Layout vor allem dazu, importierbaren Anwendungscode klar von der Projekt-root zu trennen@pypa_src_layout.
 Da dieses Python Projekt in Abhängigkeit zur Katalon Struktur steht, wird die ursprüngliche Katalon Struktur in der Python Struktur wiedergespiegelt. Das src-Layout wird genutzt um die Katalon Strukturen von den üblichen Python Strukturen zu trennen.
 
 === Testskripte und Variablen
@@ -394,34 +394,28 @@ Es wird eine pytest.ini-Datei erstellt, die die Konfiguration für Pytest enthä
 )<fig-selenium-output-configuration>
 
 = Konzeption der Migrationspipeline
-Eine ursprüngliche Idee, als die Aufgabe der Migration in ein anderes Ökosystem aufkam, war es ein Selenium/Pytest-Projekt zu schreiben, das Katalon-Tests direkt lesen und ausführen kann. Diese Idee wurde nach Rücksprache mit anderen Entwicklern jedoch schnell verworfen, da die proprietären Formate und die Katalon-spezifische Logik zu komplex waren, um sie direkt in einem Open-Source-Framework auszuführen. Stattdessen wurde ein Ansatz gewählt, der die Katalon-Testlogik in eine neue, offene Struktur transformiert. Durch diese komplette Trennung von Katalon-Strukturen konnten Wartbarkeit und Erweiterbarkeit gesichert werden.
-Für den nächsten Ansatz wurde erst eine kleine Pipeline gebaut, die versuchte, häufig vorkommende Methoden zu übersetzen. Dieser Ansatz zeigte sehr schnell, dass die Katalon Struktur im Hintergrund der @ide viel komplexer und verschachtelter ist, als es auf den ersten Blick scheint. Mit der Zeit entwickelten sich erst Regex-basierte Methoden zum Erkennen aller Katalon Funktions-Aufrufe, dann Weitere zum Erkennen von Pfaden zu @test-object[Test Objects]s, dann zum Erkennen von Variablen und schließlich zum Erkennen von Globalen Variablen und deren Werten. Mit der Zeit entstand so eine großläufige Migrationspipeline, die die zentralen Aspekte einer Katalon Struktur erkennt, diese transformiert und in einer neuen Python Struktur abspeichert.
-== Techstack
-//TODO: Gründe erklären warum Selenium und Python als Techstack gewählt wurden
-//TODO: Versionierung und Programmiersprachen erläutern
+
+Eine ursprüngliche Idee, als die Aufgabe der Migration in ein anderes Ökosystem aufkam, war es ein Python Projekt zu schreiben, das Katalon-Tests direkt lesen und ausführen kann. Diese Idee wurde nach Rücksprache mit anderen Entwicklern jedoch schnell verworfen, da die proprietären Formate und die Katalon-spezifische Logik zu komplex waren, um sie direkt in einem Open-Source-Framework auszuführen. Stattdessen wurde ein Ansatz gewählt, der die Katalon-Testlogik in eine neue, offene Struktur transformiert. Durch diese komplette Trennung von Katalon-Strukturen wurde sichergestellt dass es in der Zukunft keine weiteren Probleme mit Abhängigkeiten zu Katalon geben wird. Die Tests können in der neuen Struktur direkt ausgeführt werden, ohne dass Katalon Studio oder andere proprietäre Komponenten benötigt werden, falls beispielsweise neue Tests oder Elemente gebraucht werden.
+Für den nächsten Ansatz wurde erst eine kleine Pipeline gebaut, die versuchte, häufig vorkommende Methoden zu übersetzen. Dieser Ansatz zeigte sehr schnell, dass die Katalon Struktur im Hintergrund der @ide viel komplexer und verschachtelter ist, als es auf den ersten Blick scheint. Mit der Zeit entwickelten sich erst Regex-basierte Methoden zum Erkennen aller Katalon Funktions-Aufrufe, dann Weitere zum Erkennen von Pfaden zu @test-object[Test Objects]s, dann zum Erkennen von testeigenen Variablen und schließlich zum Erkennen von globalen Variablen und deren Werten. Mit der Zeit entstand so eine großläufige Migrationspipeline, die die zentralen Aspekte einer Katalon Struktur erkennt, diese transformiert und in einer neuen Python Struktur abspeichert.
+
+== Limitierungen der Migrationspipeline
+//TODO: Text überarbeiten, Limitierungen der Pipeline genauer erläutern, ggf. Beispiele einfügen
+Die Migrationspipeline ist darauf ausgelegt, die Kernfunktionen eines Katalon Projektes zu erkennen und in eine neue Struktur zu transformieren. Sie ist jedoch nicht in der Lage, alle möglichen Katalon-Funktionen und -Szenarien abzudecken. Insbesondere komplexe Custom Keywords, plattformspezifische Erweiterungen oder stark verschachtelte Testlogiken können zu Problemen führen. Die Pipeline konzentriert sich auf die häufigsten Anwendungsfälle und bietet eine solide Grundlage für die Migration, erfordert jedoch möglicherweise manuelle Anpassungen für spezielle Anforderungen.
+
 == Architekturüberblick
 //TODO: Unterpunkt mit Rahmnenbedingungen einfügen wo Beschränkungen erläutert werden. Was muss es können und was ist weniger wichtig
 //TODO: Vielleicht hier näher auf Limitierungen des Migrators eingehen
 //TODO: Falls nötig die Projektstruktur weiter verfeinern oder vereinfachen
-Die Migrationspipeline enthält viele kleine Module die zusammen Schritt für Schritt alle Inhalte transformieren. Zusammen ergeben sich fünf Kernfunktionen, die zusammen den kompletten Transformationsprozess abbilden. Der "Scanner & Parsing"-Schritt fungiert als Einstiegspunkt. Dabei scannt und extrahiert man alle Projektkomponenten wie Test Cases, Object Repository, Variablen und Testdaten systematisch aus dem alten Projekt. Dann der "Transpilations"-Schritt, mit der Aufgabe Regex-basierte Leseregeln auf den Groovy-Syntax anzuwenden und den ursprünglichen Code schrittweise zu erkennen und zu übersetzen. Eng verzahnt damit, passiert währenddessen das Mapping und die Validation, um Katalon-Datentypen auf ihre Python-Äquivalente abzubilden und gleichzeitig die Integrität aller Transformationen zu validieren. Danach folgt die Code-Generierung. Hier wird aus den transformierten Strukturen, gültiger Selenium-Pytest-Code der unmittelbar ausführbar ist generiert. Als letztes kommt der kombinierende zusammenführende Schritt, der alle generierten Dateien in eine korrekte und wartbare Python Projektstruktur schreibt. Diese Pipeline-Architektur gewährleistet, dass alle wichtigen Element eines Katalon Projektes systematisch, nachvollziehbar und wartbar transformiert werden.
+Der im Abbildung 6 dargestellte Transpilationsablauf folgt einer festen Abfolge von sieben Schritten. Zunächst wird die ursprüngliche Groovy-Datei eingelesen, damit ihr Inhalt als Rohtext verarbeitet werden kann. Anschließend werden Kommentare und Importzeilen entfernt, um den für die Migration relevanten Code zu isolieren. Im dritten Schritt werden daraus die eigentlichen Testzeilen extrahiert, also genau die Anweisungen, die für das Testverhalten maßgeblich sind. Diese Zeilen werden danach einzeln geparst, sodass jede Anweisung in ihre grundlegenden Bestandteile wie Klassenbezug, Methodenname und Parameter zerlegt wird. Auf dieser strukturierten Grundlage folgt die Transformation der erkannten Methoden und Parameter in inhaltlich entsprechende Konstrukte der Zielumgebung. Daraus wird anschließend Python-Code erzeugt, der die zuvor identifizierte Testlogik in ausführbarer Form abbildet. Im letzten Schritt werden die generierten Codefragmente zu einem vollständigen Test zusammengesetzt und in die Zielstruktur überführt. Der gesamte Ablauf reduziert den ursprünglichen Groovy-Test damit schrittweise auf seine wesentliche Logik und überführt sie systematisch in ein Python-basiertes Testformat.
 
-//TODO: Satz anpassen
-/*Die Implementierung des Migrations-Werkzeugs erfolgte in Python und nutzt eine streng modularisierte Architektur, die zwischen @build-time (Migrations-Pipeline) und @runtime (Ziel-Projektdateien) unterscheidet. */
-
+#figure(
+  image("diag/transpile_flow_v4_2.png", width: 100%),
+  caption: [Aktivitätsdiagramm der Transpilation: Transformationspfad eines Katalon-Tests zu einem Python-Pytest-Test.],
+) <fig-transpile-flow>
 
 == Transformationsablauf
 
-=== Strukturelle Transformation: Projektlayout
-//TODO: Verkürzen oder vll. rauslassen weil die Abbildung schon alles zeigt
-Wie im Kapitel 3, der Strukturanalyse, gezeigt wird die hierarchische Katalon-Struktur in eine flache, einfach ausführbare Python-Projektstruktur überführt. Die wesentlichen Abbildungen sind:
-
-- `Test Cases/` & `Scripts/` → `src/tests/` (zusammengeführt zu je einer Datei pro Test)
-- `Object Repository/` → `src/object_repository/` (XML-Inhalt zu JSON konvertiert)
-- `Profiles/` → `src/profiles/global_variables.py` (Python-Klasse mit allen Variablen)
-- `Data Files/` → `data/` (Originaldatei direkt kopiert, proprietäre .dat-Metadatei fällt dabei weg)
-
-
-=== Semantische Transformation: Katalon @test-object zu Selenium Locators
+=== Semantische Transformation: Katalon @test-object zu @selenium Locators
 
 Das Katalon @object-repository speichert Testobjekte als .rs-Dateien — umbenannte XML-Dateien mit einer `WebElementEntity`-Struktur. Jede Datei beschreibt ein @html Element über eine `selectorCollection`, die eine oder mehrere Lokalisierungsstrategien als Schlüssel-Wert-Paare enthält (z. B. BASIC/XPath oder CSS), sowie ein `selectorMethod`-Feld, das die bevorzugte Strategie bestimmt.
 
@@ -454,7 +448,7 @@ Während der @build-time konvertiert `object_repo_converter.py` diese XML-Dateie
 }
 ```
 
-Zur @runtime liest die Hilfsfunktion `find_katalon_test_object()` in `katalon_helpers.py` die JSON-Datei ein, liest `selectorMethod` aus und sucht den passenden Wert aus der `selectorCollection`. Anschließend lokalisiert sie das Element über die Selenium @api: bei `CSS` mit `By.CSS_SELECTOR`, bei allen anderen Strategien (einschließlich `BASIC`) mit `By.XPATH`. Der Aufruf im generierten Testcode bleibt dabei strukturell identisch zum Katalon-Original:
+Zur @runtime liest die Hilfsfunktion `find_katalon_test_object()` in `katalon_helpers.py` die JSON-Datei ein, liest `selectorMethod` aus und sucht den passenden Wert aus der `selectorCollection`. Anschließend lokalisiert sie das Element über die @api von @selenium: bei `CSS` mit `By.CSS_SELECTOR`, bei allen anderen Strategien (einschließlich `BASIC`) mit `By.XPATH`. Der Aufruf im generierten Testcode bleibt dabei strukturell identisch zum Katalon-Original:
 
 ```groovy
 // Katalon (Groovy):
@@ -489,20 +483,15 @@ kh.find_katalon_test_object(self.driver, 'All_Users/search_input').send_keys(var
 assert GlobalVariable.USER4NAME in self.driver.page_source
 ```
 
-Das Folgende Diagramm stellt diesen Ablauf detaillierter dar:
 
-#figure(
-  image("diag/transpile_flow_v4_2.png", width: 100%),
-  caption: [Aktivitätsdiagramm der Transpilation: Transformationspfad eines Katalon-Tests zu einem Python-Pytest-Test.],
-) <fig-transpile-flow>
 
 //TODO: Schritt für Schritt das Diagramm erklären
 //TODO: Auf Schwierigkeiten mit Verlinkungen von Pfaden etc. eingehen
 ==== Regex-basierte Transformation
 //TODO: Alle Erklärungen und Bilder in der Implentierung zusammenfassen und hier nur auf die Funktionsweise eingehen
-Die Pipeline nutzt mehrere aufeinander abgestimmte Muster, um Groovy-Testcode in einzelne Bausteine zu zerlegen und anschließend in Python zu überführen.
+Die Pipeline nutzt mehrere aufeinander abgestimmte Muster, um Groovy-Testcode schrittweise in ein ausführbares Python-Testformat zu überführen.
 
-Konkret erfolgt die Verarbeitung in drei Schritten: Zuerst werden relevante Zeilen aus dem Katalon-Skript gefiltert, danach Methodenaufrufe inklusive Parameter strukturiert geparst, und abschließend werden erkannte Muster in Selenium/Pytest-Äquivalente transformiert.
+Im Sinne des Diagramms beginnt dieser Ablauf mit dem Einlesen der ursprünglichen Groovy-Datei. Danach werden Kommentare und Importzeilen entfernt, sodass nur der für die Transpilation relevante Code verbleibt. Aus diesem gefilterten Code werden im nächsten Schritt die eigentlichen Testzeilen extrahiert. Diese Testzeilen werden anschließend geparst und in ihre Grundbestandteile wie Klassenbezug, Methodenname und Parameter zerlegt. Auf dieser Grundlage folgt die Transformation erkannter Methoden und Parameter in entsprechende Konstrukte der Zielumgebung. Aus den transformierten Bausteinen wird danach Python-Code erzeugt, der die ursprüngliche Testlogik in neuer Form abbildet. Abschließend werden die generierten Fragmente zu einem vollständigen Test zusammengesetzt.
 //TODO: Eintrag für Regex101 im Glossar oder Quellenverzeichnis
 Zur Veranschaulichung folgen Bilder, die den Ablauf des Parsens der "findTestObject"-Methode zeigen. Dabei wird regex101.com verwendet, um die Muster anschaulicher darzustellen.
 //TODO: Beispiele ändern zu "Erst zeigen wie viele Zeilen zu einer Liste von Matches werden". Dann "Eine Zeile wird zu Klasse, Methode, Parameter".
@@ -554,6 +543,19 @@ Dieses Kapitel beschreibt die technische Umsetzung des Migrationswerkzeugs: sein
 
 == Techstack
 
+=== Python
+
+Die grundlegende Programmiersprache des Migrators ist Python. Es wurde sich dafür entschieden, weil Python zum einen eine leicht nutzbare und verständliche Sprache ist, die wegen minimaler Syntax-Komplexität besonders für schnelle Entwicklung von Prototypen geeignet ist. Zum anderen ist Python hatte ich Python bereits in der Vergangenheit ausführlich für andere Projekte genutzt. Darunter auch ein Projekt über automatisiertes Testen. In diesen ehemaligen Projekt hatte ich meinen ersten Kontakt mit @selenium und @pytest, was eine nicht geringe Auswirkung auf die Entscheidung hatte, diese wiederzuverwenden. Die Entscheidung fiel jedoch nicht ohne Abwägung der technischen Aktualität und der eigentlichen Vorteile der beiden @framework[Framework]s. 
+
+=== Selenium und Pytest
+
+@selenium ist ein etabliertes und weit verbreitetes Open-Source-Framework für Webbrowser-Automatisierung, das eine Vielzahl von Browsern und Plattformen unterstützt. Es bietet eine robuste API, die es ermöglicht, Webanwendungen zu steuern und zu testen. @pytest ist ein weiteres Open-Source-Framework, das für seine einfache Syntax, Flexibilität und umfangreiche Funktionalität bekannt ist. Es unterstützt die Erstellung von Testfällen, Test-Suites und bietet eine Vielzahl von Plugins zur Erweiterung der Funktionalität. Zusammen bilden sie einen vielseitigen und sehr praktikablen Techstack für die Testautomatisierung.
+
+=== Git als Versionierung und GitHub
+
+Zur Versionierung des Quellcodes wird Git verwendet. Es ist ein weit verbreitetes Versionskontrollsystem, das es erlaubt Änderungen am Code nachzuverfolgen, diese übersichtlich in Verbindung mit GitHub zu speichern und bei Bedarf auf ältere Versionen zurückzugreifen. Besonders hilfreich ist die Möglichkeit eigene "Branches" zu erstellen, die es Entwicklern in einem Team erlaubt, voneinander unabhängige Entwicklungsstränge zu verfolgen. Da dieses Projekt alleine entwickelt wurde, war dies nicht der Hauptgrund für die Nutzung sonder die Historie um die Entwicklung zu dokumentieren.
+GitHub erlaubt es zudem, den Quellcode in einem zentralen Repository zu speichern, das von überall aus zugänglich ist, wodurch man den Code weltweit zugänglich machen kann.
+
 == Projektstruktur des Migrators
 //TODO: Hier erklären warum diese Struktur gewählt wurde. Welches Mindset und welcher Approach
 //TODO: Mit Part oben vergleichen und unterschiedlicher machen oder einen entfernen
@@ -590,9 +592,9 @@ Die Struktur trennt die Verantwortungen: `pipeline/` führt die gesamte Transfor
 
 === Build-Time vs. Runtime 
 
-Damit der Migrator funktioniert muss zwischen @build-time und @runtime Code unterschieden werden. @build-time bezeichnet die Ausführung des Migrators selbst. @runtime bezeichnet dagegen den späteren Zeitpunkt, zu dem die generierten Tests im Ziel-Projekt mit Selenium ausgeführt werden.
+Damit der Migrator funktioniert muss zwischen @build-time und @runtime Code unterschieden werden. @build-time bezeichnet die Ausführung des Migrators selbst. @runtime bezeichnet dagegen den späteren Zeitpunkt, zu dem die generierten Tests im Ziel-Projekt mit @selenium ausgeführt werden.
 
-Die Dateien im `src/runtime/`-Ordner sind keine Bestandteile der Migrationspipeline, sondern werden erst im Ziel-Projekt benötigt. Sie enthalten Selenium-WebDriver-Abhängigkeiten, die zum Zeitpunkt der Migration nicht installiert sind. Würden sie als gewöhnliche Python-Dateien im @repository liegen, würde der @compiler beim Analysieren des Migrator-Projekts Importfehler melden.
+Die Dateien im `src/runtime/`-Ordner sind keine Bestandteile der Migrationspipeline, sondern werden erst im Ziel-Projekt benötigt. Sie enthalten @selenium @webdriver Abhängigkeiten, die zum Zeitpunkt der Migration nicht installiert sind. Würden sie als gewöhnliche Python-Dateien im @repository liegen, würde der @compiler beim Analysieren des Migrator-Projekts Importfehler melden.
 
 Deswegen tragen die Runtime-Dateien die Endung `.template` und werden vom Compiler ignoriert. `copy_runtime_files.py` kopiert sie während der @build-time in das Ziel-Projekt und entfernt dabei die Endung automatisch.
 
@@ -705,7 +707,7 @@ Die automatisierte Migration des Beispielprojekts dauerte unter einer Sekunde. Z
 
 - Verstehen der Katalon-Verschachtelungen (Scripts ↔ Test Cases) und Zuordnen der Dateien
 - Übersetzen von 5 Groovy-Testskripten nach Python (ca. 30–60 Minuten pro Test)
-- Manuelles Konvertieren von 9 XML-Objektdateien in lesbare Selenium-Locator-Definitionen
+- Manuelles Konvertieren von 9 XML-Objektdateien in lesbare @selenium Locator-Definitionen
 - Extrahieren der GlobalVariables aus der .glbl-Datei und Erstellen einer Python-Klasse
 - Aufsetzen der Projektstruktur (pytest.ini, requirements.txt, Ordner, init.py-Dateien)
 

@@ -399,6 +399,11 @@
     description: "Eine definierte Schnittstelle, über die Softwarekomponenten miteinander kommunizieren. Selenium stellt eine API bereit, über die Tests den Browser steuern."
   ),
   (
+    key: "framework",
+    short: "Framework",
+    description: "Ein wiederverwendbares Grundgerüst aus Bibliotheken, Regeln und Konventionen, das die Entwicklung einer bestimmten Art von Software strukturiert. In dieser Arbeit dienen Katalon und Selenium/Pytest als Frameworks für die Testautomatisierung."
+  ),
+  (
     key: "html",
     short: "HTML",
     long: "HyperText Markup Language",
@@ -414,6 +419,21 @@
     key: "repository",
     short: "Repository",
     description: "Ein versioniertes Archiv für Quellcode und zugehörige Dateien, typischerweise verwaltet mit einem Versionskontrollsystem wie Git. In dieser Arbeit bezeichnet Repository sowohl das Quell-Katalon-Projekt als auch das generierte Ziel-Selenium/Pytest-Projekt als eigenständige, versionierbare Einheiten."
+  ),
+  (
+    key: "git",
+    short: "Git",
+    description: "Ein verteiltes Versionskontrollsystem zur Nachverfolgung von Änderungen an Quellcode und Dateien. Git ermöglicht unter anderem Commit-Historien, parallele Entwicklungszweige und das Zusammenführen von Änderungen."
+  ),
+  (
+    key: "github",
+    short: "GitHub",
+    description: "Eine webbasierte Plattform zur Verwaltung von Git-Repositories mit Funktionen für Zusammenarbeit, Pull Requests, Issues und CI/CD-Integrationen."
+  ),
+  (
+    key: "branches",
+    short: "Branches",
+    description: "Parallele Entwicklungszweige in einem Git-Repository, die unabhängige Änderungen am selben Projekt ermöglichen und später zusammengeführt werden können."
   ),
   // ── Fachbegriffe ────────────────────────────────────────────────
   (
@@ -466,6 +486,11 @@
     key: "webdriver",
     short: "WebDriver",
     description: "Eine standardisierte API (W3C-Standard), über die Programme einen Webbrowser programmatisch steuern können. Selenium WebDriver ist die Referenzimplementierung und bildet die Grundlage aller in dieser Arbeit generierten Tests."
+  ),
+  (
+    key: "selenium",
+    short: "Selenium",
+    description: "Ein Open-Source-Framework zur Automatisierung von Webbrowsern. In dieser Arbeit wird Selenium in Kombination mit Pytest als Ausführungsumgebung der migrierten Tests verwendet."
   ),
   (
     key: "pytest",
