@@ -1,6 +1,5 @@
 == Regex-Muster der Transpilation <anh-regex-muster>
-
-Die folgende Tabelle fasst die wichtigsten @regex Muster zusammen, die im Transpilationsprozess des Migrators verwendet werden.
+#show figure: set block(breakable: true)
 
 #figure(
   table(
@@ -22,5 +21,5 @@ Die folgende Tabelle fasst die wichtigsten @regex Muster zusammen, die im Transp
     [10], [`GlobalVariable pattern`], [`GlobalVariable\.([A-Za-z_][A-Za-z0-9_]*)`], [Global Variablen normalisieren],
     [11], [`abn_test_pat`], [`String\s\w+\s=|if\(|TestObject\s\w+\s=`], [Custom Code erkennen],
   ),
-  caption: [Übersicht der @regex Muster im Transpilationsprozess],
+  caption: [Regex-Muster die in der Transpilation verwendet werden.]
 ) <table-regex>

@@ -1,6 +1,5 @@
-Die folgende Abbildung zeigt die vollständige Dateistruktur des Katalon Projekts, wie sie außerhalb der @ide im Filesystem vorliegt — inklusive aller in den vorangehenden Abschnitten beschriebenen Verschachtelungen:
+== Katalon Projektstruktur <anh-katalon-struktur>
 
-//TODO: Diese große Struktur unten als Anhang mitgeben und hier nur darauf hinweisen.
 #figure(
   text(size: 0.9em)[
   ```
@@ -52,7 +51,4 @@ Die folgende Abbildung zeigt die vollständige Dateistruktur des Katalon Projekt
   │
   └── Plugins/, Test Listeners/, ...
   ```],
-  caption: [Katalon Projektstruktur: Komplexe Verschachtelung und Format-Vielfalt (.tc, .groovy, .rs, .glbl, .dat, .xml)],
 )<fig-katalon-input-structure>
-
-Diese Struktur verdeutlicht die Komplexität, die eine Migration bewältigen muss. Besonders auffällig ist die Vielfalt der Dateiformate: Obwohl Dateien wie .tc, .rs, .glbl und .dat alle auf XML basieren, tragen sie proprietäre Endungen, die ihren Inhalt verschleiern. Hinzu kommt, dass ein einziger Test aus zwei getrennten Dateien in zwei verschiedenen Ordnern besteht — die Metadaten liegen in Test Cases/, die eigentliche Testlogik in Scripts/. Die Verbindung zwischen ihnen ist dabei nur indirekt über den Pfad herstellbar: Scripts/Users/filter_for_admins/Script1781348815820.groovy gehört zu Test Cases/Users/filter_for_admins.tc. Erschwerend kommt hinzu, dass die Script-Dateien zufällig generierte Nummern im Namen tragen, die keinerlei Rückschlüsse auf den zugehörigen Test Case erlauben.

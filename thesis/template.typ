@@ -218,7 +218,7 @@
     ] else [
       #thesisKindDE eingereicht im Rahmen der #thesisExaminationDE \
       im Studiengang _#studyCourseName _ \
-      am Department #department \
+      im #department \
       der #faculty \
       der #university \
       \
@@ -270,26 +270,26 @@
   
   // Repeat for English
 
-  v(1.5cm)
+  // v(1.5cm)
   
-  text(weight: "bold")[#author]
+  // text(weight: "bold")[#author]
   
-  v(0.3cm)
+  // v(0.3cm)
   
-  text(weight: "bold")[Title of Thesis]
-  align(left)[#titleEN]
+  // text(weight: "bold")[Title of Thesis]
+  // align(left)[#titleEN]
   
-  v(0.3cm)
+  // v(0.3cm)
   
-  text(weight: "bold")[Keywords]
-  align(left)[#keyWordsEN]
+  // text(weight: "bold")[Keywords]
+  // align(left)[#keyWordsEN]
   
-  v(0.3cm)
+  // v(0.3cm)
   
-  text(weight: "bold")[Abstract]
-  align(left)[#abstractEN]
+  // text(weight: "bold")[Abstract]
+  // align(left)[#abstractEN]
 
-  pagebreak(weak: true)
+  // pagebreak(weak: true)
 }
 
 // HACK: Am Ende der Arbeit ist die Selbstständigkeitserklärung, die so auch ins Inhaltsverzeichnis gehört. Sie selbst hat jedoch eine andere Überschrift.
@@ -428,7 +428,7 @@
     key: "xml",
     short: "XML",
     long: "Extensible Markup Language",
-    description: "Ein textbasiertes, hierarchisches Datenformat zur strukturierten Beschreibung von Informationen. In dieser Arbeit werden mehrere Katalon-Dateitypen als XML interpretiert und in offene Zielformate ueberfuehrt."
+    description: "Ein textbasiertes, hierarchisches Datenformat zur strukturierten Beschreibung von Informationen. In dieser Arbeit werden mehrere Katalon-Dateitypen als XML interpretiert und in offene Zielformate überführt."
   ),
   (
     key: "regex",
@@ -521,12 +521,12 @@
   (
     key: "pytest",
     short: "Pytest",
-    description: "Ein weit verbreitetes Python-Testframework zur Strukturierung, Ausfuehrung und Auswertung automatisierter Tests. In dieser Arbeit dient Pytest als Test-Runner und organisatorischer Rahmen fuer die migrierten Selenium-Tests."
+    description: "Ein weit verbreitetes Python-Testframework zur Strukturierung, Ausführung und Auswertung automatisierter Tests. In dieser Arbeit dient Pytest als Test-Runner und organisatorischer Rahmen für die migrierten Selenium-Tests."
   ),
   (
     key: "regression-test",
     short: "Regressionstest",
-    description: "Ein Test zur Ueberpruefung, ob bereits vorhandene und zuvor funktionierende Software-Funktionalitaet nach Aenderungen weiterhin korrekt arbeitet. Regressionstests werden typischerweise nach Codeanpassungen erneut ausgefuehrt, um unbeabsichtigte Seiteneffekte fruehzeitig zu erkennen."
+    description: "Ein Test zur Überprüfung, ob bereits vorhandene und zuvor funktionierende Software-Funktionalität nach Änderungen weiterhin korrekt arbeitet. Regressionstests werden typischerweise nach Codeanpassungen erneut ausgeführt, um unbeabsichtigte Seiteneffekte frühzeitig zu erkennen."
   ),
   (
     key: "groovy",
@@ -537,6 +537,16 @@
     key: "vendor-lock-in",
     short: "Vendor Lock-in",
     description: "Die technische oder wirtschaftliche Abhängigkeit eines Unternehmens von einem einzelnen Anbieter, die einen Wechsel zu Alternativen erschwert oder verteuert. Im Kontext dieser Arbeit bezeichnet Vendor Lock-in die Bindung an Katalon Studio durch proprietäre Dateiformate und lizenzpflichtige Funktionen."
+  ),
+  (
+    key: "low-code",
+    short: "Low-Code",
+    description: "Ein Entwicklungsansatz, bei dem Anwendungen und Prozesse mit stark abstrahierten, meist grafischen Bausteinen erstellt werden. Der manuelle Programmieraufwand ist geringer, dafür sind Erweiterbarkeit und Kontrolle bei komplexeren Anforderungen oft eingeschränkt."
+  ),
+  (
+    key: "pro-code",
+    short: "Pro-Code",
+    description: "Ein Entwicklungsansatz, bei dem Lösungen vollständig in einer allgemeinen Programmiersprache umgesetzt werden. Er erfordert mehr Implementierungsaufwand, bietet dafür aber hohe Flexibilität, Transparenz und Anpassbarkeit."
   ),
   (
     key: "transpilation",
@@ -635,22 +645,21 @@
     titleDE: titleDE,
     keyWordsDE: keywordsDE,
     abstractDE: abstractDE,
-    titleEN: titleEN,
-    keyWordsEN: keywordsEN,
-    abstractEN: abstractEN
   )
   
+
   // Abkürzungs- und Begriffsverzeichnis
   show: make-glossary
   register-glossary(entry-list)
-  heading(level: 1, numbering: none, outlined: true)[Abkürzungs- und Begriffsverzeichnis]
-  print-glossary(entry-list, show-all: true)
-
+  
   // Table of contents.
   // HACK: Set the state to true , print heading to table of contents, set state to false
   outline(
     title: [Inhaltsverzeichnis], depth: 3, indent: auto)
   pagebreak()
+  heading(level: 1, numbering: none, outlined: true)[Abkürzungs- und Begriffsverzeichnis]
+  print-glossary(entry-list, show-all: true)
+  pagebreak(weak: true)
 
   // Abbildungsverzeichnis & Tabellenverzeichnis auch im Inhaltsverzeichnis anzeigen
   show outline: set heading(outlined: true)

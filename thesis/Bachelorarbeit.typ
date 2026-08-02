@@ -1,34 +1,23 @@
 #import "template.typ": project
 
 #show: project.with(
-  thesisKindDE: "Bachelorarebeit",
+  thesisKindDE: "Bachelorarbeit",
   thesisExaminationDE: "Bachelorprüfung",
-  thesisKindEN: "Bachelor Thesis",
-  thesisExaminationEN: "Bachelor Examination",
   titleDE: "Entwurf und Evaluation eines automatisierten Migrationswerkzeugs von Katalon-Groovy-Tests zu Selenium-Pytest",
-  titleEN: "From Proprietary Test Automation to Open Execution: Design and Evaluation of a Katalon-to-Selenium/Pytest Migration Tool",
   abstractDE: [
-    In der Softwareentwicklung bieten proprietäre Low-Code-Plattformen wie Katalon einen schnellen Einstieg in die Testautomatisierung. Mit steigender Projektkomplexität führen diese jedoch häufig zu einem massiven Kostenanstieg durch unflexible Lizenzmodelle für fortgeschrittene Funktionen. Da die Testlogik und Datenobjekte in proprietären Formaten gespeichert sind, stehen Nutzer vor dem Dilemma, entweder hohe Gebühren zu zahlen oder den Verlust der bisherigen Entwicklungsarbeit bei einem Plattformwechsel hinzunehmen. 
-    Ziel dieser Bachelorarbeit ist die Entwicklung eines programmatischen Migrationspfades von Katalon zu einer Open-Source-Alternative, geschrieben in Selenium. Dabei soll die manuelle Neuerstellung der Test-Suites durch eine automatisierte Transformations-Pipeline ersetzt werden, um die bisherige Arbeit nicht zu verlieren. 
-    Es wird ein Migrations-Algorithmus entworfen, der auf Regular Expressions und Python-Methoden basiert. Dieser scannt die proprietären Strukturen, übersetzt die bestehende Testlogik von Groovy nach Python und bildet die internen Datenobjekte sowie Referenzdateien auf eine neue, Open-Source Projektstruktur im Selenium Framework ab. 
-    Das Ergebnis ist ein funktionsfähiger Prototyp eines Migrations-Tools. Dieses Tool ermöglicht den Transfer von Test-Suiten in ein erweiterbares Open-Source-Projekt. Dabei bleibt die Integrität der Tests gewahrt und die Abhängigkeit von Lizenzgebühren wird vollständig eliminiert. 
-    Die Arbeit zeigt auf, wie durch automatisierte Code-Migration und -Transformation der Wechsel von proprietären "Low-Code" zu Open-Source "Pro-Code" gelingen kann. Die Ergebnisse bieten Nutzern eine gute Möglichkeit für den Ausstieg aus proprietären Test-Ökosystemen. 
-  ],
-  abstractEN: [
-    In software development, proprietary low-code platforms like _Katalon_ offer a fast initial entry point into test automation. However, as project complexity scales, these systems frequently lead to a massive escalation of costs due to inflexible licensing frameworks. This thesis addresses this "Vendor Lock-In" problem by establishing an automated transformation pipeline that migrates test suites from closed Katalon structures into an open-source, flexible framework written in Python using _Selenium_. 
-
-    A core migration algorithm based on Python execution logic and Regular Expressions (Regex) handles the automated parsing of proprietary formats, translations of test scripts from _Groovy_ to _Python_, and mapping of object repositories. The evaluation showcases a fully functional prototype that successfully eliminates license fee dependencies while completely preserving test suite runtime integrity.
+    Proprietäre Low-Code-Plattformen wie Katalon ermöglichen einen schnellen Einstieg in die Testautomatisierung, können bei wachsender Projektgröße jedoch zu starker Herstellerabhängigkeit und hohen Folgekosten führen. Diese Arbeit entwickelt und evaluiert eine automatisierte Migrationspipeline, die Katalon-Projekte in eine offene Python-Testumgebung mit Selenium und Pytest überführt. 
+    Der entwickelte Prototyp verarbeitet Katalon-Testskripte sowie zugehörige Projektartefakte wie Object Repository, Variablen und Konfigurationsdateien und erzeugt daraus eine ausführbare Zielstruktur. In der Evaluation des Beispielprojekts wurden 7 von 10 Testskripten automatisch übersetzt (70%), während 3 Fälle als Restlücke manuell nachbearbeitet werden müssen. Alle Object-Repository-Dateien wurden erfolgreich nach JSON überführt, und die strukturelle Integrität des Zielprojekts wurde durch die fehlerfreie Erkennung der generierten Tests bestätigt. 
+    Die Ergebnisse zeigen, dass der Ansatz den manuellen Migrationsaufwand deutlich reduziert und einen praktikablen Ausstiegspfad aus proprietären Testökosystemen bietet, auch wenn komplexe Sonderfälle derzeit noch nicht vollständig automatisiert abgedeckt werden.
   ],
   keywordsDE: "",
-  keywordsEN: "",
   author: "Konstantin Lucius Regenhardt",
   language: "de",
-  studyCourseName: "Bachelor of Science Umweltinformatik",
-  submissionDate: "01.08.2026",
+  studyCourseName: "Umweltinformatik",
+  submissionDate: "02.08.2026",
   departmentDE: "Fachbereich 2",
-  departmentEN: "Faculty 2",
+  departmentEN: "",
   facultyDE: "Fakultät Technik und Informatik",
-  facultyEN: "Faculty of Engineering and Computer Science",
+  facultyEN: "",
   university: "Hochschule für Technik und Wirtschaft Berlin",
   firstSupervisor: "Prof. Dr. Jochen Wittmann",
   secondSupervisor: "Ankit Kumar",
@@ -57,7 +46,7 @@ Die technische Herausforderung liegt nicht nur in der syntaktischen Konvertierun
 
 == Ziel & Aufbau der Arbeit <sec-ziel-aufbau>
 
-Das Ziel dieser Arbeit ist es, einen automatisierten Migrator zu entwerfen, zu implementieren und zu evaluieren, der Katalon-basierte Testprojekte in eine Python-Projektstruktur konvertiert. Um dieses Ziel zu erreichen wird in dieser Arbeit zuerst die Struktur eines Katalon Projektes und die eines Python Projektes analysiert. Dann wird Stück für Stück ein Migrationsalgorithmus entworfen, der die proprietären Formate des einen, in offen nutzbare Formate des anderen überführt. Anschließend wird ein Prototyp implementiert, der die Transformation automatisiert und die Integrität der Tests sicherstellt. Abschließend werden die Ergebnisse evaluiert und diskutiert, um die Effektivität des Migrationsprozesses zu bewerten.
+Das Ziel dieser Arbeit ist es, einen automatisierten Migrator zu entwerfen, zu implementieren und zu evaluieren, der Katalon-basierte Testprojekte in eine ausführbare Python-Projektstruktur überführt. Um dieses Ziel zu erreichen wird in dieser Arbeit zuerst die Struktur eines Katalon Projektes und die eines Python Projektes analysiert. Dann wird Stück für Stück ein Migrationsalgorithmus entworfen, der die proprietären Formate des einen, in offen nutzbare Formate des anderen transformiert. Anschließend wird ein Prototyp implementiert, der die Migration automatisiert und die Testlogik so weit wie möglich erhält. Die Evaluation konzentriert sich dabei auf vier Kernfragen: Wie viel des Quellprojekts wird automatisch übersetzt, wie hoch ist der tatsächliche Automatisierungsgrad, in welchem Umfang ist das resultierende Python-Projekt funktional äquivalent zum Katalon-Ausgangsprojekt und welche Fälle bleiben unübersetzt und erfordern manuelle Nacharbeit.
 
 = Grundlagen <kap-grundlagen>
 == Automatisiertes Testen <sec-automatisiertes-testen>
@@ -71,13 +60,11 @@ Automatisiertes Testen bezeichnet das Ausführen von Tests mit Hilfe von Testskr
 Für webbasierte Anwendungen hat sich dabei der @selenium @webdriver als weit verbreitetes Werkzeug etabliert. Der @webdriver ist ein standardisiertes @api, über das die Testskripte einen Browser programmatisch steuern. Klicks, Formulareingaben und Navigationsbefehle werden direkt an den Browser gesendet, als ob ein Nutzer sie manuell ausführen würde@selenium_webdriver.
 
 == Low-Code-Plattformen im Testbereich <sec-low-code-testbereich>
-//TODO: Quellen einfügen, low code und pro code ins glossar einfügen und Stellen markieren
-Low-Code-Plattformen sind Entwicklungsumgebungen, die komplexe technische Operationen durch grafische Oberflächen und vorgefertigte Bausteine abstrahieren. Im Bereich der Testautomatisierung bieten sie einen niedrigschwelligen Einstieg: Tests können über eine GUI aufgezeichnet oder aus einem Katalog von vordefinierten Aktionen zusammengestellt werden, ohne tiefgehende Programmierkenntnisse vorauszusetzen.
+@low-code[Low-Code]-Plattformen sind Entwicklungsumgebungen, die komplexe technische Operationen durch grafische Oberflächen und vorgefertigte Bausteine abstrahieren. Im Bereich der Testautomatisierung bieten sie einen niedrigschwelligen Einstieg: Tests können über eine GUI aufgezeichnet oder aus einem Katalog von vordefinierten Aktionen zusammengestellt werden, ohne tiefgehende Programmierkenntnisse vorauszusetzen.
 
-//TODO: Glossareinträge markieren, neuer Eintrag für Open-Source, mehr Quellen
-Diese Eigenschaft macht Low-Code-Tools attraktiv für Teams die wenig Programmierkenntnisse haben. Mit wachsender Anforderungskomplexität stoßen auch sie oft schnell an Grenzen@sahay2020lowcode. Individuelle Logik, die über vorgefertigte Bausteine hinausgeht, ist dabei schwer oder gar nicht umsetzbar. Da die Testlogik eng an die Plattform gebunden ist, lässt sie sich zudem schlecht in externe Versionskontrollsysteme integrieren. Skalierbarkeit und Anpassbarkeit bleiben durch das Plattformmodell begrenzt.
+Diese Eigenschaft macht @low-code[Low-Code]-Tools attraktiv für Teams die wenig Programmierkenntnisse haben. Mit wachsender Anforderungskomplexität stoßen auch sie oft schnell an Grenzen@sahay2020lowcode. Individuelle Logik, die über vorgefertigte Bausteine hinausgeht, ist dabei schwer oder gar nicht umsetzbar. Da die Testlogik eng an die Plattform gebunden ist, lässt sie sich zudem schlecht in externe Versionskontrollsysteme integrieren. Skalierbarkeit und Anpassbarkeit bleiben durch das Plattformmodell begrenzt.
 
-Im Gegensatz dazu stehen sogenannte *Pro-Code*-Ansätze, bei denen Tests vollständig in einer allgemeinen Programmiersprache wie Python geschrieben werden. Frameworks wie @selenium und @pytest bieten dabei maximale Flexibilität, erfordern aber entsprechende Programmierkenntnisse. Dabei sind diese Frameworks alle Open-Source, also kostenlos, öffentlich zugänglich und transparent. Der Übergang von Low-Code zu Pro-Code ist inhaltlich des Kerns dieser Arbeit.
+Im Gegensatz dazu stehen sogenannte @pro-code[Pro-Code]-Ansätze, bei denen Tests vollständig in einer allgemeinen Programmiersprache wie Python geschrieben werden. Frameworks wie @selenium und @pytest bieten dabei maximale Flexibilität, erfordern aber entsprechende Programmierkenntnisse. Dabei sind diese Frameworks alle Open-Source, also kostenlos, öffentlich zugänglich und transparent. Der Übergang von @low-code[Low-Code] zu @pro-code[Pro-Code] ist inhaltlich des Kerns dieser Arbeit.
 //TODO: Vielleicht Bild von Low-Code UI einfügen
 
 == @vendor-lock-in bei proprietären Plattformen <sec-vendor-lock-in>
@@ -400,7 +387,7 @@ Es wird eine pytest.ini-Datei erstellt, die die Konfiguration für Pytest enthä
 Als die Aufgabe der Migration des internen Testsystems auf ein anderes Ökosystem aufkam, war es ein erstes Konzept ein Python Projekt zu schreiben, das Katalon-Tests direkt lesen und ausführen kann. Diese Idee wurde nach Rücksprache mit anderen Entwicklern jedoch schnell verworfen, da die proprietären Formate und die Katalon-spezifische Logik zu komplex waren, um sie direkt in einem Open-Source-Framework auszuführen. Stattdessen wurde ein Ansatz gewählt, der die Katalon-Testlogik komplett in eine neue, erweiterbare und frei nutzbare Struktur transformiert. Durch diese komplette Trennung von Katalon-Strukturen sollte sichergestellt werden, dass in der Zukunft keine weiteren Probleme mit Abhängigkeiten zu Katalon mehr aufkommen. Die Tests sollten in der neuen Struktur direkt ausgeführt werden können, ohne dass Katalon Studio gebraucht würde falls beispielsweise neue Tests oder Elemente kreiert werden müssten.
 Als erster Ansatz wurde eine kleine Pipeline gebaut mit der Aufgabe, häufig vorkommende Methoden zu übersetzen. Dieser Ansatz zeigte sehr schnell, dass die Katalon Struktur im Hintergrund der @ide viel komplexer und verschachtelter war, als es auf den ersten Blick schien. /*Mit der Zeit kristalisierten sich erst Regex-basierte Methoden zum Erkennen aller Katalon Funktions-Aufrufe, dann Weitere zum Erkennen von Pfaden zu @test-object[Test Objects]s, dann zum Erkennen von testeigenen Variablen und schließlich zum Erkennen von globalen Variablen und deren Werten. Mit der Zeit entstand so eine großläufige Migrationspipeline, die die zentralen Aspekte einer Katalon Struktur erkennt, diese transformiert und in einer neuen Python Struktur abspeichert.*/
 
-== Architekturüberblick <sec-architekturueberblick>
+== Architekturüberblick <sec-architekturüberblick>
 
 Um die Komplexität zu zu bewältigen wird das Katalon Projekt strukturiert in seine Teile zerlegt. Ein _Vorteil_ der proprietären Struktur ist es, dass sie die Struktur vorgibt und berechenbar ist, was diese Art von Algorithmus erst möglich macht. 
 Zuerst bekommt der Algorithmus die Pfade des Quell- und des Zielprojekts vom User übergeben. Anschließend werden rekursiv alle Dateien im Quellprojekt durchsucht und die relevanten Strukturen, wie "Test Case"-Ordner und das Object Repository werden im Zielprojekt als leere Ordner wiedergespiegelt. Die unveränderten Systempfade, die vom "root"-Verzeichnis zu den Dateien führen, sind dabei integral. 
@@ -421,7 +408,7 @@ Der in der folgenden Abbildung dargestellte Transpilationsablauf folgt einer fes
   caption: [Detailliertes Aktivitätsdiagramm des Transpilationsablaufs eines Katalon-Tests zu einem Python-Test. Dargestellt sind das Einlesen, Filtern, Extrahieren, @parsing[Parsen], Transformieren, Generieren und Zusammensetzen der Testlogik.],
 ) <fig-transpile-flow>
 
-== Übernahme ergänzender Strukturen <sec-uebernahme-strukturen>
+== Übernahme ergänzender Strukturen <sec-übernahme-strukturen>
 
 Ein ausführbares Zielprojekt entsteht erst dann, wenn neben der Testlogik auch die zugehörigen Kontextstrukturen existieren. Deswegen müssen nach der Transpilation der Test Cases auch die ergänzenden Strukturen übernommen werden. Dazu gehören insbesondere Objektbeschreibungen aus dem Object Repository, Variablenquellen - global oder lokal, Testdaten sowie Laufzeit- und Konfigurationsdateien. Ohne diese Elemente wären viele erzeugte Tests zwar syntaktisch vorhanden, könnten aber nicht korrekt auf Selektoren, Daten oder Umgebungsparameter zugreifen.
 
@@ -628,10 +615,22 @@ Nach der Darstellung der Implementierungsdetails wird im folgenden Kapitel über
 
 = Evaluation <kap-evaluation>
 
-Zur Evaluation des Migrationswerkzeugs wurde das Katalon-Beispielprojekt `sample-website-katalon-tests` verwendet. Es enthält reale End-to-End-Tests, ein Object Repository, ein globales Variablen-Profil und eine eingebundene CSV-Datendatei. Die Migration wurde auf einem Windows-11-Rechner mit Python 3.13.0 und pytest 8.4.1 durchgeführt.
+Zur Evaluation des Migrationswerkzeugs wurde das Katalon-Beispielprojekt `sample-website-katalon-tests` verwendet. Es enthält reale End-to-End-Tests, ein Object Repository, zwei globale Variablen-Profile und eine eingebundene CSV-Datendatei. Die Migration wurde auf einem Windows-11-Rechner mit Python 3.13.0 und pytest 8.4.1 durchgeführt.
+
+== Evaluationskriterien <sec-evaluationskriterien>
+
+Die Bewertung des Prototyps orientiert sich bewusst an den Basisfunktionen der Migrationspipeline und den in dieser Arbeit formulierten Kernzielen.
+
+Im Migrationsergebnis wird beobachtet welcher Anteil der relevanten Katalon-Dateien erfolgreich in die Zielstruktur überführt wurde. Zudem wird auch der Automatisierungsgrad bewertet. Dabei wird erfasst, welche Transformationsschritte ohne manuelle Eingriffe durchlaufen und welche Artefakte im automatischen Durchlauf vollständig erzeugt werden.
+
+Bei der Prüfung der strukturellen Integrität wird untersucht, ob das erzeugte Python-Projekt die ursprüngliche Testlogik in vergleichbarer Weise ausführt und ob die erwarteten Testfälle korrekt bereitgestellt werden.
+
+Anschließend wird die Codequalität bemessen. Dazu zählen der komplette Syntax, nicht oder nur teilweise übersetzte Fälle und deren Ursachen.
+
+Als letztes wird der Aufwand zwischen manuellem Migrieren und der Nutzung der Migrationspipeline verglichen.
 
 == Migrationsergebnis <sec-migrationsergebnis>
-//TODO: Ergebnisse Anpassen und andere Perspketiven zeigen
+
 Die Ausführung des Migrators (`python main.py`) liefert folgendes Ergebnis:
 
 #figure(
@@ -642,93 +641,104 @@ Die Ausführung des Migrators (`python main.py`) liefert folgendes Ergebnis:
     stroke: 0.5pt,
     fill: (x, y) => if y == 0 { rgb("#e8f4f8") },
     [*Komponente*], [*Anzahl*], [*Beschreibung*],
-    [Übersetzte Testskripte], [5], [Alle .groovy-Dateien aus Scripts/ erfolgreich übersetzt],
-    [Nicht übersetzbare Tests], [0], [Kein Test in src/unreadable\_tests/ abgelegt],
-    [Object Repository Dateien], [9], [Alle .rs XML-Dateien zu JSON konvertiert],
+    [Übersetzte Testskripte], [7], [7 von 10 .groovy-Dateien aus Scripts/ erfolgreich übersetzt],
+    [Nicht übersetzbare Tests], [3], [3 Tests konnten nicht automatisch übersetzt werden],
+    [Object Repository Dateien], [10], [Alle .rs XML-Dateien zu JSON konvertiert],
     [Variablen-Dateien], [1], [Testeigene Variablen aus .tc-Metadateien extrahiert],
     [Runtime-Dateien], [2], [base\_test.py und katalon\_helpers.py ins Ziel kopiert],
     [Konfigurations-Dateien], [4], [pytest.ini, requirements.txt, .gitignore, README.md],
     [Datendateien], [1], [users.csv direkt ins Ziel-Projekt kopiert],
   ),
-  caption: [Migrationsergebnis: Alle Komponenten des Katalon-Projekts wurden vollständig überführt.],
+  caption: [Migrationsergebnis: Der Großteil der Komponenten wurde automatisch überführt; bei den Testskripten verbleibt ein Rest von 3 nicht übersetzten Fällen.],
 ) <table-migration-result>
 
-Alle 5 Testskripte wurden ohne Fehler übersetzt. Kein Test wurde in `unreadable_tests/` abgelegt, was einer Übersetzungsquote von 100% entspricht.
+Von 10 vorhandenen Testskripten wurden 7 automatisch übersetzt, während 3 Fälle fehlschlugen. Damit liegt die Übersetzungsabdeckung für Testskripte bei *70%*, mit einem unübersetzen Rest von *30%*.
 
-== Strukturelle Integrität <sec-strukturelle-integritaet>
+#figure(
+  image("img/Evaluation/run_migration.png", width: 100%),
+  caption: [Konsolenausschnitt der Migration mit 7 erfolgreichen und 3 fehlgeschlagenen Testübersetzungen.],
+) <fig-eval-run-migration>
 
-Nach der Migration wurde das Ziel-Projekt mit `pytest --collect-only` geprüft, ohne einen Browser oder die Zielanwendung zu starten. Pytest konnte alle generierten Dateien fehlerfrei importieren und alle 5 Tests entdecken:
+== Strukturelle Integrität <sec-strukturelle-integrität>
 
-```
-collected 5 items
+Hier wird geprüft ob das Zielprojekt vollständig importierbar ist und die erwarteten Testfälle korrekt bereitgestellt werden.
 
-src/tests/Menus/test_navigation_bar.py::Test_navigation_bar::test_navigation_bar
-src/tests/Users/test_filter_for_admins.py::Test_filter_for_admins::test_filter_for_admins
-src/tests/Users/test_search_for_david_kim.py::Test_search_for_david_kim::test_search_for_david_kim
-src/tests/Users/test_show_active_viewers.py::Test_show_active_viewers::test_show_active_viewers
-src/tests/Util/test_login.py::Test_login::test_login
+Nach der Migration wurde das Python-Projekt mit `pytest --collect-only` geprüft. Eine Pytest-native Funktion, die alle Tests durchsucht und den Syntax kontrolliert. Pytest konnte alle generierten Dateien fehlerfrei importieren und die 7 automatisch erzeugten Tests entdecken.
 
-========================= 5 tests collected in 0.27s ==========================
-```
+#figure(
+  text(size: 0.9em)[
+    ```
+    collected 7 items
 
-Keine Import-Fehler, keine unaufgelösten Abhängigkeiten. Die generierten Module sind syntaktisch gültiges Python, alle Imports (`katalon_helpers`, `base_test`, `GlobalVariables`) sind auflösbar.
+    src/tests/Menus/test_navigation_bar.py::Test_navigation_bar::test_navigation_bar
+    src/tests/Users/test_filter_for_admins.py::Test_filter_for_admins::test_filter_for_admins
+    src/tests/Users/test_search_for_david_kim.py::Test_search_for_david_kim::test_search_for_david_kim
+    src/tests/Users/test_show_active_viewers.py::Test_show_active_viewers::test_show_active_viewers
+    src/tests/Users/test_show_editors.py::Test_show_editors::test_show_editors
+    src/tests/Users/test_verify_users_controls_visible.py::Test_verify_users_controls_visible::test_verify_users_controls_visible
+    src/tests/Util/test_login.py::Test_login::test_login
 
-== Codequalität: Vorher-Nachher-Vergleich <sec-codequalitaet-vergleich>
+    ========================= 7 tests collected in 0.46s =========================
+    ```
+  ],
+  caption: [Konsolenausgabe von `pytest --collect-only`, die zeigt, dass alle 7 automatisch erzeugten Python-Tests fehlerfrei erkannt werden.],
+) <fig-pytest-collect-only>
 
-Am Beispiel des Tests `filter_for_admins` lässt sich der Unterschied zwischen Original und generiertem Code zeigen:
+Die folgenden Screenshots zeigen die Testausführung aller Tests in Katalon Studio, mit 10 von 10 Erfolgen und die Testausführung im generierten Python-Projekt, mit 7 von 7 Erfolgen.
 
-```groovy
-// Katalon (Groovy) — 37 Zeilen, davon 18 Boilerplate-Imports
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
-import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-// ... 16 weitere Import-Zeilen ...
+#figure(
+  grid(
+    rows: 2,
+    gutter: 1em,
+    image("img/Evaluation/katalon_all_tests.png"),
+    image("img/Evaluation/python_all_tests.png"),
+  ),
+  caption: [Vergleich der Testausführung: oben alle Tests im Katalon-Ausgangsprojekt, unten die Ausführung im generierten Python-Projekt. Die Abweichung entspricht den 3 nicht automatisch übersetzten Fällen.],
+) <fig-eval-katalon-python-all-tests>
 
-WebUI.callTestCase(findTestCase('Util/login'), [:], FailureHandling.STOP_ON_FAILURE)
-WebUI.verifyTextPresent('View All Users', false)
-WebUI.click(findTestObject('All_Users/view_all_users_btn'))
-WebUI.selectOptionByValue(findTestObject('All_Users/roles_dropdown'), 'Admin', false)
-WebUI.verifyTextPresent(findTestData('users').getValue(3, 1), false)
-```
+== Codequalität: Vorher-Nachher-Vergleich <sec-codequalität-vergleich>
 
-```python
-# Generierter Python-Code — 22 Zeilen, 7 Imports (konsolidiert)
-import pytest
-import src.runtime.katalon_helpers as kh
-from src.runtime.base_test import *
-from src.profiles.global_variables import GlobalVariables as GlobalVariable
-from selenium.webdriver.support.ui import Select
+Am Beispiel des Tests `filter_for_admins` lässt sich der Unterschied zwischen ursprünglichem Katalon-Skript und generiertem Python-Test visuell nachvollziehen:
 
-class Test_filter_for_admins(BaseTest):
-    def test_filter_for_admins(self):
-        assert 'View All Users' in self.driver.page_source
-        kh.find_katalon_test_object(self.driver, 'All_Users/view_all_users_btn').click()
-        Select(kh.find_katalon_test_object(self.driver, 'All_Users/roles_dropdown')).select_by_value('Admin')
-        assert kh.find_katalon_test_data(self.driver, 'users', 3, 1) in self.driver.page_source
-```
+#figure(
+  grid(
+    rows: 2,
+    gutter: 1em,
+    image("img/Katalon Studio/filter_for_admins_script.png"),
+    image("img/Python Projekt/filter_for_admins.png"),
+  ),
+  caption: [Vergleich des Tests `filter_for_admins`: oben das ursprüngliche Katalon-Skript in Groovy, unten der daraus generierte Python-Test im Zielprojekt.],
+) <fig-filter-for-admins-code-comparison>
 
 Der Boilerplate-Anteil sinkt von 18 auf 7 Importzeilen. Die Testlogik ist in standardmäßigem Python mit pytest-Konventionen formuliert und benötigt keine proprietären Katalon-Keywords mehr.
 
+Im derzeitigen Stand der Pipeline werden alle Kommentare des ursprünglichen Codes aus Gründen der Komplexität entfernt. 
+
 == Aufwandsvergleich <sec-aufwandsvergleich>
 //TODO: Quantitative Arbeitszeit mit einbeziehen, was wenn ein Test 500 Zeilen lang ist usw.
-Die automatisierte Migration des Beispielprojekts dauerte unter einer Sekunde. Zum Vergleich: Eine manuelle Migration hätte folgende Einzelschritte erfordert:
 
-- Verstehen der Katalon-Verschachtelungen (Scripts ↔ Test Cases) und Zuordnen der Dateien
-- Übersetzen von 5 Groovy-Testskripten nach Python (ca. 30–60 Minuten pro Test)
-- Manuelles Konvertieren von 9 XML-Objektdateien in lesbare @selenium Locator-Definitionen
-- Extrahieren der GlobalVariables aus der .glbl-Datei und Erstellen einer Python-Klasse
-- Aufsetzen der Projektstruktur (pytest.ini, requirements.txt, Ordner, init.py-Dateien)
+Die automatisierte Migration des Beispielprojekts dauerte unter einer Sekunde und überführte 7 von 10 Testskripten direkt in die Zielstruktur. Für die verbleibenden 3 fehlgeschlagenen Fälle ist eine manuelle Nacharbeit erforderlich. Eine vollständig manuelle Migration hätte dagegen zunächst die in Kapitel @sec-verschachtelungen-katalon beschriebenen proprietären Verschachtelungen zwischen Skripten, Test Cases, Objektdefinitionen, Profilen und Testdaten auflösen müssen, bevor anschließend 10 Groovy-Testskripte, 10 XML-basierte Objektdateien sowie die zugehörigen Variablen- und Konfigurationsstrukturen einzeln in Python überführt werden könnten. Dass ein solcher manueller Aufwand mit wachsender Komplexität schnell ansteigt, deckt sich mit der in der Testliteratur beschriebenen Beobachtung, dass manuelle Prüf- und Transformationsaufgaben bei steigender Fallzahl und Kombinationsvielfalt stark skalieren@nist_sp800_142[S. 34, S. 37].
 
-Der geschätzte manuelle Aufwand liegt bei 8-12 Stunden für das Beispielprojekt. Mit wachsender Testanzahl skaliert der Migrator linear, während der manuelle Aufwand überproportional steigt, da Querbezüge (Variablen, Objekte, Daten) zunehmend komplex werden.
+Für das hier betrachtete Beispielprojekt ist deshalb selbst bei konservativer Projektschätzung von einem manuellen Aufwand im hohen einstelligen bis zweistelligen Stundenbereich auszugehen. Die Teilautomatisierung reduziert diesen Aufwand deutlich, lässt aber für die 3 nicht übersetzten Testfälle weiterhin gezielte Transformations- und Prüfaufgaben offen. Mit wachsender Testanzahl skaliert der Migrator im Wesentlichen linear, während der manuelle Aufwand durch zusätzliche Querbezüge zwischen Variablen, Objekten und Datenstrukturen überproportional zunimmt.
 
-= Diskussion <kap-diskussion>
+//= Diskussion <kap-diskussion>
 
 // TODO
 
-= Fazit & Ausblick <kap-fazit-ausblick>
+= Fazit und Ausblick <kap-fazit-ausblick>
 
-// TODO
+Die Arbeit beschreibt die Entwicklung eines Migrationswerkzeugs, das Katalon-Projekte in Python-Projekte mit Selenium und Pytest überführt. Ziel war es, das Tool zu entwerfen, zu implementieren und zu evaluieren. Dieses Ziel ergab sich aus der Aufgabe, eine umfangreiche bestehende Katalon-Projektbasis aus ihrer proprietären Umgebung in eine offene, erweiterbare und kostenlos nutzbare Zielumgebung zu überführen.
 
+Die Ausführung des Prototyps ergibt ein Python-Projekt, das den Großteil der eingeführten Testlogik samt umgebender Testartefakte enthält. Im Beispielprojekt werden 70% der Testskripte sowie alle dazugehörigen Strukturen wie Test Objects, Testdaten und Variablen fehlerfrei automatisch transformiert. Das erzeugte Projekt ist nach minimalem Setup direkt ausführbar. Die restlichen 30% müssen jedoch manuell nachbearbeitet werden, um vollständig nutzbar zu sein.
+
+In der Evaluation werden insbesondere die strukturelle und syntaktische Integrität überprüft. Zugleich macht sie deutlich, dass nicht alle Fälle übersetzt werden. Eigens geschriebene Logik, Kommentare und komplexere Verschachtelungen führen schnell zur Unlesbarkeit des Testskripts. Demnach ist das Migrationstool kein vollständiger Ersatz für eine manuelle Migration, aber eine wirksame Grundlage zur deutlichen Reduktion des Aufwands.
+
+Insgesamt zeigt die Arbeit, dass die Migration von Katalon-Projekten in eine Python-Testumgebung mit Selenium und Pytest machbar ist, auch wenn nicht alle Fälle automatisch abgedeckt werden können.
+
+Für die Weiterentwicklung des Tools ergeben sich drei zentrale Richtungen. Erstens kann die Abdeckung erhöht werden, indem weitere Katalon Studio-interne Keyword-Methoden in die Liste der übersetzbaren Methoden aufgenommen werden. Zweitens können die Regex-Muster und Parsing-Regeln erweitert werden, um Kommentare, tiefere Verschachtelungen in Parameterlisten sowie eigens erstellte Variablen, Methoden und Klassen robuster zu verarbeiten. Auch Programmierschleifen und weitere Code-Konstrukte könnten in die Übersetzung aufgenommen werden. Dazu kann die Fehlerklassifikation und -behandlung verbessert werden, etwa durch eine Kategorisierung nicht übersetzter Skripte und eine detailliertere Fehlerausgabe, um die manuelle Nacharbeit gezielter und schneller durchführen zu können.
+
+#pagebreak()
 = Anhang <kap-anhang>
 
 #include "attachments/regex_muster.typ"
-
+#include "attachments/katalon_structure.typ"
