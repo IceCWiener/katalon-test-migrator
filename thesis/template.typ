@@ -256,7 +256,7 @@
   
   v(0.3cm)
   
-  text(weight: "bold")[Stichworte]
+  //text(weight: "bold")[Stichworte]
   align(left)[#keyWordsDE]
   
   v(0.3cm)
@@ -314,7 +314,11 @@
   v(0.3cm)
 
   align(left)[
-    Hiermit versichere ich, dass ich die vorliegende Arbeit ohne fremde Hilfe selbständig verfasst und nur die angegebenen Hilfsmittel benutzt habe. Wörtlich oder dem Sinn nach aus anderen Werken entnommene Stellen sind unter Angabe der Quellen kenntlich gemacht.
+    Ich erkläre hiermit, dass
+ich die vorliegende wissenschaftliche Arbeit selbständig und ohne unerlaubte Hilfe angefertigt habe,
+ich andere als die angegebenen Quellen und Hilfsmittel nicht benutzt habe,
+ich die den benutzten Quellen wörtlich oder inhaltlich entnommenen Stellen als solche kenntlich gemacht habe,
+die Arbeit in gleicher oder ähnlicher Form noch keiner anderen Prüfbehörde vorgelegen hat.
   ]
 
   v(1.5cm)

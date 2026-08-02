@@ -35,48 +35,48 @@ In the evaluation of the sample project, **7 out of 10 test scripts were automat
 
 ## Glossary (Abkürzungs- und Begriffsverzeichnis)
 
-* **API (Application Programming Interface):** A defined interface through which software components communicate with each other. Selenium provides an API through which tests programmatically control the browser.
-* **Assertions:** Verification expressions in test code that expect a condition to evaluate to true. If the condition is not met, the test fails and marks the corresponding location as an error.
+* **API (Application Programming Interface):** A defined interface through which software components communicate with each other. Selenium provides an API through which tests programmatically control the browser. 2, 3, 22
+* **Assertions:** Verification expressions in test code that expect a condition to evaluate to true. If the condition is not met, the test fails and marks the corresponding location as an error. 22
 * **Branches:** Parallel development lines in a Git repository that allow independent changes to be made to the same project and merged later.
-* **Build-Time:** The process execution period during the run of the migration tool. In contrast to *Runtime* (the time of test execution), all transformations, conversions, and code generations take place during Build-Time. In this project, Build-Time encompasses all pipeline modules (`test_suite_translator`, `test_transpiler`, `test_assembler`, etc.) that perform a one-time conversion of a Katalon project into a Selenium/Pytest project.
-* **CI (Continuous Integration):** A software development principle where code changes are regularly integrated into a shared repository and automatically built and tested. Automated test suites are a core tool in the CI process.
-* **CLI (Command Line Interface):** A text-based user interface through which users control programs by entering commands.
+* **Build-Time:** The process execution period during the run of the migration tool. In contrast to *Runtime* (the time of test execution), all transformations, conversions, and code generations take place during Build-Time. In this project, Build-Time encompasses all pipeline modules (`test_suite_translator`, `test_transpiler`, `test_assembler`, etc.) that perform a one-time conversion of a Katalon project into a Selenium/Pytest project. 21
+* **CI (Continuous Integration):** A software development principle where code changes are regularly integrated into a shared repository and automatically built and tested. Automated test suites are a core tool in the CI process. 19
+* **CLI (Command Line Interface):** A text-based user interface through which users control programs by entering commands. 3
 * **Compiler:** A program that analyzes the source code of a programming language and checks for errors or translates it into another form. In this work, the term compiler refers to the static type analyzer *Pyright*, which examines Python files for type and import errors prior to execution.
-* **Delimiter:** A separator or boundary character that marks the beginning, end, or structure of an expression. In the context of Regular Expressions, a special character such as a dot is treated as a literal character through escaping (e.g., `\.`) and loses its special regex meaning.
+* **Delimiter:** A separator or boundary character that marks the beginning, end, or structure of an expression. In the context of Regular Expressions, a special character such as a dot is treated as a literal character through escaping (e.g., `\.`) and loses its special regex meaning. 4, 4
 * **Pytest Fixture:** A mechanism in Pytest that defines reusable test preconditions and postconditions. Fixtures are declared in the `conftest.py` file and are automatically available to all tests in the project without needing explicit imports. Typical applications include creating a WebDriver object or setting up test data.
 * **Framework:** A reusable structural skeleton made of libraries, rules, and conventions that structures the development of a specific type of software. In this work, Katalon and Selenium/Pytest serve as frameworks for test automation.
 * **Git:** A distributed version control system for tracking changes in source code and files. Git enables, among other things, commit histories, parallel development branches, and the merging of changes.
-* **GitHub:** A web-based platform for managing Git repositories with features for collaboration, pull requests, issues, and CI/CD integrations.
-* **Groovy:** A dynamically typed scripting language that runs on the JVM and is fully interoperable with Java. Katalon Studio uses Groovy as the scripting language for test scripts. In this work, Groovy code is translated into Python using regex transformation.
-* **GUID (Globally Unique Identifier):** A nearly globally unique identifier used to identify objects or entries.
-* **HTML (HyperText Markup Language):** A standardized markup language for structuring web content. HTML describes the structure of elements such as forms, buttons, tables, and text areas, which automated UI tests access.
-* **IDE (Integrated Development Environment):** A software application that provides developers with a comprehensive environment for software development. Typically, it includes a code editor, a debugger, build tools, and often a graphical project browser. Katalon Studio is such an IDE specifically designed for test automation.
-* **Interpreter:** A program that executes source code step-by-step at runtime without compiling it entirely into machine code beforehand. Python is typically executed via an interpreter.
-* **JVM (Java Virtual Machine):** A runtime environment that enables platform-independent execution of Java bytecode. Groovy, the scripting language of Katalon Studio, runs on the JVM.
-* **Key-Value Pairs:** A data structure in which values are mapped to a unique key. In this thesis, selectors and their associated strategies are frequently described as key-value pairs.
+* **GitHub:** A web-based platform for managing Git repositories with features for collaboration, pull requests, issues, and CI/CD integrations. 19
+* **Groovy:** A dynamically typed scripting language that runs on the JVM and is fully interoperable with Java. Katalon Studio uses Groovy as the scripting language for test scripts. In this work, Groovy code is translated into Python using regex transformation. 5, 10, 14
+* **GUID (Globally Unique Identifier):** A nearly globally unique identifier used to identify objects or entries. 8, 8
+* **HTML (HyperText Markup Language):** A standardized markup language for structuring web content. HTML describes the structure of elements such as forms, buttons, tables, and text areas, which automated UI tests access. IX, 6, 6, 21
+* **IDE (Integrated Development Environment):** A software application that provides developers with a comprehensive environment for software development. Typically, it includes a code editor, a debugger, build tools, and often a graphical project browser. Katalon Studio is such an IDE specifically designed for test automation. IX, IX, 5, 5, 6, 7, 8, 8, 8, 10, 14
+* **Interpreter:** A program that executes source code step-by-step at runtime without compiling it entirely into machine code beforehand. Python is typically executed via an interpreter. 13
+* **JVM (Java Virtual Machine):** A runtime environment that enables platform-independent execution of Java bytecode. Groovy, the scripting language of Katalon Studio, runs on the JVM. 5
+* **Key-Value Pairs:** A data structure in which values are mapped to a unique key. In this thesis, selectors and their associated strategies are frequently described as key-value pairs. 21
 * **Locator:** An expression with which Selenium identifies an HTML element on a webpage. Common locator strategies are ID, CSS selector, XPath, and Name. Katalon stores locators in the *Object Repository*; during migration, they are converted into Selenium-compatible `By` strategies.
-* **Low-Code:** A development approach where applications and processes are created using highly abstracted, mostly graphical building blocks. Manual programming effort is lower, though extensibility and control are often limited when dealing with complex requirements.
-* **Match:** A successful match of a regular expression pattern with a part of the input text. When a regex pattern finds a text segment that matches the defined rule, this detected area is called a "Match". A match typically also contains *Capture Groups* that store sub-information of the pattern.
-* **Object Repository:** A central data structure in Katalon Studio that stores all Test Objects (e.g., buttons, input fields) along with their localization strategies. Each object contains properties such as XPath, CSS selector, or ID, which Selenium uses to identify the element in the DOM of the web application.
-* **Parsing:** The process in which text or code is converted into a structured format so that components like classes, methods, and parameters can be selectively processed further.
-* **PoC (Proof of Concept):** A prototype or feasibility study demonstrating that a concept or idea is practically feasible. In this work, PoC refers to the initial implementation of a migration script to verify feasibility.
-* **Pro-Code:** A development approach where solutions are fully implemented in a general-purpose programming language. It requires more implementation effort but offers high flexibility, transparency, and adaptability.
-* **Pytest:** A widely used Python testing framework for structuring, executing, and evaluating automated tests. In this work, Pytest serves as a test runner and organizational framework for the migrated Selenium tests.
-* **Python:** A widely used, interpreted programming language with clear syntax and a large ecosystem. In this work, Python serves as the target language of the migration and as the foundation for executing the generated Selenium/Pytest tests.
-* **RCP (Rich Client Platform):** A framework provided by Eclipse for developing modular desktop applications based on plug-ins.
-* **Regex (Regular Expression):** A formal expression used to describe string patterns. In this thesis, regular expressions are used to transform Groovy syntax into Python syntax.
-* **Regression Test:** A test to verify whether already existing and previously functioning software functionality still works correctly after changes. Regression tests are typically executed again after code adjustments to detect unintended side effects early.
+* **Low-Code:** A development approach where applications and processes are created using highly abstracted, mostly graphical building blocks. Manual programming effort is lower, though extensibility and control are often limited when dealing with complex requirements. 3, 3, 3
+* **Match:** A successful match of a regular expression pattern with a part of the input text. When a regex pattern finds a text segment that matches the defined rule, this detected area is called a "Match". A match typically also contains *Capture Groups* that store sub-information of the pattern. 4, 4
+* **Object Repository:** A central data structure in Katalon Studio that stores all Test Objects (e.g., buttons, input fields) along with their localization strategies. Each object contains properties such as XPath, CSS selector, or ID, which Selenium uses to identify the element in the DOM of the web application. 6, 21
+* **Parsing:** The process in which text or code is converted into a structured format so that components like classes, methods, and parameters can be selectively processed further. IX, IX, 17, 23, 25
+* **PoC (Proof of Concept):** A prototype or feasibility study demonstrating that a concept or idea is practically feasible. In this work, PoC refers to the initial implementation of a migration script to verify feasibility. 1
+* **Pro-Code:** A development approach where solutions are fully implemented in a general-purpose programming language. It requires more implementation effort but offers high flexibility, transparency, and adaptability. 3, 3
+* **Pytest:** A widely used Python testing framework for structuring, executing, and evaluating automated tests. In this work, Pytest serves as a test runner and organizational framework for the migrated Selenium tests. 1, 3, 11, 18
+* **Python:** A widely used, interpreted programming language with clear syntax and a large ecosystem. In this work, Python serves as the target language of the migration and as the foundation for executing the generated Selenium/Pytest tests. 14
+* **RCP (Rich Client Platform):** A framework provided by Eclipse for developing modular desktop applications based on plug-ins. 5
+* **Regex (Regular Expression):** A formal expression used to describe string patterns. In this thesis, regular expressions are used to transform Groovy syntax into Python syntax. III, 4, 4, 20, 26
+* **Regression Test:** A test to verify whether already existing and previously functioning software functionality still works correctly after changes. Regression tests are typically executed again after code adjustments to detect unintended side effects early. 2
 * **Repository:** A version-controlled archive for source code and associated files, typically managed with a version control system like Git. In this thesis, repository refers to both the source Katalon project and the generated target Selenium/Pytest project as independent, versionable entities.
-* **Runtime:** The point in time when the generated tests are executed. In contrast to Build-Time (during migration), the migrated Selenium/Pytest tests are actually executed during Runtime. The files stored in `src/runtime/` (`base_test.py`, `katalon_helpers.py`) are used during this phase and are not part of the migration process.
-* **Selenium:** An open-source framework for automating web browsers. In this work, Selenium is used in combination with Pytest as the execution environment for the migrated tests.
-* **Spy Web Utility:** A tool in Katalon Studio for capturing and creating Test Objects directly from a running web application. Selectors such as XPath, CSS, or attributes are read and stored in the Object Repository.
+* **Runtime:** The point in time when the generated tests are executed. In contrast to Build-Time (during migration), the migrated Selenium/Pytest tests are actually executed during Runtime. The files stored in `src/runtime/` (`base_test.py`, `katalon_helpers.py`) are used during this phase and are not part of the migration process. 22
+* **Selenium:** An open-source framework for automating web browsers. In this work, Selenium is used in combination with Pytest as the execution environment for the migrated tests. 1, 2, 3, 4, 11, 18, 21, 22
+* **Spy Web Utility:** A tool in Katalon Studio for capturing and creating Test Objects directly from a running web application. Selectors such as XPath, CSS, or attributes are read and stored in the Object Repository. 6
 * **SUT (System Under Test):** The system being tested—in this work, the web application to which the automated Selenium tests are applied.
-* **Test Object:** An object defined in Katalon Studio that represents an HTML element on a webpage. Test Objects contain information such as name, description, and locator. They are stored in the Object Repository and referenced in test scripts.
+* **Test Object:** An object defined in Katalon Studio that represents an HTML element on a webpage. Test Objects contain information such as name, description, and locator. They are stored in the Object Repository and referenced in test scripts. 21
 * **Transpilation:** The process of automatically translating source code from one programming language to another. Unlike compilation, the level of abstraction is preserved. In this thesis, transpilation refers to translating Groovy test scripts to Python.
-* **UI (User Interface):** The user interface of an application through which users interact with the system. In the context of this work, UI refers to the graphical interface validated by automated tests.
-* **Vendor Lock-in:** The technical or economic dependence of a company on a single vendor, which makes a transition to alternatives difficult or expensive. In the context of this work, Vendor Lock-in refers to the binding to Katalon Studio through proprietary file formats and licensed features.
-* **WebDriver:** A standardized API (W3C standard) through which programs can programmatically control a web browser. Selenium WebDriver is the reference implementation and forms the basis of all tests generated in this work.
-* **XML (Extensible Markup Language):** A text-based, hierarchical data format for the structured description of information. In this work, several Katalon file types are interpreted as XML and converted into open target formats.
+* **UI (User Interface):** The user interface of an application through which users interact with the system. In the context of this work, UI refers to the graphical interface validated by automated tests. 6, 10
+* **Vendor Lock-in:** The technical or economic dependence of a company on a single vendor, which makes a transition to alternatives difficult or expensive. In the context of this work, Vendor Lock-in refers to the binding to Katalon Studio through proprietary file formats and licensed features. III, 3, 3
+* **WebDriver:** A standardized API (W3C standard) through which programs can programmatically control a web browser. Selenium WebDriver is the reference implementation and forms the basis of all tests generated in this work. 2, 2
+* **XML (Extensible Markup Language):** A text-based, hierarchical data format for the structured description of information. In this work, several Katalon file types are interpreted as XML and converted into open target formats. 14
 
 ---
 
@@ -112,7 +112,7 @@ In the evaluation of the sample project, **7 out of 10 test scripts were automat
     * 3.2.5 Nesting of Custom Keywords . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
 * 3.3 Python Project Structure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
     * 3.3.1 Test Scripts and Variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
-    * 3.3.2 Object Repository and Test Objects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+    * 3.3.2 Object Repository and Test Objects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  12
     * 3.3.3 Test Data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
     * 3.3.4 Python Configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
 
@@ -131,21 +131,21 @@ In the evaluation of the sample project, **7 out of 10 test scripts were automat
 * 5.2 Project Structure of the Migrator . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
 * 5.3 Execution of the Migration Pipeline (Umsetzung der Migrationspipeline) . . . . . . . . . . . . . . . . . . . . . 20
     * 5.3.1 Transpilation of the Test Cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-* 5.4 Limitations of the Implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+* 5.4 Limitations of the Implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
 
-**6 Evaluation** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-* 6.1 Evaluation Criteria (Evaluationskriterien) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-* 6.2 Migration Results (Migrationsergebnis) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-* 6.3 Structural Integrity (Strukturelle Integrität) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-* 6.4 Code Quality: Before-After Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
-* 6.5 Effort Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+**6 Evaluation** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+* 6.1 Evaluation Criteria (Evaluationskriterien) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+* 6.2 Migration Results (Migrationsergebnis) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+* 6.3 Structural Integrity (Strukturelle Integrität) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+* 6.4 Code Quality: Before-After Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+* 6.5 Effort Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
 
-**7 Conclusion & Future Work (Fazit und Ausblick)** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  33
-**8 Appendix (Anhang)** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  35
-* 8.1 Regex Patterns of Transpilation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
-* 8.2 Katalon Project Structure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
-**Bibliography** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
-**Declaration of Authorship** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+**7 Conclusion & Future Work (Fazit und Ausblick)** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  32
+**8 Appendix (Anhang)** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  33
+* 8.1 Regex Patterns of Transpilation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+* 8.2 Katalon Project Structure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+**Bibliography** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+**Declaration of Authorship** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
 
 ---
 
@@ -158,19 +158,19 @@ In the evaluation of the sample project, **7 out of 10 test scripts were automat
 * **Figure 5:** Left: View of the test data in the filesystem. Right: A test dataset from the file `users.dat` . . . . . . . 7
 * **Figure 6:** Overview diagram of the migration pipeline from a Katalon project to an executable Python project. Represented are the main phases: Initialization, Test Transpilation, Adoption of supplementary structures, and the provision of the final project structure with content . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
 * **Figure 7:** Detailed activity diagram of the transpilation workflow of a Katalon test to a Python test. Illustrated are reading, filtering, extracting, parsing, transforming, generating, and assembling test logic . . . . . . . . . 17
-* **Figure 8:** Through the `katalon_lines_pattern` pattern, three separate regex matches with three groups each for class, method, and parameters are extracted from a block of Katalon lines (visualized with regex101) . . . . . . 25
-* **Figure 9:** During the parsing phase, the `fto_as_param_pat` pattern detects the `findTestObject()` method as the first parameter if followed by a comma, allowing them to be split (visualized with regex101) . . . . . . . . . 26
-* **Figure 10:** The `fto_param_str_pattern` pattern extracts the `findTestObject()` method with the string argument required for the transformation (visualized with regex101) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
-* **Figure 11:** Console snippet of the migration highlighting 7 successful and 3 failed test translations . . . . . 29
-* **Figure 12:** Comparison of test execution: top shows all tests running in the initial Katalon project, bottom shows the execution of the generated Python project. The discrepancy corresponds to the 3 untranslated test cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
-* **Figure 13:** Comparison of the `filter_for_admins` test case: top shows the original Katalon script in Groovy, bottom shows the resulting Python test in the target project . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+* **Figure 8:** Through the `katalon_lines_pattern` pattern, three separate regex matches with three groups each for class, method, and parameters are extracted from a block of Katalon lines (visualized with regex101) . . . . . . 24
+* **Figure 9:** During the parsing phase, the `fto_as_param_pat` pattern detects the `findTestObject()` method as the first parameter if followed by a comma, allowing them to be split (visualized with regex101) . . . . . . . . . 25
+* **Figure 10:** The `fto_param_str_pattern` pattern extracts the `findTestObject()` method with the string argument required for the transformation (visualized with regex101) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+* **Figure 11:** Console snippet of the migration highlighting 7 successful and 3 failed test translations . . . . . 28
+* **Figure 12:** Comparison of test execution: top shows all tests running in the initial Katalon project, bottom shows the execution of the generated Python project. The discrepancy corresponds to the 3 untranslated test cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+* **Figure 13:** Comparison of the `filter_for_admins` test case: top shows the original Katalon script in Groovy, bottom shows the resulting Python test in the target project . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
 
 ---
 
 ## List of Tables
 
-* **Table 1:** Migration Results: The majority of the components were automatically transferred; for test scripts, a remaining gap of 3 untranslated cases persists . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
-* **Table 2:** Overview of the Regular Expression (Regex) patterns in the transpilation process . . . . . . . . . . . . . . . 35
+* **Table 1:** Migration Results: The majority of the components were automatically transferred; for test scripts, a remaining gap of 3 untranslated cases persists . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+* **Table 2:** Overview of the Regular Expression (Regex) patterns in the transpilation process . . . . . . . . . . . . . . . 33
 
 ---
 
@@ -257,20 +257,20 @@ Katalon Studio is a proprietary test automation platform built on the Eclipse Ri
 From a user's perspective, a Katalon Studio project consists of "Test Cases", an "Object Repository", "Global Variables" in profiles, test-specific variables, and integrated test data. These are stored in a hierarchical folder structure managed entirely by the IDE. Here, the most important folders and files of a Katalon project relevant to this migration are described.
 
 #### 3.1.1 Test Cases and Test-Specific Variables
-The test scripts in Katalon are written in Groovy, a dynamic language that runs on the Java Virtual Machine (JVM). They are supplied with a variety of built-in keywords and functions specifically developed for test automation. Variables can be defined both globally and locally; global variables are stored in profiles and are accessible in all tests. Test-specific variables are defined in the respective test and are only available within that test.
+The test scripts in Katalon are written in Groovy, a dynamic language that runs on the Java Virtual Machine (JVM). They are supplied with a variety of built-in keywords and functions specifically developed for test automation. Variables can be defined both globally and locally; global variables are stored in profiles and are accessible in all tests. Test-specific variables are defined in the respective test and are only available within that test. The following figure 2 shows screenshots of this from the Katalon IDE.
 
 #### 3.1.2 Object Repository and Test Objects
 The Object Repository is a central element in the Katalon environment that enables the storage of User Interface (UI) elements. It stores the properties of HTML elements used during test execution. 
 
-Users can select elements on the website using the Spy Web Utility provided by Katalon Studio and generate them in the Object Repository [11]. These "Test Objects" can be reused across different tests.
+Users can select elements on the website using the Spy Web Utility provided by Katalon Studio and generate them in the Object Repository [11]. These "Test Objects" can be reused across different tests. Figure 3 illustrates this setup:
 
 #### 3.1.3 Global Variables and Profiles
 Users in Katalon can define their own global variables to be used in various tests. These variables are stored in profiles, which can represent different users or environments. 
 
-Profiles make it possible to run tests in various configurations without changing the test code itself. For example, if one profile contains the variable `URL` with the value `https://staging.example.com` and another profile has the same variable with the value `https://production.example.com`, the test can be run in both environments simply by selecting the appropriate profile.
+Profiles make it possible to run tests in various configurations without changing the test code itself. For example, if one profile contains the variable `URL` with the value `https://staging.example.com` and another profile has the same variable with the value `https://production.example.com`, the test can be run in both environments simply by selecting the appropriate profile, as clarified in Figure 4.
 
 #### 3.1.4 Test Data and Integration
-Katalon can integrate test data from various sources, such as Excel files, CSV files, or databases. This test data can be referenced in the test scripts to run the tests with different input values.
+Katalon can integrate test data from various sources, such as Excel files, CSV files, or databases. This test data can be referenced in the test scripts to run the tests with different input values. Figure 5 shows a preview of the integrated file structure:
 
 #### 3.1.5 Custom Keywords
 Users can create their own structures, so-called "Custom Keywords", which can be reused in multiple tests. They function like self-written methods in classic object-oriented programming languages. These methods are written in Groovy and allow for more complex logic to be incorporated into tests and made reusable.
@@ -283,9 +283,9 @@ All files and folders created in the Katalon IDE are clearly presented in the vi
 #### 3.2.1 Nesting of Test Cases and their Variables
 In Katalon, a "Test Case" consists of multiple files working together. If you follow the Katalon folder structure in Explorer under "Test Cases", as displayed in the IDE, you arrive at a `.tc` file. Opening this file reveals that it is a renamed `.xml` file. It contains metadata, such as a description, test name, tags, comments, a Globally Unique Identifier (GUID), and the actual values of the test-specific variables. 
 
-There is no obvious reference to the actual test logic. This is stored in a separate file. One would assume the GUID helps in referencing the two files, but the test scripts do not contain this anywhere. To find it, one must open the "Scripts" folder and mirror the path of the "Test Case". There, you will find a folder bearing the test name, which contains a `.groovy` file named "Script" combined with a random number. This number has no relation to the `.tc` file. 
+There is no obvious reference to the actual test logic. This is stored in a separate file. One would assume the GUID helps in referencing the two files, but the test scripts do not contain this anywhere. To find it, one must open the "Scripts" folder and mirror the path of the "Test Case". There, you will find a folder, which bears the test name, which contains a `.groovy` file named "Script" combined with a random number. This number has no relation to the `.tc` file. 
 
-This `.groovy` file contains the actual test logic. If the test accesses a variable, the "raw" name of the variable is written in the script. "Raw" means that the name in the code has no data type and references nothing in the test. The variable is neither declared nor initialized in the test.
+This `.groovy` file contains the actual test logic. If the test accesses a variable, the "raw" name of the variable is written in the script. "Raw" means that the name in the code has no data type and references nothing in the test. The variable is neither declared nor initialized in the test. Listing 1 displays the folder structure of the "Test Cases".
 
 ```text
 sample-website-katalon-tests/
@@ -315,7 +315,7 @@ sample-website-katalon-tests/
 ---
 
 #### 3.2.2 Nesting of the Object Repository and Test Objects
-If a test wants to use a "Test Object", the complete path to the storage location of the `.rs` file is specified in the test script to call it. The `.rs` file contains all selectors and specifies which of them should be used as the primary selector.
+If a test wants to use a "Test Object", the complete path to the storage location of the `.rs` file is specified in the test script to call it. The `.rs` file contains all selectors and specifies which of them should be used as the primary selector. An overview of the Object Repository folder layout can be seen in Listing 2.
 
 ```text
 sample-website-katalon-tests/
@@ -338,7 +338,7 @@ When a test uses a global variable, this appears in the code as `GlobalVariable.
 
 These entries contain the actual value and metadata, consisting of a description, the variable name, the data type, and a boolean describing whether the value is "protected". If it is "protected", the value is treated as sensitive and is masked with asterisks in the UI and during editing. 
 
-In "Logs", the values are then also not displayed. However, in the `.glbl` file, the value is unencrypted and visible in plain text. Depending on which profile is selected in the IDE, the corresponding `.glbl` file is loaded and the variable values are used in the test.
+In "Logs", the values are then also not displayed. However, in the `.glbl` file, the value is unencrypted and visible in plain text. Depending on which profile is selected in the IDE, the corresponding `.glbl` file is loaded and the variable values are used in the test. To clarify this, Listing 3 demonstrates the profile structures.
 
 ```text
 sample-website-katalon-tests/
@@ -350,7 +350,7 @@ sample-website-katalon-tests/
 **Listing 3:** This listing shows the folder structure of the profiles from the filesystem's perspective. The `.glbl` files contain the Global Variables and their values.
 
 #### 3.2.4 Nesting of Test Data
-As soon as you want to integrate a data file format using Katalon Studio, the IDE creates a `.dat` file in the "Data Files" folder bearing the same name as the integrated file. This file also contains XML structures, but only holds some metadata, including the path to the integrated file, the file type, delimiters (if applicable), and whether the path is internal or external to the project. The actual data is not contained in the `.dat` file, but in the integrated file itself.
+As soon as you want to integrate a data file format using Katalon Studio, the IDE creates a `.dat` file in the "Data Files" folder bearing the same name as the integrated file. This file also contains XML structures, that contain metadata, including the path to the integrated file, the file type, delimiters (if applicable), and whether the path is internal or external to the project. The actual data is not contained in the `.dat` file, but in the integrated file itself. Listing 4 represents the layout of test data folder structures.
 
 ```text
 sample-website-katalon-tests/
@@ -363,7 +363,7 @@ sample-website-katalon-tests/
 #### 3.2.5 Nesting of Custom Keywords
 The majority of the "Custom Keywords" logic is stored in the "Keywords" folder and user-created subfolders, written in Groovy as `ClassName.groovy`. These scripts contain the actual classes and methods called in the tests. 
 
-In the "Libs" folder, there is a `CustomKeywords.groovy` file. This defines static forwards with the same name as the classes in the "Keywords" folder. These methods call the actual methods in the classes, making them callable in every test.
+In the "Libs" folder, there is a `CustomKeywords.groovy` file. This defines static forwards with the same name as the classes in the "Keywords" folder. These methods call the actual methods in the classes, making them callable in every test. The directories containing Keywords are displayed in Listing 5.
 
 ```text
 sample-website-katalon-tests/
@@ -391,7 +391,7 @@ The actual test cases follow the naming conventions provided by Pytest, such as 
 
 Variables are normally not managed via proprietary profile or metadata files in such a project, but via standard Python programming structures. Typical patterns include variables directly in a test script or defined in a central configuration file. This makes it clear where a value comes from and where it is integrated into the test.
 
-Since Katalon Studio stores variables in separate files and calls them using a path, the migrator must create the same structure to run the tests unchanged. A `variables` folder is created, mirroring the structure of the Test Cases with variables. In the subfolders, the variables are stored in Python classes that contain all the variables of the test. The classes are then imported into the tests, and the variables can be accessed.
+Since Katalon Studio stores variables in separate files and calls them using a path, the migrator must create the same structure to run the tests unchanged. A `variables` folder is created, as shown in Listing 6, mirroring the structure of the Test Cases with variables. In the subfolders, the variables are stored in Python classes that contain all the variables of the test. The classes are then imported into the tests, and the variables can be accessed.
 
 ```text
 sample-website-selenium-tests/ 
@@ -420,7 +420,7 @@ sample-website-selenium-tests/
 ---
 
 #### 3.3.2 Object Repository and Test Objects
-Just as test scripts and variables are mirrored in the Python structure, the Object Repository and the Test Objects are mirrored within it. The Test Objects are stored in JSON files containing the same information as the original `.rs` files. The directory structure is preserved, so tests can continue to access the Test Objects by specifying the path to the JSON files.
+Just as test scripts and variables are mirrored in the Python structure, the Object Repository and the Test Objects are mirrored within it. The Test Objects are stored in JSON files containing the same information as the original `.rs` files. The directory structure is preserved, so tests can continue to access the Test Objects by specifying the path to the JSON files. This is visualized in Listing 7.
 
 ```text
 sample-website-selenium-tests/ 
@@ -439,7 +439,7 @@ sample-website-selenium-tests/
 **Listing 7:** This listing shows the structure of the Object Repository and the "Test Objects" files stored inside it in JSON format.
 
 #### 3.3.3 Test Data
-Test data is often stored in a dedicated directory, such as `data`, `resources`, or `testdata`, and read directly by tests or helper modules as needed. These can be JSON, CSV, XML, or Excel files, but practically any format is usable. In this case, a `data` folder is created that copies the test data from Katalon directly. Tests can then access the data by specifying the path to the files.
+Test data is often stored in a dedicated directory, such as `data`, `resources`, or `testdata`, and read directly by tests or helper modules as needed. These can be JSON, CSV, XML, or Excel files, but practically any format is usable. In this case, a `data` folder is created that copies the test data from Katalon directly, which is shown in Listing 8. Tests can then access the data by specifying the path to the files.
 
 ```text
 sample-website-selenium-tests/ 
@@ -454,7 +454,7 @@ For a Python project to work, it must meet certain conventions. This includes th
 
 Furthermore, a `README.md` file is created. It contains instructions on creating a Pytest configuration file `.vscode/settings.json`, and steps to set up a virtual environment named `.venv`. Inside the virtual environment, all dependencies listed in the generated `requirements.txt` file are installed. 
 
-These dependencies stand as a reference list of all necessary Python packages required to run the tests. A `pytest.ini` file is also created to hold Pytest configurations, specifying paths to the test scripts.
+These dependencies stand as a reference list of all necessary Python packages required to run the tests. A `pytest.ini` file is also created to hold Pytest configurations, specifying paths to the test scripts. A representation of these configuration files is visible in Listing 9.
 
 ```text
 sample-website-selenium-tests/ 
@@ -485,7 +485,7 @@ To master the complexity, the Katalon project is structurally broken down into i
 1. **Initialization:** First, the algorithm receives the paths of the source and target projects from the user. Subsequently, all files in the source project are recursively searched, and relevant structures, such as the "Test Case" folders and the Object Repository, are mirrored in the target project as empty folders. The unchanged system paths leading from the "root" directory to the files are integral to this.
 2. **Test Transpilation:** Once the basic structures are initialized, files from the source are opened and processed. First, the Test Cases are transpiled from the Groovy programming language into the Python language. The more precise workflow of this can be read in Section 4.3.
 3. **Adoption of Supplementary Structures:** Subsequently, the Test Objects, global variables, and test data are found, read, and translated. All of them contain Extensible Markup Language (XML) data but have different file extensions. The Test Objects are converted into JSON files, the Global Variables into Python classes, and the test data is copied over.
-4. **Final Assembly:** Finally, configuration files and utility files are created in the target project so that it is executable without major preparations. These include runtime helpers, test configurations, the list of dependencies, and documentation.
+4. **Final Assembly:** Finally, configuration files and utility files are created in the target project, visible in Figure 6, so that it is executable without major preparations. These include runtime helpers, test configurations, the list of dependencies, and documentation.
 
 *(Refer to Figure 6/Abbildung 6 in the original PDF for the overview diagram of the migration pipeline).*
 
@@ -515,7 +515,7 @@ The migration pipeline is designed to recognize the core functions of a Katalon 
 
 In particular, self-written Custom Keywords, plattform-specific extensions, or highly nested test logics can lead to problems. Also, comments are temporarily skipped due to low relevance. The pipeline focuses on the most common use cases and provides a solid foundation for migration, but may require manual adjustments for specific requirements. 
 
-Writing a regex-based translation of these complex structures is not impossible, as other transpilations show, but within the scope of the original task, this would have been too time-consuming.
+Writing a regex-based translation of these complex structures is highly challenging and, for the scope of the original task, would have been too time-consuming.
 
 ---
 
@@ -537,7 +537,7 @@ For versioning the source code, Git is used. The version control system enables 
 ---
 
 ### 5.2 Project Structure of the Migrator
-The following overview shows the relevant project structure of the migrator at the root level. The thesis directory is deliberately hidden to keep the focus on the technical working structure of the migration tool:
+The following overview in Listing 10 shows the relevant project structure of the migrator at the root level. The thesis directory is deliberately hidden to keep the focus on the technical working structure of the migration tool:
 
 ```text
 katalon-test-migrator/
@@ -589,7 +589,7 @@ The actual test transpilation is the core of the implementation. It begins by re
 ##### 5.3.1.1 Semantic Transformation: Katalon Test Object to Selenium Locators
 The Katalon Object Repository stores test objects as `.rs` files, which internally are renamed XML files with a `WebElementEntity` structure. Each file describes an HTML element via a `selectorCollection` containing one or more localization strategies as key-value pairs (e.g., `BASIC`/`XPath` or `CSS`), as well as a `selectorMethod` field determining the preferred strategy.
 
-During Build-Time, `object_repo_converter.py` converts these XML files into JSON format. The internal structure remains fully preserved and only the file format changes. The following example shows the transformation of the object file `view_all_users_btn`:
+During Build-Time, `object_repo_converter.py` converts these XML files into JSON format. The internal structure remains fully preserved and only the file format changes. The following example in Listing 11 shows the transformation of the object file `view_all_users_btn`:
 
 ```xml
 <!-- Object Repository/All_Users/view_all_users_btn.rs (Katalon XML) -->
@@ -619,7 +619,7 @@ During Build-Time, `object_repo_converter.py` converts these XML files into JSON
 ```
 **Listing 11:** Exemplary transformation of a Katalon Test Object from an XML-based `.rs` file into the corresponding JSON representation in the target project.
 
-At Runtime in the target project, the helper function `find_katalon_test_object()` in `katalon_helpers.py` reads the JSON file, extracts `selectorMethod`, and searches for the matching value from the `selectorCollection`. It then locates the element via the Selenium API: using `By.CSS_SELECTOR` for CSS, and `By.XPATH` for all other strategies (including BASIC). The call in the generated test code remains structurally identical to the Katalon original:
+At Runtime in the target project, the helper function `find_katalon_test_object()` in `katalon_helpers.py` reads the JSON file, extracts `selectorMethod`, and searches for the matching value from the `selectorCollection`. It then locates the element via the Selenium API: using `By.CSS_SELECTOR` for CSS, and `By.XPATH` for all other strategies (including BASIC). The call in the generated test code remains structurally identical to the Katalon original, represented in Listing 12:
 
 **Katalon (Groovy):**
 ```groovy
@@ -636,7 +636,7 @@ The generated test code itself has no knowledge of the localization strategy use
 ---
 
 ##### 5.3.1.2 Syntactic Transformation: Groovy to Python
-The Groovy syntax is translated into Python syntax step-by-step via regex-supported pattern matching. The original Katalon calls are not only syntactically replaced but transferred into a format that is immediately executable within the generated Pytest structure. The following lines illustrate how typical WebUI calls, object accesses, and variable references are transformed:
+The Groovy syntax is translated into Python syntax step-by-step via regex-supported pattern matching. The original Katalon calls are not only syntactically replaced but transferred into a format that is immediately executable within the generated Pytest structure. Listing 13 shows how typical WebUI calls, object accesses, and variable references are transformed:
 
 ```groovy
 WebUI.verifyTextPresent('View All Users', false)
@@ -663,7 +663,7 @@ According to the conceptual diagram, this process begins by reading the original
 
 Based on this, the transformation of detected methods and parameters into corresponding constructs of the target environment takes place. From the transformed building blocks, Python code is generated that represents the original test logic in a new form. Finally, the generated fragments are assembled into a complete test.
 
-The following figures illustrate by way of example how individual patterns are utilized in parsing. In particular, it is shown how relevant test lines are first isolated and subsequently `findTestObject()` calls are recognized as independent parameter components. This makes it visible that the regex patterns do not work independently of each other, but form a sequential processing chain.
+The following figures illustrate by way of example how individual patterns are utilized in parsing. In particular, it is shown how relevant test lines are first isolated and subsequently `findTestObject()` calls are recognized as independent parameter components. This makes it visible that the regex patterns do not work independently of each other, but form a sequential processing chain. The examples in Figure 8, Figure 9, and Figure 10 illustrate the patterns in action and clarify how they transform the Katalon test logic step-by-step into a structured format used for the subsequent Python generation.
 
 *(Refer to Figures 8, 9, and 10 in the original PDF for the regex matching views).*
 
@@ -696,7 +696,7 @@ Finally, the required effort is compared between a manual migration and utilizin
 ---
 
 ### 6.2 Migration Results (Migrationsergebnis)
-Running the migrator (`python main.py`) yields the following results:
+Running the migrator (`python main.py`) yields the results highlighted in Table 1:
 
 ---
 
@@ -712,7 +712,7 @@ Running the migrator (`python main.py`) yields the following results:
 | **Configuration Files** | 4 | `pytest.ini`, `requirements.txt`, `.gitignore`, `README.md` |
 | **Data Files** | 1 | `users.csv` copied directly to target project |
 
-> **Automation Rate:** Out of 10 existing test scripts, 7 were translated automatically, while 3 cases failed. This represents a **70% translation coverage for test scripts**, with a remaining manual gap of 30%.
+> **Automation Rate:** Out of 10 existing test scripts, 7 were translated automatically, while 3 cases failed. This represents a **70% translation coverage for test scripts**, with a remaining manual gap of 30%. Figure 11 showcases a console snapshot of the execution run.
 
 *(Refer to Figure 11/Abbildung 11 in the original PDF for the migration console output screenshot).*
 
@@ -721,7 +721,7 @@ Running the migrator (`python main.py`) yields the following results:
 ### 6.3 Structural Integrity (Strukturelle Integrität)
 This step verifies whether the target project is fully importable and if the expected test cases are correctly provided.
 
-After migration, the Python project was verified using `pytest --collect-only`—a native Pytest feature that scans all tests and checks the syntax. Pytest was able to import all generated files without errors and discover the 7 automatically generated tests:
+After migration, the Python project was verified using `pytest --collect-only`—a native Pytest feature that scans all tests and checks the syntax. This process is illustrated in Listing 14. Pytest was able to import all generated files without errors and discover the 7 automatically generated tests:
 
 ```text
 collected 7 items
@@ -738,12 +738,14 @@ src/tests/Util/test_login.py::Test_login::test_login
 ```
 **Listing 14:** Console output of `pytest --collect-only` showing that all 7 automatically generated Python tests are recognized without errors.
 
+The screenshots in Figure 12 showcase the test execution runs of all tests in Katalon Studio, with a perfect 10 out of 10 successes, alongside the execution run of the generated Python project, scoring 7 out of 7 successes.
+
 *(Refer to Figure 12/Abbildung 12 in the original PDF for the side-by-side run execution comparison).*
 
 ---
 
 ### 6.4 Code Quality: Before-After Comparison
-Using the `filter_for_admins` test as an example, the difference between the original and generated code can be demonstrated:
+Using the `filter_for_admins` test as an example in Figure 13, the difference between the original and generated code can be visually traced:
 
 *(Refer to Figure 13/Abbildung 13 in the original PDF for the detailed visual comparison of the files).*
 
@@ -764,11 +766,9 @@ For the sample project evaluated here, even with a conservative project estimate
 
 ## 7 Conclusion & Future Work (Fazit und Ausblick)
 
-This thesis describes the development of a migration tool that transfers Katalon projects into Python projects using Selenium and Pytest. The goal was to design, implement, and evaluate the tool. This objective arose from the need to migrate an extensive existing Katalon project base out of its proprietary environment into an open, extensible, and freely usable target environment.
-
 Executing the prototype yields a Python project containing the majority of the imported test logic and surrounding test artifacts. In the sample project, **70% of the test scripts**, as well as all associated structures such as Test Objects, test data, and variables, are automatically and error-free transformed. The generated project is directly executable after minimal setup, though the remaining 30% of tests must be manually post-processed to be fully functional.
 
-During evaluation, structural and syntactic integrity were verified. At the same time, it highlighted that not all cases are translated automatically. Custom-written logic, comments, and complex nestings quickly lead to script unreadability. Accordingly, the migration tool is not a complete replacement for manual migration but acts as a highly effective foundation to significantly reduce overall effort.
+During evaluation, structural and syntactic integrity were verified. These results make it clear that not all cases can be resolved automatically yet. Custom-written logic, comments, and complex nestings quickly lead to script unreadability. Accordingly, the migration tool is not a complete replacement for manual migration but acts as a highly effective foundation to significantly reduce overall effort.
 
 Overall, the work demonstrates that migrating Katalon projects into a Python testing environment using Selenium and Pytest is viable, even though not all cases can be resolved automatically yet.
 
@@ -798,7 +798,7 @@ The following table summarizes the most important regex patterns used in the tra
 | **6** | `ftd_as_param_pat` | `(findTestData\(.*\))(?=,)` | Detects `findTestData()` as the first parameter with positive lookahead for a comma |
 | **7** | `param_pattern` | `,\s+(?=false)\|(!\]),\s(?=Fail.*)\|(?<![a-zA-Z]),\s(?!\s)(?![a-zA-Z])\|,\s(?=null)\|,\s+(?=\[)` | Split parameters when multiple are present |
 | **8** | `fto_param_str_pattern`| `(findTestObject\(('.*').*\))` | Extracts `findTestObject()` with string argument for transformation |
-| **9** | `ftd_param_str_pattern`| `findTestData\(('.*').*\)\.getValue\((.+)\))` | Extracts `findTestData()` with string and `getValue()` argument |
+| **9** | `ftd_param_str_pattern`| `findTestData\(('.*').*\)\.getValue\((. +)\))` | Extracts `findTestData()` with string and `getValue()` argument |
 | **10**| `GlobalVariable_pattern`| `GlobalVariable\.([A-Za-z_][A-Za-z0-9_]*)` | Normalize global variables |
 | **11**| `abn_test_pat` | `String\s\w+\s=\|if\(|TestObject\s\w+\s=` | Detect custom user code |
 
@@ -810,49 +810,49 @@ The following filesystem tree illustrates the nested nature of the original sour
 ```text
 sample-website-katalon-tests/
 │
-├── Test Cases/                  - Katalon IDE shows this view
-│   ├── Users/
-│   │   ├── filter_for_admins.tc - .tc = XML Metadata File (Description, Variables)
-│   │   ├── search_for_david_kim.tc - Contains NO test logic!
-│   │   └── show_active_viewers.tc
-│   └── Menus/
-│       └── navigation_bar.tc
+├── Test Cases/ - Katalon IDE zeigt diese Ansicht
+│ ├── Users/
+│ │ ├── filter_for_admins.tc - .tc = XML Meta-Datei (Beschreibung, Variable)
+│ │ ├── search_for_david_kim.tc - KEINE Testlogik enthalten!
+│ │ └── show_active_viewers.tc
+│ └── Menus/
+│ └── navigation_bar.tc
 │
-├── Scripts/                     - Real test logic (hidden outside IDE)
-│   ├── Users/
-│   │   ├── filter_for_admins/
-│   │   │   └── Script1781348815820.groovy - Random number! (!)
-│   │   ├── search_for_david_kim/
-│   │   │   └── Script1781447000826.groovy - Corresponds to search_for_david_kim.tc
-│   │   └── show_active_viewers/
-│   │       └── Script...groovy
-│   └── Menus/
-│       └── navigation_bar/
-│           └── Script...groovy
+├── Scripts/ - Echte Testlogik (außer IDE verborgen)
+│ ├── Users/
+│ │ ├── filter_for_admins/
+│ │ │ └── Script1781348815820.groovy - Zufällige Nummer! (!)
+│ │ ├── search_for_david_kim/
+│ │ │ └── Script1781447000826.groovy - Entspricht search_for_david_kim.tc
+│ │ └── show_active_viewers/
+│ │ └── Script...groovy
+│ └── Menus/
+│ └── navigation_bar/
+│ └── Script...groovy
 │
-├── Object Repository/           - Localization strategies (Selectors)
-│   ├── All_Users/
-│   │   ├── view_all_users_btn.rs - .rs = XML Object (XPath, CSS, ID...)
-│   │   ├── search_input.rs
-│   │   ├── roles_dropdown.rs
-│   │   ├── status_dropdown.rs
-│   │   ├── user_row.rs
-│   │   └── user_row_view_btn.rs
-│   └── Nav_Bar/
-│       └── ...other Test Objects
+├── Object Repository/ - Lokalisierungsstrategien (Selektoren)
+│ ├── All_Users/
+│ │ ├── view_all_users_btn.rs - .rs = XML Objekt (XPath, CSS, ID...)
+│ │ ├── search_input.rs
+│ │ ├── roles_dropdown.rs
+│ │ ├── status_dropdown.rs
+│ │ ├── user_row.rs
+│ │ └── user_row_view_btn.rs
+│ └── Nav_Bar/
+│ └── ...weitere Test Objects
 │
-├── Profiles/                    - Global variables by environment
-│   └── default.glbl             - .glbl = XML (GlobalVariableEntity Entries)
+├── Profiles/ - Globale Variablen nach Umgebung
+│ └── default.glbl - .glbl = XML (GlobalVariableEntity Einträge)
 │
-├── Data Files/                  - External test data references
-│   └── users.dat                - .dat = XML Metadata (points to real file)
+├── Data Files/ - Externe Testdaten-Referenzen
+│ └── users.dat - .dat = XML Meta (verweist auf echte Datei)
 │
-├── Keywords/                    - Custom methods/helpers
-│   ├── data/
-│   └── TESTER.groovy            - Groovy class with custom methods
+├── Keywords/ - Custom Methoden/Helper
+│ ├── data/
+│ └── TESTER.groovy - Groovy Klasse mit eigenen Methoden
 │
 ├── Libs/
-│   └── CustomKeywords.groovy    - Static forwards to keywords
+│ └── CustomKeywords.groovy - Statische Weiterleitungen zu Keywords
 │
 └── Plugins/, Test Listeners/, ...
 ```
