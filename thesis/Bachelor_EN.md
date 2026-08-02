@@ -15,23 +15,21 @@ of the **University of Applied Sciences (HTW) Berlin**
 
 * **First Supervisor:** Prof. Dr. Jochen Wittmann  
 * **Second Supervisor (Co-Examiner):** Ankit Kumar  
-* **Date of Submission:** August 1st, 2026  
+* **Date of Submission:** August 2nd, 2026  
 
 ---
 
 ## Kurzzusammenfassung / Abstract
 
 ### Kurzzusammenfassung (German)
-In der Softwareentwicklung bieten proprietäre Low-Code-Plattformen wie Katalon einen schnellen Einstieg in die Testautomatisierung. Mit steigender Projektkomplexität führen diese jedoch häufig zu einem massiven Kostenanstieg durch unflexible Lizenzmodelle für fortgeschrittene Funktionen. Da die Testlogik und Datenobjekte in proprietären Formaten gespeichert sind, stehen Nutzer vor dem Dilemma, entweder hohe Gebühren zu zahlen oder den Verlust der bisherigen Entwicklungsarbeit bei einem Plattformwechsel hinzunehmen. 
+Proprietäre Low-Code-Plattformen wie Katalon ermöglichen einen schnellen Einstieg in die Testautomatisierung, können bei wachsender Projektgröße jedoch zu starker Herstellerabhängigkeit und hohen Folgekosten führen. Diese Arbeit entwickelt und evaluiert eine automatisierte Migrationspipeline, die Katalon-Projekte in eine offene Python-Testumgebung mit Selenium und Pytest überführt. Der entwickelte Prototyp verarbeitet Katalon-Testskripte sowie zugehörige Projektartefakte wie Object Repository, Variablen und Konfigurationsdateien und erzeugt daraus eine ausführbare Zielstruktur. 
 
-Ziel dieser Bachelorarbeit ist die Entwicklung eines programmatischen Migrationspfades von Katalon zu einer Open-Source-Alternative, geschrieben in Selenium. Dabei soll die manuelle Neuerstellung der Test-Suites durch eine automatisierte Transformations-Pipeline ersetzt werden, um die bisherige Arbeit nicht zu verlieren. Es wird ein Migrations-Algorithmus entworfen, der auf Regular Expressions und Python-Methoden basiert. Dieser scannt die proprietären Strukturen, übersetzt die bestehende Testlogik von Groovy nach Python und bildet die internen Datenobjekte sowie Referenzdateien auf eine neue, Open-Source Projektstruktur im Selenium Framework ab. 
-
-Das Ergebnis ist ein funktionsfähiger Prototyp eines Migrations-Tools. Dieses Tool ermöglicht den Transfer von Test-Suiten in ein erweiterbares Open-Source-Projekt. Dabei bleibt die Integrität der Tests gewahrt und die Abhängigkeit von Lizenzgebühren wird vollständig eliminiert. Die Arbeit zeigt auf, wie durch automatisierte Code-Migration und -Transformation der Wechsel von proprietären „Low-Code“ zu Open-Source „Pro-Code“ gelingen kann. Die Ergebnisse bieten Nutzern eine gute Möglichkeit für den Ausstieg aus proprietären Test-Ökosystemen.
+In der Evaluation des Beispielprojekts wurden 7 von 10 Testskripten automatisch übersetzt (70%), während 3 Fälle als Restlücke manuell nachbearbeitet werden müssen. Alle Object-Repository-Dateien wurden erfolgreich nach JSON überführt, und die strukturelle Integrität des Zielprojekts wurde durch die fehlerfreie Erkennung der generierten Tests bestätigt. Die Ergebnisse zeigen, dass der Ansatz den manuellen Migrationsaufwand deutlich reduziert und einen praktikablen Ausstiegspfad aus proprietären Testökosystemen bietet, auch wenn komplexe Sonderfälle derzeit noch nicht vollständig automatisiert abgedeckt werden.
 
 ### Abstract (English)
-In software development, proprietary low-code platforms like *Katalon* offer a fast initial entry point into test automation. However, as project complexity scales, these systems frequently lead to a massive escalation of costs due to inflexible licensing frameworks. This thesis addresses this "Vendor Lock-In" problem by establishing an automated transformation pipeline that migrates test suites from closed Katalon structures into an open-source, flexible framework written in Python using Selenium.
+Proprietary low-code platforms like *Katalon* enable a fast initial entry point into test automation, but as project size scales, they can lead to strong vendor lock-in and high follow-up costs. This thesis designs and evaluates an automated migration pipeline that transfers Katalon projects into an open Python testing environment using Selenium and Pytest. The developed prototype processes Katalon test scripts as well as associated project artifacts such as the Object Repository, variables, and configuration files, generating an executable target structure. 
 
-A core migration algorithm based on Python execution logic and Regular Expressions (Regex) handles the automated parsing of proprietary formats, translations of test scripts from *Groovy* to *Python*, and mapping of object repositories. The evaluation showcases a fully functional prototype that successfully eliminates license fee dependencies while completely preserving test suite runtime integrity.
+In the evaluation of the sample project, **7 out of 10 test scripts were automatically translated (70%)**, while 3 cases remained as gaps requiring manual post-processing. All Object Repository files were successfully migrated to JSON, and the structural integrity of the target project was confirmed by the error-free detection of the generated tests. The results demonstrate that this approach significantly reduces the manual migration effort and offers a viable exit pathway from proprietary testing ecosystems, even though complex edge cases are not yet fully covered by automation.
 
 ---
 
@@ -57,10 +55,12 @@ A core migration algorithm based on Python execution logic and Regular Expressio
 * **JVM (Java Virtual Machine):** A runtime environment that enables platform-independent execution of Java bytecode. Groovy, the scripting language of Katalon Studio, runs on the JVM.
 * **Key-Value Pairs:** A data structure in which values are mapped to a unique key. In this thesis, selectors and their associated strategies are frequently described as key-value pairs.
 * **Locator:** An expression with which Selenium identifies an HTML element on a webpage. Common locator strategies are ID, CSS selector, XPath, and Name. Katalon stores locators in the *Object Repository*; during migration, they are converted into Selenium-compatible `By` strategies.
+* **Low-Code:** A development approach where applications and processes are created using highly abstracted, mostly graphical building blocks. Manual programming effort is lower, though extensibility and control are often limited when dealing with complex requirements.
 * **Match:** A successful match of a regular expression pattern with a part of the input text. When a regex pattern finds a text segment that matches the defined rule, this detected area is called a "Match". A match typically also contains *Capture Groups* that store sub-information of the pattern.
 * **Object Repository:** A central data structure in Katalon Studio that stores all Test Objects (e.g., buttons, input fields) along with their localization strategies. Each object contains properties such as XPath, CSS selector, or ID, which Selenium uses to identify the element in the DOM of the web application.
 * **Parsing:** The process in which text or code is converted into a structured format so that components like classes, methods, and parameters can be selectively processed further.
 * **PoC (Proof of Concept):** A prototype or feasibility study demonstrating that a concept or idea is practically feasible. In this work, PoC refers to the initial implementation of a migration script to verify feasibility.
+* **Pro-Code:** A development approach where solutions are fully implemented in a general-purpose programming language. It requires more implementation effort but offers high flexibility, transparency, and adaptability.
 * **Pytest:** A widely used Python testing framework for structuring, executing, and evaluating automated tests. In this work, Pytest serves as a test runner and organizational framework for the migrated Selenium tests.
 * **Python:** A widely used, interpreted programming language with clear syntax and a large ecosystem. In this work, Python serves as the target language of the migration and as the foundation for executing the generated Selenium/Pytest tests.
 * **RCP (Rich Client Platform):** A framework provided by Eclipse for developing modular desktop applications based on plug-ins.
@@ -82,7 +82,7 @@ A core migration algorithm based on Python execution logic and Regular Expressio
 
 ## Table of Contents
 
-* **List of Abbreviations and Glossary** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . IV
+* **List of Abbreviations and Glossary** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . V
 * **List of Figures** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  IX
 * **List of Tables** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  X
 
@@ -134,17 +134,18 @@ A core migration algorithm based on Python execution logic and Regular Expressio
 * 5.4 Limitations of the Implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
 
 **6 Evaluation** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-* 6.1 Migration Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-* 6.2 Structural Integrity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
-* 6.3 Code Quality: Before-After Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-* 6.4 Effort Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+* 6.1 Evaluation Criteria (Evaluationskriterien) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+* 6.2 Migration Results (Migrationsergebnis) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+* 6.3 Structural Integrity (Strukturelle Integrität) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+* 6.4 Code Quality: Before-After Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+* 6.5 Effort Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
 
-**7 Discussion** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
-**8 Conclusion & Future Work** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
-**9 Appendix** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  31
-* 9.1 Regex Patterns of Transpilation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
-**Bibliography** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
-**Declaration of Authorship** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+**7 Conclusion & Future Work (Fazit und Ausblick)** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  33
+**8 Appendix (Anhang)** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  35
+* 8.1 Regex Patterns of Transpilation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+* 8.2 Katalon Project Structure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+**Bibliography** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+**Declaration of Authorship** . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
 
 ---
 
@@ -160,13 +161,16 @@ A core migration algorithm based on Python execution logic and Regular Expressio
 * **Figure 8:** Through the `katalon_lines_pattern` pattern, three separate regex matches with three groups each for class, method, and parameters are extracted from a block of Katalon lines (visualized with regex101) . . . . . . 25
 * **Figure 9:** During the parsing phase, the `fto_as_param_pat` pattern detects the `findTestObject()` method as the first parameter if followed by a comma, allowing them to be split (visualized with regex101) . . . . . . . . . 26
 * **Figure 10:** The `fto_param_str_pattern` pattern extracts the `findTestObject()` method with the string argument required for the transformation (visualized with regex101) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+* **Figure 11:** Console snippet of the migration highlighting 7 successful and 3 failed test translations . . . . . 29
+* **Figure 12:** Comparison of test execution: top shows all tests running in the initial Katalon project, bottom shows the execution of the generated Python project. The discrepancy corresponds to the 3 untranslated test cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+* **Figure 13:** Comparison of the `filter_for_admins` test case: top shows the original Katalon script in Groovy, bottom shows the resulting Python test in the target project . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
 
 ---
 
 ## List of Tables
 
-* **Table 1:** Migration Results: All components of the Katalon project were successfully transferred . . . . . . . . . . 29
-* **Table 2:** Overview of the Regular Expression (Regex) patterns in the transpilation process . . . . . . . . . . . . . . . 32
+* **Table 1:** Migration Results: The majority of the components were automatically transferred; for test scripts, a remaining gap of 3 untranslated cases persists . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+* **Table 2:** Overview of the Regular Expression (Regex) patterns in the transpilation process . . . . . . . . . . . . . . . 35
 
 ---
 
@@ -187,9 +191,15 @@ A Katalon project consists not only of test scripts, but also of a variety of as
 > **Technical Challenge:** The core engineering challenge lies in executing an end-to-end transformation of an entire test automation project into an executable, scalable, and license-free alternative format rather than simple syntax replacement.
 
 ### 1.3 Objectives & Structure of the Thesis
-The objective of this thesis is to design, implement, and evaluate an automated migrator that converts Katalon-based test projects into a Python project structure.
+The objective of this thesis is to design, implement, and evaluate an automated migrator that converts Katalon-based test projects into an executable Python project structure.
 
-To achieve this goal, this work first analyzes the structure of a Katalon project and that of a Python project. Then, a migration algorithm is designed step-by-step to transfer the proprietary formats of the former into the open formats of the latter. Subsequently, a prototype is implemented to automate the transformation and ensure test integrity. Finally, the results are evaluated and discussed to assess the effectiveness of the migration process.
+To achieve this goal, this work first analyzes the structure of a Katalon project and that of a Python project. Then, a migration algorithm is designed step-by-step to transfer the proprietary formats of the former into the open formats of the latter. Subsequently, a prototype is implemented to automate the migration and preserve the test logic as much as possible. 
+
+The evaluation concentrates on four core questions:
+1. How much of the source project is automatically translated?
+2. What is the actual degree of automation achieved?
+3. To what extent is the resulting Python project functionally equivalent to the source Katalon project?
+4. Which cases remain untranslated and require manual post-processing?
 
 ---
 
@@ -657,7 +667,7 @@ The following figures illustrate by way of example how individual patterns are u
 
 *(Refer to Figures 8, 9, and 10 in the original PDF for the regex matching views).*
 
-A complete overview of the regex patterns used can be found in the Appendix in Section 9.1. There, the most important patterns, their regular expressions, and their respective purposes are summarized.
+A complete overview of the regex patterns used can be found in the Appendix in Section 8.1. There, the most important patterns, their regular expressions, and their respective purposes are summarized.
 
 ---
 
@@ -670,9 +680,22 @@ After presenting the implementation details, the following chapter examines the 
 
 ## 6 Evaluation
 
-To evaluate the migration tool, the Katalon sample project `sample-website-katalon-tests` was used. It contains real end-to-end tests, an Object Repository, a global variable profile, and an integrated CSV data file. The migration was performed on a Windows 11 machine with Python 3.13.0 and pytest 8.4.1.
+To evaluate the migration tool, the Katalon sample project `sample-website-katalon-tests` was used. It contains real end-to-end tests, an Object Repository, two global variable profiles, and an integrated CSV data file. The migration was performed on a Windows 11 machine with Python 3.13.0 and pytest 8.4.1.
 
-### 6.1 Migration Results
+### 6.1 Evaluation Criteria (Evaluationskriterien)
+The evaluation of the prototype deliberately focuses on the basic functions of the migration pipeline and the core objectives formulated in this work.
+
+In the migration results, we observe **which proportion of the relevant Katalon files was successfully transferred** into the target structure. Additionally, the degree of automation is evaluated, capturing which transformation steps run without manual intervention and which artifacts are fully generated automatically.
+
+When examining the structural integrity, we investigate whether the generated Python project executes the original test logic in a comparable manner and whether the expected test cases are correctly provided.
+
+Furthermore, code quality is measured, which encompasses the overall syntax, untranslated or partially translated cases, and their root causes.
+
+Finally, the required effort is compared between a manual migration and utilizing the automated migration pipeline.
+
+---
+
+### 6.2 Migration Results (Migrationsergebnis)
 Running the migrator (`python main.py`) yields the following results:
 
 ---
@@ -681,94 +704,84 @@ Running the migrator (`python main.py`) yields the following results:
 
 | Component | Count | Description |
 | :--- | :---: | :--- |
-| **Translated Test Scripts** | 5 | All `.groovy` files from `Scripts/` successfully translated |
-| **Untranslatable Tests** | 0 | No tests placed in `src/unreadable_tests/` |
-| **Object Repository Files** | 9 | All `.rs` XML files converted to JSON |
+| **Translated Test Scripts** | 7 | 7 out of 10 `.groovy` files from `Scripts/` successfully translated |
+| **Untranslatable Tests** | 3 | 3 tests could not be translated automatically |
+| **Object Repository Files** | 10 | All `.rs` XML files converted to JSON |
 | **Variable Files** | 1 | Test-specific variables extracted from `.tc` metadata files |
 | **Runtime Files** | 2 | `base_test.py` and `katalon_helpers.py` copied to target |
 | **Configuration Files** | 4 | `pytest.ini`, `requirements.txt`, `.gitignore`, `README.md` |
 | **Data Files** | 1 | `users.csv` copied directly to target project |
 
-All 5 test scripts were translated without errors. No tests were placed in `unreadable_tests/`, which corresponds to a **translation rate of 100%**.
+> **Automation Rate:** Out of 10 existing test scripts, 7 were translated automatically, while 3 cases failed. This represents a **70% translation coverage for test scripts**, with a remaining manual gap of 30%.
+
+*(Refer to Figure 11/Abbildung 11 in the original PDF for the migration console output screenshot).*
 
 ---
 
-### 6.2 Structural Integrity
-After migration, the target project was verified using `pytest --collect-only` without starting a browser or the target application. Pytest was able to import all generated files without errors and discover all 5 tests:
+### 6.3 Structural Integrity (Strukturelle Integrität)
+This step verifies whether the target project is fully importable and if the expected test cases are correctly provided.
+
+After migration, the Python project was verified using `pytest --collect-only`—a native Pytest feature that scans all tests and checks the syntax. Pytest was able to import all generated files without errors and discover the 7 automatically generated tests:
 
 ```text
-collected 5 items
+collected 7 items
 
 src/tests/Menus/test_navigation_bar.py::Test_navigation_bar::test_navigation_bar
 src/tests/Users/test_filter_for_admins.py::Test_filter_for_admins::test_filter_for_admins
 src/tests/Users/test_search_for_david_kim.py::Test_search_for_david_kim::test_search_for_david_kim
 src/tests/Users/test_show_active_viewers.py::Test_show_active_viewers::test_show_active_viewers
+src/tests/Users/test_show_editors.py::Test_show_editors::test_show_editors
+src/tests/Users/test_verify_users_controls_visible.py::Test_verify_users_controls_visible::test_verify_users_controls_visible
 src/tests/Util/test_login.py::Test_login::test_login
 
-========================= 5 tests collected in 0.27s ==========================
+========================= 7 tests collected in 0.46s =========================
 ```
+**Listing 14:** Console output of `pytest --collect-only` showing that all 7 automatically generated Python tests are recognized without errors.
 
-No import errors, no unresolved dependencies. The generated modules are syntactically valid Python, and all imports (`katalon_helpers`, `base_test`, `GlobalVariables`) are resolvable.
+*(Refer to Figure 12/Abbildung 12 in the original PDF for the side-by-side run execution comparison).*
 
 ---
 
-### 6.3 Code Quality: Before-After Comparison
+### 6.4 Code Quality: Before-After Comparison
 Using the `filter_for_admins` test as an example, the difference between the original and generated code can be demonstrated:
 
-**Katalon (Groovy) — 37 lines, including 18 Boilerplate Imports:**
-```groovy
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
-import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-// ... 16 further import lines ...
-
-WebUI.callTestCase(findTestCase('Util/login'), [:], FailureHandling.STOP_ON_FAILURE)
-WebUI.verifyTextPresent('View All Users', false)
-WebUI.click(findTestObject('All_Users/view_all_users_btn'))
-WebUI.selectOptionByValue(findTestObject('All_Users/roles_dropdown'), 'Admin', false)
-WebUI.verifyTextPresent(findTestData('users').getValue(3, 1), false)
-```
-
-**Generated Python Code — 22 lines, 7 Imports (consolidated):**
-```python
-import pytest
-import src.runtime.katalon_helpers as kh
-from src.runtime.base_test import *
-from src.profiles.global_variables import GlobalVariables as GlobalVariable
-from selenium.webdriver.support.ui import Select
-
-class Test_filter_for_admins(BaseTest):
-    def test_filter_for_admins(self):
-        assert 'View All Users' in self.driver.page_source
-        kh.find_katalon_test_object(self.driver, 'All_Users/view_all_users_btn').click()
-        Select(kh.find_katalon_test_object(self.driver, 'All_Users/roles_dropdown')).select_by_value('Admin')
-        assert kh.find_katalon_test_data(self.driver, 'users', 3, 1) in self.driver.page_source
-```
+*(Refer to Figure 13/Abbildung 13 in the original PDF for the detailed visual comparison of the files).*
 
 The boilerplate share drops from 18 to 7 import lines. The test logic is formulated in standard Python using pytest conventions and no longer requires proprietary Katalon keywords.
 
-### 6.4 Effort Comparison
-The automated migration of the sample project took less than one second. In comparison, a manual migration would have required the following steps:
-* Understanding Katalon nestings (`Scripts` $\leftrightarrow$ `Test Cases`) and mapping the files.
-* Translating 5 Groovy test scripts to Python (approx. 30–60 minutes per test).
-* Manually converting 9 XML object files into readable Selenium locator definitions.
-* Extracting the `GlobalVariables` from the `.glbl` file and creating a Python class.
-* Setting up the project structure (`pytest.ini`, `requirements.txt`, folders, `__init__.py` files).
+In the current state of the pipeline, all comments of the original code are stripped due to complexity reasons.
 
-The estimated manual effort is **8–12 hours** for this sample project. As the number of tests grows, the migrator scales linearly, whereas the manual effort increases disproportionately due to increasingly complex cross-references (variables, objects, data).
+### 6.5 Effort Comparison
+The automated migration of the sample project took less than one second and transferred 7 out of 10 test scripts directly into the target structure. For the remaining 3 failed cases, manual post-processing is required.
 
----
+In contrast, a fully manual migration would have first required resolving the proprietary nesting among scripts, test cases, object definitions, profiles, and test data described in Section 3.2, before manually migrating 10 Groovy test scripts, 10 XML-based object files, and their associated variables/configuration structures individually into Python. 
 
-## 7 Discussion
-*(Section left intentionally blank / minimal content)*
+The observation in testing literature—that manual review and transformation tasks scale strongly with an increasing number of cases and combination variety—holds true as complexity rises [4, p. 34, p. 37].
 
-## 8 Conclusion & Future Work
-*(Section left intentionally blank / minimal content)*
+For the sample project evaluated here, even with a conservative project estimate, manual effort would fall in the **high single-digit to double-digit hour range**. The partial automation significantly reduces this effort, though it leaves targeted transformation and verification tasks open for the 3 untranslated test cases. As the test volume scales, the migrator's effort scales linearly, whereas manual effort increases disproportionately due to more complex cross-references between variables, objects, and data structures.
 
 ---
 
-## 9 Appendix
+## 7 Conclusion & Future Work (Fazit und Ausblick)
 
-### 9.1 Regex Patterns of Transpilation
+This thesis describes the development of a migration tool that transfers Katalon projects into Python projects using Selenium and Pytest. The goal was to design, implement, and evaluate the tool. This objective arose from the need to migrate an extensive existing Katalon project base out of its proprietary environment into an open, extensible, and freely usable target environment.
+
+Executing the prototype yields a Python project containing the majority of the imported test logic and surrounding test artifacts. In the sample project, **70% of the test scripts**, as well as all associated structures such as Test Objects, test data, and variables, are automatically and error-free transformed. The generated project is directly executable after minimal setup, though the remaining 30% of tests must be manually post-processed to be fully functional.
+
+During evaluation, structural and syntactic integrity were verified. At the same time, it highlighted that not all cases are translated automatically. Custom-written logic, comments, and complex nestings quickly lead to script unreadability. Accordingly, the migration tool is not a complete replacement for manual migration but acts as a highly effective foundation to significantly reduce overall effort.
+
+Overall, the work demonstrates that migrating Katalon projects into a Python testing environment using Selenium and Pytest is viable, even though not all cases can be resolved automatically yet.
+
+For the future development of the tool, three main directions emerge:
+1. **Expand built-in method coverage:** Add more Katalon-internal keyword methods to the list of translatable actions.
+2. **Enhance Regex & Parsing rules:** Upgrade parsing robustly to process comments, deeper parameter list nestings, and custom-written variables, methods, and classes.
+3. **Optimize Error Handling & Reporting:** Integrate error classification to categorize failed scripts and output detailed debug information, streamlining manual post-processing tasks.
+
+---
+
+## 8 Appendix (Anhang)
+
+### 8.1 Regex Patterns of Transpilation
 The following table summarizes the most important regex patterns used in the transpilation process of the migrator.
 
 ---
@@ -788,6 +801,61 @@ The following table summarizes the most important regex patterns used in the tra
 | **9** | `ftd_param_str_pattern`| `findTestData\(('.*').*\)\.getValue\((.+)\))` | Extracts `findTestData()` with string and `getValue()` argument |
 | **10**| `GlobalVariable_pattern`| `GlobalVariable\.([A-Za-z_][A-Za-z0-9_]*)` | Normalize global variables |
 | **11**| `abn_test_pat` | `String\s\w+\s=\|if\(|TestObject\s\w+\s=` | Detect custom user code |
+
+---
+
+### 8.2 Katalon Project Structure
+The following filesystem tree illustrates the nested nature of the original source Katalon project layout:
+
+```text
+sample-website-katalon-tests/
+│
+├── Test Cases/                  - Katalon IDE shows this view
+│   ├── Users/
+│   │   ├── filter_for_admins.tc - .tc = XML Metadata File (Description, Variables)
+│   │   ├── search_for_david_kim.tc - Contains NO test logic!
+│   │   └── show_active_viewers.tc
+│   └── Menus/
+│       └── navigation_bar.tc
+│
+├── Scripts/                     - Real test logic (hidden outside IDE)
+│   ├── Users/
+│   │   ├── filter_for_admins/
+│   │   │   └── Script1781348815820.groovy - Random number! (!)
+│   │   ├── search_for_david_kim/
+│   │   │   └── Script1781447000826.groovy - Corresponds to search_for_david_kim.tc
+│   │   └── show_active_viewers/
+│   │       └── Script...groovy
+│   └── Menus/
+│       └── navigation_bar/
+│           └── Script...groovy
+│
+├── Object Repository/           - Localization strategies (Selectors)
+│   ├── All_Users/
+│   │   ├── view_all_users_btn.rs - .rs = XML Object (XPath, CSS, ID...)
+│   │   ├── search_input.rs
+│   │   ├── roles_dropdown.rs
+│   │   ├── status_dropdown.rs
+│   │   ├── user_row.rs
+│   │   └── user_row_view_btn.rs
+│   └── Nav_Bar/
+│       └── ...other Test Objects
+│
+├── Profiles/                    - Global variables by environment
+│   └── default.glbl             - .glbl = XML (GlobalVariableEntity Entries)
+│
+├── Data Files/                  - External test data references
+│   └── users.dat                - .dat = XML Metadata (points to real file)
+│
+├── Keywords/                    - Custom methods/helpers
+│   ├── data/
+│   └── TESTER.groovy            - Groovy class with custom methods
+│
+├── Libs/
+│   └── CustomKeywords.groovy    - Static forwards to keywords
+│
+└── Plugins/, Test Listeners/, ...
+```
 
 ---
 
@@ -814,7 +882,7 @@ The following table summarizes the most important regex patterns used in the tra
 
 I hereby declare that I have written the present thesis independently and without external assistance, and that I have used no other sources and aids than those indicated. All passages taken literally or in spirit from other works have been marked as such, indicating the sources.
 
-$$\text{Berlin, 01.08.2026}$$
+$$\text{Berlin, 02.08.2026}$$
 
 $$\text{___________________________} \quad \text{___________________________} \quad \text{___________________________}$$  
 $$\text{Place} \qquad\qquad\qquad\quad \text{Date} \qquad\qquad\qquad\quad \text{Original Signature}$$
