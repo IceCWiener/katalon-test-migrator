@@ -341,6 +341,11 @@
     description: "Eine Software-Anwendung, die Entwicklern eine umfassende Umgebung für die Softwareentwicklung bietet. Typischerweise umfasst sie einen Code-Editor, Debugger, Build-Werkzeuge und oft eine grafische Projektansicht. Katalon Studio ist eine solche IDE, die speziell auf Testautomatisierung ausgelegt ist."
   ),
   (
+    key: "key-value-paare",
+    short: "Key-Value-Paare",
+    description: "Eine Datenstruktur, in der Werte einem eindeutigen Schlüssel zugeordnet werden. In dieser Arbeit werden Selektoren und ihre zugehörigen Strategien häufig als Key-Value-Paare beschrieben."
+  ),
+  (
     key: "ui",
     short: "UI",
     long: "User Interface",
@@ -404,6 +409,11 @@
     description: "Eine definierte Schnittstelle, über die Softwarekomponenten miteinander kommunizieren. Selenium stellt eine API bereit, über die Tests den Browser steuern."
   ),
   (
+    key: "assertions",
+    short: "Assertions",
+    description: "Prüfausdrücke in Testcode, die erwarten, dass eine Bedingung wahr ist. Ist die Bedingung nicht erfüllt, schlägt der Test fehl und markiert die entsprechende Stelle als Fehler."
+  ),
+  (
     key: "framework",
     short: "Framework",
     description: "Ein wiederverwendbares Grundgerüst aus Bibliotheken, Regeln und Konventionen, das die Entwicklung einer bestimmten Art von Software strukturiert. In dieser Arbeit dienen Katalon und Selenium/Pytest als Frameworks für die Testautomatisierung."
@@ -425,6 +435,11 @@
     short: "Regex",
     long: "Regular Expression",
     description: "Ein formaler Ausdruck zur Beschreibung von Zeichenketten-Mustern. In dieser Arbeit werden Regular Expressions zur Transformation von Groovy-Syntax in Python-Syntax eingesetzt."
+  ),
+  (
+    key: "parsing",
+    short: "Parsing",
+    description: "Der Prozess, bei dem Text oder Code in eine strukturierte Form überführt wird, sodass Bestandteile wie Klassen, Methoden und Parameter gezielt weiterverarbeitet werden können."
   ),
   (
     key: "repository",
